@@ -16,6 +16,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .systemBackground
         setupTemporaryButton()
         configureHierarchy()
