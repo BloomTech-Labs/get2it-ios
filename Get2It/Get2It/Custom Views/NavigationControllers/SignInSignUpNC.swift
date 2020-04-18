@@ -12,13 +12,9 @@ class SignInSignUpNC: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewControllers = [createSignInSignUpNC()]
-    }
-    
-    func createSignInSignUpNC() -> UINavigationController {
         let signInSignUpVC = SignInSignUpVC()
-        return UINavigationController(rootViewController: signInSignUpVC)
+        signInSignUpVC.title = "Welcome!"
+        viewControllers = [signInSignUpVC]
     }
     
 
