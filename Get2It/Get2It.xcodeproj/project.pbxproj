@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CC3356EA244B613A009718B5 /* SignInSignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */; };
 		CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */; };
+		CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356EF244B649A009718B5 /* GTTextField.swift */; };
 		CC4332522437F7F80099023F /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4332512437F7F80099023F /* HeaderCell.swift */; };
 		CC433255243800D90099023F /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC433254243800D90099023F /* UIHelper.swift */; };
 		CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FD5242FBC5D00401937 /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpVC.swift; sourceTree = "<group>"; };
 		CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpNC.swift; sourceTree = "<group>"; };
+		CC3356EF244B649A009718B5 /* GTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTTextField.swift; sourceTree = "<group>"; };
 		CC4332512437F7F80099023F /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		CC433254243800D90099023F /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		CC6C2FD2242FBC5D00401937 /* Get2It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Get2It.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +69,14 @@
 				CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */,
 			);
 			path = NavigationControllers;
+			sourceTree = "<group>";
+		};
+		CC3356EE244B647D009718B5 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				CC3356EF244B649A009718B5 /* GTTextField.swift */,
+			);
+			path = TextFields;
 			sourceTree = "<group>";
 		};
 		CC433253243800CA0099023F /* Utilities */ = {
@@ -119,6 +129,7 @@
 		CC6C2FEA242FC38800401937 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				CC3356EE244B647D009718B5 /* TextFields */,
 				CC3356EB244B6162009718B5 /* NavigationControllers */,
 				E3648CB0243E4D9C00D4A8E3 /* Views */,
 				E3648CA22432B5A500D4A8E3 /* Cells */,
@@ -237,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */,
 				CC6C2FED242FC65E00401937 /* GTTabBarController.swift in Sources */,
 				CC6C2FF0242FCB4C00401937 /* HomeVC.swift in Sources */,
 				CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */,
