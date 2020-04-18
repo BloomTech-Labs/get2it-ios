@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC3356EA244B613A009718B5 /* SignInSignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */; };
+		CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */; };
+		CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356EF244B649A009718B5 /* GTTextField.swift */; };
+		CC3356F3244B65CC009718B5 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356F2244B65CC009718B5 /* UIView+Ext.swift */; };
+		CC3356F6244B6C48009718B5 /* GTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356F5244B6C48009718B5 /* GTButton.swift */; };
 		CC4332522437F7F80099023F /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4332512437F7F80099023F /* HeaderCell.swift */; };
 		CC433255243800D90099023F /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC433254243800D90099023F /* UIHelper.swift */; };
 		CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FD5242FBC5D00401937 /* AppDelegate.swift */; };
@@ -26,6 +31,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpVC.swift; sourceTree = "<group>"; };
+		CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpNC.swift; sourceTree = "<group>"; };
+		CC3356EF244B649A009718B5 /* GTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTTextField.swift; sourceTree = "<group>"; };
+		CC3356F2244B65CC009718B5 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		CC3356F5244B6C48009718B5 /* GTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTButton.swift; sourceTree = "<group>"; };
 		CC4332512437F7F80099023F /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		CC433254243800D90099023F /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		CC6C2FD2242FBC5D00401937 /* Get2It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Get2It.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +67,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC3356EB244B6162009718B5 /* NavigationControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */,
+			);
+			path = NavigationControllers;
+			sourceTree = "<group>";
+		};
+		CC3356EE244B647D009718B5 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				CC3356EF244B649A009718B5 /* GTTextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		CC3356F1244B65B7009718B5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CC3356F2244B65CC009718B5 /* UIView+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CC3356F4244B6C33009718B5 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				CC3356F5244B6C48009718B5 /* GTButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		CC433253243800CA0099023F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +126,7 @@
 		CC6C2FD4242FBC5D00401937 /* Get2It */ = {
 			isa = PBXGroup;
 			children = (
+				CC3356F1244B65B7009718B5 /* Extensions */,
 				CC433253243800CA0099023F /* Utilities */,
 				CC6C2FEA242FC38800401937 /* Custom Views */,
 				CC6C2FEE242FCADC00401937 /* Screens */,
@@ -107,6 +150,9 @@
 		CC6C2FEA242FC38800401937 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				CC3356F4244B6C33009718B5 /* Buttons */,
+				CC3356EE244B647D009718B5 /* TextFields */,
+				CC3356EB244B6162009718B5 /* NavigationControllers */,
 				E3648CB0243E4D9C00D4A8E3 /* Views */,
 				E3648CA22432B5A500D4A8E3 /* Cells */,
 				CC6C2FEB242FC3AD00401937 /* TabBarControllers */,
@@ -125,6 +171,7 @@
 		CC6C2FEE242FCADC00401937 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */,
 				CC6C2FEF242FCB4C00401937 /* HomeVC.swift */,
 				E3648CA02431886B00D4A8E3 /* TaskListVC.swift */,
 				E3648CA82435705700D4A8E3 /* AddTaskVC.swift */,
@@ -223,6 +270,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */,
+				CC3356F6244B6C48009718B5 /* GTButton.swift in Sources */,
 				CC6C2FED242FC65E00401937 /* GTTabBarController.swift in Sources */,
 				CC6C2FF0242FCB4C00401937 /* HomeVC.swift in Sources */,
 				CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */,
@@ -236,6 +285,9 @@
 				E3648CAD24380F7C00D4A8E3 /* TaskPickerCell.swift in Sources */,
 				E3648CA92435705700D4A8E3 /* AddTaskVC.swift in Sources */,
 				E3648CB2243E4DAE00D4A8E3 /* CircleView.swift in Sources */,
+				CC3356F3244B65CC009718B5 /* UIView+Ext.swift in Sources */,
+				CC3356EA244B613A009718B5 /* SignInSignUpVC.swift in Sources */,
+				CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */,
 				E3648CAF243E27E600D4A8E3 /* TaskListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
