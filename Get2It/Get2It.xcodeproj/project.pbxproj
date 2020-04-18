@@ -10,6 +10,7 @@
 		CC3356EA244B613A009718B5 /* SignInSignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */; };
 		CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */; };
 		CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356EF244B649A009718B5 /* GTTextField.swift */; };
+		CC3356F3244B65CC009718B5 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356F2244B65CC009718B5 /* UIView+Ext.swift */; };
 		CC4332522437F7F80099023F /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4332512437F7F80099023F /* HeaderCell.swift */; };
 		CC433255243800D90099023F /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC433254243800D90099023F /* UIHelper.swift */; };
 		CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FD5242FBC5D00401937 /* AppDelegate.swift */; };
@@ -32,6 +33,7 @@
 		CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpVC.swift; sourceTree = "<group>"; };
 		CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpNC.swift; sourceTree = "<group>"; };
 		CC3356EF244B649A009718B5 /* GTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTTextField.swift; sourceTree = "<group>"; };
+		CC3356F2244B65CC009718B5 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		CC4332512437F7F80099023F /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		CC433254243800D90099023F /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		CC6C2FD2242FBC5D00401937 /* Get2It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Get2It.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,14 @@
 			path = TextFields;
 			sourceTree = "<group>";
 		};
+		CC3356F1244B65B7009718B5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CC3356F2244B65CC009718B5 /* UIView+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		CC433253243800CA0099023F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +116,7 @@
 		CC6C2FD4242FBC5D00401937 /* Get2It */ = {
 			isa = PBXGroup;
 			children = (
+				CC3356F1244B65B7009718B5 /* Extensions */,
 				CC433253243800CA0099023F /* Utilities */,
 				CC6C2FEA242FC38800401937 /* Custom Views */,
 				CC6C2FEE242FCADC00401937 /* Screens */,
@@ -262,6 +273,7 @@
 				E3648CAD24380F7C00D4A8E3 /* TaskPickerCell.swift in Sources */,
 				E3648CA92435705700D4A8E3 /* AddTaskVC.swift in Sources */,
 				E3648CB2243E4DAE00D4A8E3 /* CircleView.swift in Sources */,
+				CC3356F3244B65CC009718B5 /* UIView+Ext.swift in Sources */,
 				CC3356EA244B613A009718B5 /* SignInSignUpVC.swift in Sources */,
 				CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */,
 				E3648CAF243E27E600D4A8E3 /* TaskListCell.swift in Sources */,
