@@ -12,18 +12,26 @@ class SignInSignUpVC: UIViewController {
     
     let usernameTextField = GTTextField()
     let passwordTextField = GTTextField()
+    let callToActionButton = GTButton(backgroundColor: .systemBlue, title: "Sign In")
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
-        view.addSubviews(usernameTextField, passwordTextField)
+        view.addSubviews(usernameTextField, passwordTextField, callToActionButton)
         
+        createDismissKeyboardTapGesture()
         configureTextFields()
+        configureCallToActionButton()
     }
     
-    @objc func pushHomeVC() {
+    func createDismissKeyboardTapGesture() {
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func pushTabBarController() {
         passwordTextField.resignFirstResponder()
         
         let tabBar = GTTabBarController()
@@ -34,12 +42,13 @@ class SignInSignUpVC: UIViewController {
     func configureTextFields() {
         passwordTextField.returnKeyType = .go
         passwordTextField.delegate = self
+        passwordTextField.isSecureTextEntry = true
         
         usernameTextField.placeholder = "username"
         passwordTextField.placeholder = "password"
         
         NSLayoutConstraint.activate([
-            usernameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            usernameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             usernameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             usernameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             usernameTextField.heightAnchor.constraint(equalToConstant: 50),
@@ -51,6 +60,16 @@ class SignInSignUpVC: UIViewController {
         ])
     }
     
+    func configureCallToActionButton() {
+        callToActionButton.addTarget(self, action: #selector(pushTabBarController), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            callToActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            callToActionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            callToActionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            callToActionButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
 
     /*
     // MARK: - Navigation
@@ -66,7 +85,7 @@ class SignInSignUpVC: UIViewController {
 
 extension SignInSignUpVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        pushHomeVC()
+        pushTabBarController()
         return true
     }
 }
