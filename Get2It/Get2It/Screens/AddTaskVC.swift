@@ -49,9 +49,9 @@ extension AddTaskVC {
             return
         }
         
-        let date = dateCell.textFieldString
-        let startTime = startTimeCell.textFieldString
-        let endTime = endTimeCell.textFieldString
+        let _ = dateCell.textFieldString
+        let _ = startTimeCell.textFieldString
+        let _ = endTimeCell.textFieldString
         
         self.dismiss(animated: true, completion: nil)
     }
