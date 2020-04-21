@@ -17,32 +17,35 @@ class HeaderCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layoutMargins = UIEdgeInsets(top: 12, left: 8, bottom: 12, right: 8)
         view.isLayoutMarginsRelativeArrangement = true
-        view.spacing = 8
+        view.spacing = 4
         view.distribution = .equalSpacing
+        view.alignment = .leading
         return view
     }()
     
     private lazy var iconImage: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor(red: 5/255, green: 91/255, blue: 195/255, alpha: 1)
-        view.layer.cornerRadius = 20
+        view.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        view.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        view.layer.cornerRadius = 15
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var greetingLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 17)
-        label.textColor = .systemBackground
+        label.font = UIFont(name: "AvenirNext-Medium", size: 14)
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 24)
-        label.textColor = .systemBackground
-        label.textAlignment = .right
+        label.font = UIFont(name: "AvenirNext-Medium", size: 12)
+        label.textColor = .white
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -62,8 +65,8 @@ class HeaderCell: UICollectionViewCell {
         mainStackView.addArrangedSubview(greetingLabel)
         mainStackView.addArrangedSubview(dateLabel)
         
-        greetingLabel.text = "Title"
-        dateLabel.text = "number"
+        greetingLabel.text = "Greetings!"
+        dateLabel.text = "April 21st, 2020"
         
         NSLayoutConstraint.activate([
             mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

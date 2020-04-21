@@ -81,7 +81,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             } else {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeaderCell.reuseIdentifier, for: indexPath) as? HeaderCell {
                     
-                    cell.contentView.backgroundColor = UIColor(red: 44/255, green: 44/255, blue: 46/255, alpha: 1)
+                    cell.contentView.backgroundColor = UIColor.systemBlue
                     cell.contentView.layer.borderColor = UIColor.black.cgColor
                     cell.contentView.layer.borderWidth = 0.2
                     cell.contentView.layer.cornerRadius = section == .header ? 10 : 0
