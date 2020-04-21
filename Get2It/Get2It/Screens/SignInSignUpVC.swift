@@ -10,25 +10,91 @@ import UIKit
 
 class SignInSignUpVC: UIViewController {
     
+    let displayNameTextField = GTTextField()
     let usernameTextField = GTTextField()
     let passwordTextField = GTTextField()
-    let callToActionButton = GTButton(backgroundColor: .systemBlue, title: "Sign In")
+    let confirmPasswordTextField = GTTextField()
+    let callToActionButton = GTButton(backgroundColor: .systemBlue, title: "Sign Up")
+    let toggleStatusButton = UIButton(frame: .zero)
+    
+    var toggleStatus = false
+    let padding: CGFloat = 50
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
-        view.addSubviews(usernameTextField, passwordTextField, callToActionButton)
+        view.addSubviews(displayNameTextField, usernameTextField, passwordTextField, confirmPasswordTextField, callToActionButton, toggleStatusButton)
         
         createDismissKeyboardTapGesture()
         configureTextFields()
-        configureCallToActionButton()
+        configureButtons()
     }
     
     func createDismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
+    }
+    
+    func configureTextFields() {
+        passwordTextField.returnKeyType = .go
+        confirmPasswordTextField.returnKeyType = .go
+        
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
+        
+        passwordTextField.isSecureTextEntry = true
+        confirmPasswordTextField.isSecureTextEntry = true
+        
+        displayNameTextField.placeholder = "display name"
+        usernameTextField.placeholder = "username"
+        passwordTextField.placeholder = "password"
+        confirmPasswordTextField.placeholder = "confirm password"
+        
+        NSLayoutConstraint.activate([
+            displayNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
+            displayNameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            displayNameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            displayNameTextField.heightAnchor.constraint(equalToConstant: padding),
+            
+            usernameTextField.topAnchor.constraint(equalTo: displayNameTextField.bottomAnchor, constant: 20),
+            usernameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            usernameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            usernameTextField.heightAnchor.constraint(equalToConstant: padding),
+            
+            passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 20),
+            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            passwordTextField.heightAnchor.constraint(equalToConstant: padding),
+            
+            confirmPasswordTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+            confirmPasswordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            confirmPasswordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            confirmPasswordTextField.heightAnchor.constraint(equalToConstant: padding)
+        ])
+    }
+    
+    func configureButtons() {
+        toggleStatusButton.translatesAutoresizingMaskIntoConstraints = false
+        toggleStatusButton.setTitle("Have an account? Sign In", for: .normal)
+        toggleStatusButton.setTitleColor(.systemBlue, for: .normal)
+        toggleStatusButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
+        
+        callToActionButton.addTarget(self, action: #selector(pushTabBarController), for: .touchUpInside)
+        toggleStatusButton.addTarget(self, action: #selector(toggleSignIn), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            callToActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
+            callToActionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            callToActionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            callToActionButton.heightAnchor.constraint(equalToConstant: padding),
+            
+            toggleStatusButton.topAnchor.constraint(equalTo: callToActionButton.bottomAnchor, constant: 10),
+            toggleStatusButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            toggleStatusButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            toggleStatusButton.heightAnchor.constraint(equalToConstant: 20)
+        ])
     }
     
     @objc func pushTabBarController() {
@@ -39,47 +105,20 @@ class SignInSignUpVC: UIViewController {
         navigationController?.present(tabBar, animated: true, completion: nil)
     }
     
-    func configureTextFields() {
-        passwordTextField.returnKeyType = .go
-        passwordTextField.delegate = self
-        passwordTextField.isSecureTextEntry = true
-        
-        usernameTextField.placeholder = "username"
-        passwordTextField.placeholder = "password"
-        
-        NSLayoutConstraint.activate([
-            usernameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            usernameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            usernameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            usernameTextField.heightAnchor.constraint(equalToConstant: 50),
-            
-            passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 20),
-            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 50)
-        ])
+    @objc func toggleSignIn() {
+        toggleStatus.toggle()
+        if toggleStatus {
+            displayNameTextField.isHidden = true
+            confirmPasswordTextField.isHidden = true
+            toggleStatusButton.setTitle("No account? Sign Up", for: .normal)
+            callToActionButton.setTitle("Sign In", for: .normal)
+        } else {
+            displayNameTextField.isHidden = false
+            confirmPasswordTextField.isHidden = false
+            toggleStatusButton.setTitle("Have an account? Sign In", for: .normal)
+            callToActionButton.setTitle("Sign Up", for: .normal)
+        }
     }
-    
-    func configureCallToActionButton() {
-        callToActionButton.addTarget(self, action: #selector(pushTabBarController), for: .touchUpInside)
-        
-        NSLayoutConstraint.activate([
-            callToActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            callToActionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            callToActionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            callToActionButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

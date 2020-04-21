@@ -12,6 +12,7 @@
 		CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356EF244B649A009718B5 /* GTTextField.swift */; };
 		CC3356F3244B65CC009718B5 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356F2244B65CC009718B5 /* UIView+Ext.swift */; };
 		CC3356F6244B6C48009718B5 /* GTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356F5244B6C48009718B5 /* GTButton.swift */; };
+		CC3356F8244E9825009718B5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356F7244E9825009718B5 /* User.swift */; };
 		CC4332522437F7F80099023F /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4332512437F7F80099023F /* HeaderCell.swift */; };
 		CC433255243800D90099023F /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC433254243800D90099023F /* UIHelper.swift */; };
 		CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FD5242FBC5D00401937 /* AppDelegate.swift */; };
@@ -40,6 +41,7 @@
 		CC3356EF244B649A009718B5 /* GTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTTextField.swift; sourceTree = "<group>"; };
 		CC3356F2244B65CC009718B5 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		CC3356F5244B6C48009718B5 /* GTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTButton.swift; sourceTree = "<group>"; };
+		CC3356F7244E9825009718B5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CC4332512437F7F80099023F /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		CC433254243800D90099023F /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		CC6C2FD2242FBC5D00401937 /* Get2It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Get2It.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +197,7 @@
 				E326D8F7244CC17100A84BBF /* Task.xcdatamodeld */,
 				E326D8FA244CC38800A84BBF /* CoreDataStack.swift */,
 				E326D8FC244CFE4400A84BBF /* Task+Convenience.swift */,
+				CC3356F7244E9825009718B5 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				E3648CB2243E4DAE00D4A8E3 /* CircleView.swift in Sources */,
 				E326D8FB244CC38800A84BBF /* CoreDataStack.swift in Sources */,
 				CC3356F3244B65CC009718B5 /* UIView+Ext.swift in Sources */,
+				CC3356F8244E9825009718B5 /* User.swift in Sources */,
 				CC3356EA244B613A009718B5 /* SignInSignUpVC.swift in Sources */,
 				CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */,
 				E3648CAF243E27E600D4A8E3 /* TaskListCell.swift in Sources */,
