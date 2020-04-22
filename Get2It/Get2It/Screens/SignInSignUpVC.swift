@@ -38,6 +38,8 @@ class SignInSignUpVC: UIViewController {
     }
     
     func configureTextFields() {
+        let textFieldViews = [passwordTextField, confirmPasswordTextField, displayNameTextField, usernameTextField]
+        
         passwordTextField.returnKeyType = .go
         confirmPasswordTextField.returnKeyType = .go
         
@@ -52,25 +54,24 @@ class SignInSignUpVC: UIViewController {
         passwordTextField.placeholder = "password"
         confirmPasswordTextField.placeholder = "confirm password"
         
+        for view in textFieldViews {
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: padding),
+                view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -padding),
+            ])
+        }
+        
         NSLayoutConstraint.activate([
             displayNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
-            displayNameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            displayNameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             displayNameTextField.heightAnchor.constraint(equalToConstant: padding),
             
             usernameTextField.topAnchor.constraint(equalTo: displayNameTextField.bottomAnchor, constant: 20),
-            usernameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            usernameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             usernameTextField.heightAnchor.constraint(equalToConstant: padding),
             
             passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 20),
-            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             passwordTextField.heightAnchor.constraint(equalToConstant: padding),
             
             confirmPasswordTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
-            confirmPasswordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            confirmPasswordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             confirmPasswordTextField.heightAnchor.constraint(equalToConstant: padding)
         ])
     }
