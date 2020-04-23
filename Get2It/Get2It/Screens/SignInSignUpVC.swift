@@ -82,7 +82,7 @@ class SignInSignUpVC: UIViewController {
         toggleStatusButton.setTitleColor(.systemBlue, for: .normal)
         toggleStatusButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
         
-        callToActionButton.addTarget(self, action: #selector(pushTabBarController), for: .touchUpInside)
+        callToActionButton.addTarget(self, action: #selector(authenticateUserAndPushTabBarController), for: .touchUpInside)
         toggleStatusButton.addTarget(self, action: #selector(toggleSignIn), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
@@ -98,7 +98,40 @@ class SignInSignUpVC: UIViewController {
         ])
     }
     
-    @objc func pushTabBarController() {
+    @objc func authenticateUserAndPushTabBarController() {
+        guard let displayName = displayNameTextField.text,
+            let username = usernameTextField.text,
+            let password = passwordTextField.text,
+            let confirmedPassword = confirmPasswordTextField.text else {
+                let ac = UIAlertController(title: "Sign Up Failed", message: "Please fill in all the fields before trying to sign up.", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(ac, animated: true, completion: nil)
+                return
+        }
+        
+        guard confirmedPassword == password else {
+            let ac = UIAlertController(title: "Error", message: "Passwords do not match. Please try again", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(ac, animated: true, completion: nil)
+            return
+        }
+        
+        let user = User(username: username, password: password)
+        
+        UserController.shared.signUp(with: user) { (error) in
+            if let error = error {
+                print("Error signing up: \(error)")
+            } else {
+                DispatchQueue.main.async {
+                    let ac = UIAlertController(title: "Sign up successful!", message: "Your sign up was successful. Now please sign in.", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                        self.dismiss(animated: true, completion: nil)
+                    }))
+                    self.present(ac, animated: true, completion: nil)
+                }
+            }
+        }
+        
         passwordTextField.resignFirstResponder()
         
         let tabBar = GTTabBarController()
@@ -125,7 +158,7 @@ class SignInSignUpVC: UIViewController {
 
 extension SignInSignUpVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        pushTabBarController()
+        authenticateUserAndPushTabBarController()
         return true
     }
 }
