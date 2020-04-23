@@ -28,9 +28,25 @@ extension Task {
     }
     
     // JSON -> TaskRepresentation -> CoreData
+    @discardableResult
     convenience init(_ taskRepresentation: TaskRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
-        self.taskId = Int64(taskRepresentation.taskId)
+        self.taskId = Int64(taskRepresentation.taskId ?? 0)
+        self.userId = Int64(taskRepresentation.userId)
+        self.name = taskRepresentation.name
+        self.status = taskRepresentation.status
+        self.date = taskRepresentation.date
+        self.startTime = taskRepresentation.startTime
+        self.endTime = taskRepresentation.endTime
+        self.taskIcon = taskRepresentation.taskIcon
+        self.timeLeft = taskRepresentation.timeLeft
+        self.initialNotify = taskRepresentation.initialNotify
+        self.notifyOn = taskRepresentation.notifyOn
+    }
+    
+    // Updates the task object from task representation
+    func apply(_ taskRepresentation: TaskRepresentation) {
+        self.taskId = Int64(taskRepresentation.taskId ?? 0)
         self.userId = Int64(taskRepresentation.userId)
         self.name = taskRepresentation.name
         self.status = taskRepresentation.status
