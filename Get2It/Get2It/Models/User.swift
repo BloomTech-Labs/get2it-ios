@@ -13,3 +13,7 @@ struct User: Codable {
     let email: String
     let password: String
 }
+
+struct Token: Codable {
+    let token: String
+}
