@@ -13,6 +13,7 @@
 		CC3356F3244B65CC009718B5 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356F2244B65CC009718B5 /* UIView+Ext.swift */; };
 		CC3356F6244B6C48009718B5 /* GTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356F5244B6C48009718B5 /* GTButton.swift */; };
 		CC3356F8244E9825009718B5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356F7244E9825009718B5 /* User.swift */; };
+		CC33573C24513038009718B5 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC33573B24513038009718B5 /* UserController.swift */; };
 		CC4332522437F7F80099023F /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4332512437F7F80099023F /* HeaderCell.swift */; };
 		CC433255243800D90099023F /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC433254243800D90099023F /* UIHelper.swift */; };
 		CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FD5242FBC5D00401937 /* AppDelegate.swift */; };
@@ -44,6 +45,7 @@
 		CC3356F2244B65CC009718B5 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		CC3356F5244B6C48009718B5 /* GTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTButton.swift; sourceTree = "<group>"; };
 		CC3356F7244E9825009718B5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CC33573B24513038009718B5 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		CC4332512437F7F80099023F /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		CC433254243800D90099023F /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		CC6C2FD2242FBC5D00401937 /* Get2It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Get2It.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				E38384D5244F8EE90019263C /* TaskController.swift */,
+				CC33573B24513038009718B5 /* UserController.swift */,
 				E38384D7244F8F080019263C /* APIClient.swift */,
 			);
 			path = "Model Controllers";
@@ -307,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC33573C24513038009718B5 /* UserController.swift in Sources */,
 				E326D8F9244CC17100A84BBF /* Task.xcdatamodeld in Sources */,
 				CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */,
 				CC3356F6244B6C48009718B5 /* GTButton.swift in Sources */,
