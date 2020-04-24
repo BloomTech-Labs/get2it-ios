@@ -14,6 +14,8 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
     var collectionView: UICollectionView! = nil
     
+    var lists: [String] = ["Today", "Tomorrow", "Someday"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,10 +60,11 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
                 // Get a cell of the desired kind
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListCell.reuseIdentifier, for: indexPath) as? HomeListCell {
                     
-                    // Populate the cell with our item description
-                    cell.label.text = "\(identifier)"
+                    cell.label.text = self.lists[indexPath.row]
                     
-                    // Return the cell
+                    
+                    
+                    
                     return cell
                 } else {
                     fatalError("Can't create new cell")

@@ -16,37 +16,35 @@ class HomeListCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureViews()
+        layoutUIElements()
     }
     
     required init?(coder: NSCoder) {
         fatalError("Not implemented")
     }
-}
-
-extension HomeListCell {
-    func configure() {
-        seperatorView.translatesAutoresizingMaskIntoConstraints = false
-        seperatorView.backgroundColor = .lightGray
-        contentView.addSubview(seperatorView)
+    
+    private func configureViews() {
+        contentView.addSubviews(seperatorView, label, accessoryImageView)
         
+        seperatorView.translatesAutoresizingMaskIntoConstraints = false
+        accessoryImageView.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
+        
+        backgroundColor = .systemBackground
+        seperatorView.backgroundColor = .lightGray
+        
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        contentView.addSubview(label)
-        
-        accessoryImageView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(accessoryImageView)
-        
-        selectedBackgroundView = UIView()
-        selectedBackgroundView?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
         
         let rtl = effectiveUserInterfaceLayoutDirection == .rightToLeft
         let chevronImageName = rtl ? "chevron.left" : "chevron.right"
         let chevronImage = UIImage(systemName: chevronImageName)
         accessoryImageView.image = chevronImage
         accessoryImageView.tintColor = UIColor.lightGray.withAlphaComponent(0.7)
-        
+    }
+    
+    private func layoutUIElements() {
         let inset = CGFloat(10)
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
