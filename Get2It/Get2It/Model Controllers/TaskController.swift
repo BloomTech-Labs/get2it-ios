@@ -13,10 +13,13 @@ class TaskController {
     typealias CompletionHandler = (Error?) -> Void
     
     private let baseURL = URL(string: "https://get2it.herokuapp.com/api")!
-    var tasks: [TaskRepresentation] = []
-    // TODO: create a singleton of login controller
+//    private var token: Token? {
+//        return UserController.shared.token
+//    }
+    // TODO: don't forget to change this
+    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1MCwidXNlcm5hbWUiOiJ2cyIsImlhdCI6MTU4NzY4NDUwMSwiZXhwIjoxNTg3NzcwOTAxfQ.8oV9-AyB0d5MPfIAvWXtzZcaC9B9qNc7aJcTGeNN67E"
     var userId = 150 // temporary
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1MCwidXNlcm5hbWUiOiJ2cyIsImlhdCI6MTU4NzUxMTUwOCwiZXhwIjoxNTg3NTk3OTA4fQ.yfUEBJGfNXVBHwJR7ROPQzKmyAJM-t8XPWZwAIgiHss" // temporary
+    var tasks: [TaskRepresentation] = []
     
     // MARK: - Server
     
@@ -25,9 +28,8 @@ class TaskController {
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        // TODO: get the token from the login controller
         request.setValue(token, forHTTPHeaderField: "Authorization")
-        
+
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let response = response as? HTTPURLResponse,
                 response.statusCode != 200 {
@@ -56,17 +58,19 @@ class TaskController {
     }
     
     // task representation to json to server, get back task rep and save to core data
-    func createTaskOnServer(taskRepresentation: TaskRepresentation , completion: @escaping (Result<[TaskRepresentation], NetworkError>) -> Void) {
+    func createTaskOnServer(taskRepresentation: TaskRepresentation , completion: @escaping (Result<TaskRepresentation, NetworkError>) -> Void) {
         let requestURL = baseURL.appendingPathComponent("/users/\(userId)/tasks")
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.post.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        // TODO: get the token from the login controller
         request.setValue(token, forHTTPHeaderField: "Authorization")
         
-        //encode
+        // Encoding the task
         do {
-            request.httpBody = try JSONEncoder().encode(taskRepresentation)
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let body = try encoder.encode(taskRepresentation)
+            request.httpBody = body
         } catch {
             NSLog("Error encoding task representation: \(error)")
             completion(.failure(.otherError))
@@ -75,29 +79,38 @@ class TaskController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let response = response as? HTTPURLResponse,
-                response.statusCode != 201 {
-                completion(.failure(.badAuth))
-            }
-            
-            if error != nil {
+                response.statusCode == 201 {
+                completion(.success(taskRepresentation))
+            } else {
                 completion(.failure(.otherError))
             }
             
-            guard let data = data else {
-                completion(.failure(.badData))
-                return
-            }
-            
-            // decode to save it
-            let decoder = JSONDecoder()
-            do {
-                let taskRepresentation = try decoder.decode(TaskRepresentation.self, from: data)
-                self.saveTaskInCoreData(for: taskRepresentation)
-            } catch {
-                print("Error decoding tasks: \(error)")
-                completion(.failure(.noDecode))
-                return
-            }
+            // TODO: Temporary until we sort out the backend
+//            if let response = response as? HTTPURLResponse,
+//                response.statusCode != 201 {
+//                completion(.failure(.badAuth))
+//            }
+//
+//            if error != nil {
+//                completion(.failure(.otherError))
+//            }
+//
+//            guard let data = data else {
+//                completion(.failure(.badData))
+//                return
+//            }
+//
+//             decode to save it
+//            let decoder = JSONDecoder()
+//            do {
+//                let taskRepresentation = try decoder.decode(TaskRepresentation.self, from: data)
+//                self.saveTaskInCoreData(for: taskRepresentation)
+//                completion(.success(taskRepresentation))
+//            } catch {
+//                print("Error decoding tasks: \(error)")
+//                completion(.failure(.noDecode))
+//                return
+//            }
         }.resume()
     }
     

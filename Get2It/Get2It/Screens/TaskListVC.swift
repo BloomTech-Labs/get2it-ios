@@ -24,6 +24,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     }
     
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
+    var taskController: TaskController?
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
@@ -41,6 +42,22 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         configureHierarchy()
         configureDataSource()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // TODO: Change it to the token in user controller once we have it
+        if taskController?.token != nil {
+            // the VC owns this task controller and calling self would create a retaining cycle so [weak self] is needed
+            taskController?.fetchTasksFromServer { [weak self] result in
+                if let createdTasks = try? result.get() {
+                    DispatchQueue.main.async {
+                        self?.taskController?.tasks = createdTasks
+                        self?.collectionView.reloadData()
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension TaskListVC {
@@ -54,6 +71,7 @@ extension TaskListVC {
     
     @objc func addTaskButtonTapped() {
         let addTaskVC = AddTaskVC()
+        addTaskVC.taskController = taskController
         let navigationController = UINavigationController(rootViewController: addTaskVC)
         present(navigationController, animated: true, completion: nil)
     }

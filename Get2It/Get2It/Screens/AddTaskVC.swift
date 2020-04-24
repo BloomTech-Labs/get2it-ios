@@ -9,11 +9,15 @@
 import UIKit
 
 class AddTaskVC: UIViewController {
+    
+    let userController = UserController.shared
+    
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private var nameOfTask: String?
     private var todaysDate = Date()
     private var startTime = Date()
     private var endTime = Date().addingTimeInterval(60 * 60)
+    var taskController: TaskController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,25 +39,34 @@ extension AddTaskVC {
     }
     
     @objc private func saveButtonTapped() {
-        
         guard let titleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TaskInfoCell,
             let title = titleCell.title,
             !title.isEmpty,
             let dateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? TaskPickerCell,
             let startTimeCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? TaskPickerCell,
-            let endTimeCell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? TaskPickerCell else
+            let endTimeCell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? TaskPickerCell,
+            let date = dateCell.textFieldString,
+            let start = startTimeCell.textFieldString,
+            let end = endTimeCell.textFieldString else
         {
             let alert = UIAlertController(title: "Missing some fields", message: "Check your information and try again.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return
         }
-        
-        let _ = dateCell.textFieldString
-        let _ = startTimeCell.textFieldString
-        let _ = endTimeCell.textFieldString
-        
-        self.dismiss(animated: true, completion: nil)
+    
+        let newTask = TaskRepresentation(name: title, date: date, startTime: start, endTime: end)
+        taskController?.createTaskOnServer(taskRepresentation: newTask, completion: { (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let task):
+                print(task)
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        })
     }
     
     @objc private func dismissButtonTapped() {
