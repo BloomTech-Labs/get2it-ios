@@ -24,6 +24,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     }
     
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
+    var taskController: TaskController?
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
@@ -54,6 +55,7 @@ extension TaskListVC {
     
     @objc func addTaskButtonTapped() {
         let addTaskVC = AddTaskVC()
+        addTaskVC.taskController = taskController
         let navigationController = UINavigationController(rootViewController: addTaskVC)
         present(navigationController, animated: true, completion: nil)
     }

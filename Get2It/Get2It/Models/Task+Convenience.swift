@@ -17,11 +17,11 @@ extension Task {
             userId: Int(userId),
             name: name ?? "",
             status: status,
-            date: date ?? Date(),
+            date: date ?? "",
             startTime: startTime ?? "",
             endTime: endTime ?? "",
             taskIcon: taskIcon ?? "",
-            timeLeft: timeLeft,
+            timeLeft: Int(timeLeft),
             initialNotify: initialNotify,
             notifyOn: notifyOn
         )
@@ -32,30 +32,30 @@ extension Task {
     convenience init(_ taskRepresentation: TaskRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.taskId = Int64(taskRepresentation.taskId ?? 0)
-        self.userId = Int64(taskRepresentation.userId)
+        self.userId = Int64(taskRepresentation.userId ?? 0)
         self.name = taskRepresentation.name
         self.status = taskRepresentation.status
         self.date = taskRepresentation.date
         self.startTime = taskRepresentation.startTime
         self.endTime = taskRepresentation.endTime
         self.taskIcon = taskRepresentation.taskIcon
-        self.timeLeft = taskRepresentation.timeLeft
-        self.initialNotify = taskRepresentation.initialNotify
+        self.timeLeft = Int64(taskRepresentation.timeLeft ?? 0)
+        self.initialNotify = taskRepresentation.initialNotify ?? false
         self.notifyOn = taskRepresentation.notifyOn
     }
     
     // Updates the task object from task representation
     func apply(_ taskRepresentation: TaskRepresentation) {
         self.taskId = Int64(taskRepresentation.taskId ?? 0)
-        self.userId = Int64(taskRepresentation.userId)
+        self.userId = Int64(taskRepresentation.userId ?? 0)
         self.name = taskRepresentation.name
         self.status = taskRepresentation.status
         self.date = taskRepresentation.date
         self.startTime = taskRepresentation.startTime
         self.endTime = taskRepresentation.endTime
         self.taskIcon = taskRepresentation.taskIcon
-        self.timeLeft = taskRepresentation.timeLeft
-        self.initialNotify = taskRepresentation.initialNotify
+        self.timeLeft = Int64(taskRepresentation.timeLeft ?? 0)
+        self.initialNotify = taskRepresentation.initialNotify ?? false
         self.notifyOn = taskRepresentation.notifyOn
     }
 }

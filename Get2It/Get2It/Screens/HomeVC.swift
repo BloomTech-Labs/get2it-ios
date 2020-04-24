@@ -10,6 +10,7 @@ import UIKit
 
 class HomeVC: UIViewController, UICollectionViewDelegate {
     
+    let taskController = TaskController()
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
     var collectionView: UICollectionView! = nil
     
@@ -31,6 +32,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     
     @objc func temporaryButtonTapped() {
         let taskListVC = TaskListVC()
+        taskListVC.taskController = taskController
         taskListVC.title = "Task List"
         self.navigationController?.pushViewController(taskListVC, animated: true)
     }

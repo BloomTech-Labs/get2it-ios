@@ -24,18 +24,18 @@ struct TaskRepresentation: Codable, Hashable {
     }
     
     let taskId: Int?
-    let userId: Int
+    let userId: Int?
     let name: String
-    let status: String?
-    let date: Date
+    let status: Bool
+    let date: String
     let startTime: String
     let endTime: String
-    let taskIcon: String
-    let timeLeft: String?
-    let initialNotify: String?
+    let taskIcon: String?
+    let timeLeft: Int?
+    let initialNotify: Bool?
     let notifyOn: Bool
     
-    init(taskId: Int? = nil, userId: Int, name: String, status: String?, date: Date, startTime: String, endTime: String, taskIcon: String, timeLeft: String?, initialNotify: String?, notifyOn: Bool) {
+    init(taskId: Int? = nil, userId: Int? = nil, name: String, status: Bool = false, date: String, startTime: String, endTime: String, taskIcon: String? = nil, timeLeft: Int? = nil, initialNotify: Bool? = false, notifyOn: Bool = true) {
         self.taskId = taskId
         self.userId = userId
         self.name = name
