@@ -62,9 +62,6 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
                     
                     cell.label.text = self.lists[indexPath.row]
                     
-                    
-                    
-                    
                     return cell
                 } else {
                     fatalError("Can't create new cell")
@@ -110,18 +107,10 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+        guard let list = dataSource.itemIdentifier(for: indexPath) else { return }
+        // TODO: - Add an initialzer that will accept a list and populate the taskVC with the tasks from that list
+        let taskVC = TaskListVC()
+        navigationController?.pushViewController(taskVC, animated: true)
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
