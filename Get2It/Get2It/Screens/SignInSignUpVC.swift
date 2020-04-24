@@ -100,8 +100,8 @@ class SignInSignUpVC: UIViewController {
     
     @objc func authenticateUserAndPushTabBarController() {
         if toggleStatus {
-            guard let username = usernameTextField.text,
-                let password = passwordTextField.text else {
+            guard let username = usernameTextField.text, !username.isEmpty,
+                let password = passwordTextField.text, !password.isEmpty else {
                     let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your username and password.", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     present(ac, animated: true, completion: nil)
@@ -113,14 +113,20 @@ class SignInSignUpVC: UIViewController {
             UserController.shared.signIn(with: user) { (error) in
                 if let error = error {
                     print("Error signing in: \(error)")
+                } else {
+                    DispatchQueue.main.async {
+                        let tabBar = GTTabBarController()
+                        tabBar.modalPresentationStyle = .fullScreen
+                        self.navigationController?.present(tabBar, animated: true, completion: nil)
+                    }
                 }
             }
             
         } else {
-            guard let displayName = displayNameTextField.text,
-                let username = usernameTextField.text,
-                let password = passwordTextField.text,
-                let confirmedPassword = confirmPasswordTextField.text else {
+            guard let displayName = displayNameTextField.text, !displayName.isEmpty,
+                let username = usernameTextField.text, !username.isEmpty,
+                let password = passwordTextField.text, !password.isEmpty,
+                let confirmedPassword = confirmPasswordTextField.text, !confirmedPassword.isEmpty else {
                     let ac = UIAlertController(title: "Sign Up Failed", message: "Please fill in all the fields before trying to sign up.", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     present(ac, animated: true, completion: nil)
@@ -141,11 +147,19 @@ class SignInSignUpVC: UIViewController {
                     print("Error signing up: \(error)")
                 }
             }
+            
+            UserController.shared.signIn(with: user) { (error) in
+                if let error = error {
+                    print("Error signing in: \(error)")
+                } else {
+                    DispatchQueue.main.async {
+                        let tabBar = GTTabBarController()
+                        tabBar.modalPresentationStyle = .fullScreen
+                        self.navigationController?.present(tabBar, animated: true, completion: nil)
+                    }
+                }
+            }
         }
-        
-        let tabBar = GTTabBarController()
-        tabBar.modalPresentationStyle = .fullScreen
-        navigationController?.present(tabBar, animated: true, completion: nil)
     }
     
     @objc func toggleSignIn() {
