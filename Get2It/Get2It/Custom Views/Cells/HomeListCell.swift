@@ -13,33 +13,31 @@ class HomeListCell: UICollectionViewCell {
     let label = UILabel()
     let accessoryImageView = UIImageView()
     let seperatorView = UIView()
+    let iconImageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureViews()
+        layoutUIElements()
     }
     
     required init?(coder: NSCoder) {
         fatalError("Not implemented")
     }
-}
-
-extension HomeListCell {
-    func configure() {
-        seperatorView.translatesAutoresizingMaskIntoConstraints = false
-        seperatorView.backgroundColor = .lightGray
-        contentView.addSubview(seperatorView)
+    
+    private func configureViews() {
+        contentView.addSubviews(seperatorView, label, accessoryImageView, iconImageView)
         
+        seperatorView.translatesAutoresizingMaskIntoConstraints = false
+        accessoryImageView.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        backgroundColor = .systemBackground
+        seperatorView.backgroundColor = .lightGray
+        
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        contentView.addSubview(label)
-        
-        accessoryImageView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(accessoryImageView)
-        
-        selectedBackgroundView = UIView()
-        selectedBackgroundView?.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
         
         let rtl = effectiveUserInterfaceLayoutDirection == .rightToLeft
         let chevronImageName = rtl ? "chevron.left" : "chevron.right"
@@ -47,9 +45,18 @@ extension HomeListCell {
         accessoryImageView.image = chevronImage
         accessoryImageView.tintColor = UIColor.lightGray.withAlphaComponent(0.7)
         
+        iconImageView.image = UIImage(systemName: "calendar")
+    }
+    
+    private func layoutUIElements() {
         let inset = CGFloat(10)
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            iconImageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -inset),
+            iconImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
+            
+            label.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: inset),
             label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
             label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
             label.trailingAnchor.constraint(equalTo: accessoryImageView.leadingAnchor, constant: -inset),

@@ -14,6 +14,8 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
     var collectionView: UICollectionView! = nil
     
+    var lists: [String] = ["Today", "Tomorrow", "Someday"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,7 +40,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     }
     
     func configureHierarchy() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createLayout())
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createHomeLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         collectionView.register(HeaderCell.self, forCellWithReuseIdentifier: HeaderCell.reuseIdentifier)
@@ -58,10 +60,8 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
                 // Get a cell of the desired kind
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListCell.reuseIdentifier, for: indexPath) as? HomeListCell {
                     
-                    // Populate the cell with our item description
-                    cell.label.text = "\(identifier)"
+                    cell.label.text = self.lists[indexPath.row]
                     
-                    // Return the cell
                     return cell
                 } else {
                     fatalError("Can't create new cell")
@@ -107,18 +107,10 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+        guard let list = dataSource.itemIdentifier(for: indexPath) else { return }
+        // TODO: - Add an initialzer that will accept a list and populate the taskVC with the tasks from that list
+        let taskVC = TaskListVC()
+        navigationController?.pushViewController(taskVC, animated: true)
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
