@@ -38,7 +38,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     }
     
     func configureHierarchy() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createLayout())
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createHomeLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         collectionView.register(HeaderCell.self, forCellWithReuseIdentifier: HeaderCell.reuseIdentifier)
