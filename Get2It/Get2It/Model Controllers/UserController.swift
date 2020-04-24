@@ -88,7 +88,7 @@ class UserController {
             do {
                 let token = try JSONDecoder().decode(Token.self, from: data)
                 self.token = token
-                
+                print(token)
             } catch {
                 NSLog("Error decoding the bearer token: \(error)")
                 completion(error)
