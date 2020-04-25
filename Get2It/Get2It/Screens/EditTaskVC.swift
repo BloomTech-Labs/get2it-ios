@@ -66,10 +66,6 @@ extension EditTaskVC {
         })
     }
     
-    @objc private func backButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     private func configureTableViewController() {
         tableView.dataSource = self
         tableView.delegate = self

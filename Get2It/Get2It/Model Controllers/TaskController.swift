@@ -13,12 +13,15 @@ class TaskController {
     typealias CompletionHandler = (Error?) -> Void
     
     private let baseURL = URL(string: "https://get2it.herokuapp.com/api")!
-    // TODO: don't forget to change this
-//    private var token: Token? {
-//        return UserController.shared.token
-//    }
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1MCwidXNlcm5hbWUiOiJ2cyIsImlhdCI6MTU4NzgyOTk2NCwiZXhwIjoxNTg3OTE2MzY0fQ.J_Osqu_cq6szFLcBCyLsBbLP3reVtWIeabNwGa5Cqug"
-    var userId = 150
+    
+    private var token: String? {
+        return UserController.shared.token
+    }
+    
+    private var userId = UserController.shared.authenticatedUser?.id ?? 0
+    
+//    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1MCwidXNlcm5hbWUiOiJ2cyIsImlhdCI6MTU4NzgyOTk2NCwiZXhwIjoxNTg3OTE2MzY0fQ.J_Osqu_cq6szFLcBCyLsBbLP3reVtWIeabNwGa5Cqug"
+//    var userId = 150
     
     // MARK: - Server
     
