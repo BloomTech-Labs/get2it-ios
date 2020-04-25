@@ -31,6 +31,7 @@ extension EditTaskVC {
         navigationController?.navigationBar.prefersLargeTitles = true
         let saveBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
         navigationItem.rightBarButtonItem = saveBarButton
+
     }
     
     @objc private func saveButtonTapped() {
@@ -98,7 +99,7 @@ extension EditTaskVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskInfoCell.reuseIdentifier, for: indexPath) as? TaskInfoCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskInfoCell.reuseIdentifier, for: indexPath) as? TaskInfoCell, let name = task?.name else {
                 return UITableViewCell()
             }
             

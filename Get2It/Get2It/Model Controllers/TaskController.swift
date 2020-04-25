@@ -17,7 +17,7 @@ class TaskController {
 //    private var token: Token? {
 //        return UserController.shared.token
 //    }
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1MCwidXNlcm5hbWUiOiJ2cyIsImlhdCI6MTU4NzY4NDUwMSwiZXhwIjoxNTg3NzcwOTAxfQ.8oV9-AyB0d5MPfIAvWXtzZcaC9B9qNc7aJcTGeNN67E"
+    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1MCwidXNlcm5hbWUiOiJ2cyIsImlhdCI6MTU4NzgyOTk2NCwiZXhwIjoxNTg3OTE2MzY0fQ.J_Osqu_cq6szFLcBCyLsBbLP3reVtWIeabNwGa5Cqug"
     var userId = 150
     
     // MARK: - Server
