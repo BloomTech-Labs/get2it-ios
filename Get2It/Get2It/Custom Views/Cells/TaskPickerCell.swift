@@ -133,6 +133,22 @@ class TaskPickerCell: UITableViewCell {
         textField.text = self.dateFormatter.string(from: date)
     }
     
+    func configure(with title: String, date: String, cellType: CellType) {
+        switch cellType {
+        case .taskDate:
+            datePicker.datePickerMode = .date
+        case .startTime, .endTime:
+            datePicker.datePickerMode = .time
+        }
+        
+        // Convert date from String to Date
+        selectedDate = dateFormatter.date(from: date)
+        self.cellType = cellType
+        titleLabel.text = title
+
+        textField.text = date
+    }
+    
     @objc func dismissKeyboard() {
         self.textField.endEditing(true)
         
