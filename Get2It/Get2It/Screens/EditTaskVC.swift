@@ -102,6 +102,7 @@ extension EditTaskVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskInfoCell.reuseIdentifier, for: indexPath) as? TaskInfoCell, let name = task?.name else {
                 return UITableViewCell()
             }
+            cell.title = name
             
             return cell
         case 1:
