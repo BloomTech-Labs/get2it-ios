@@ -11,7 +11,8 @@ import Foundation
 class UserController {
     static let shared = UserController()
     private let baseURL = URL(string: "https://get2it.herokuapp.com/api")!
-    var token: Token?
+    var token: String?
+    var authenticatedUser: AuthenticatedUser?
     
     func signUp(with user: User, completion: @escaping(Error?) -> Void) {
         let requestURL = baseURL.appendingPathComponent("auth").appendingPathComponent("register")
@@ -51,7 +52,7 @@ class UserController {
         }.resume()
     }
     
-    func signIn(with user: User, completion: @escaping (Error?) -> Void) {
+    func signIn(_ user: User, completion: @escaping (Error?) -> Void) {
         let requestURL = baseURL.appendingPathComponent("auth").appendingPathComponent("login")
         
         var request = URLRequest(url: requestURL)
@@ -86,11 +87,11 @@ class UserController {
             }
             
             do {
-                let token = try JSONDecoder().decode(Token.self, from: data)
-                self.token = token
-                print(token)
+                let user = try JSONDecoder().decode(UserResult.self, from: data)
+                self.authenticatedUser = user.user
+                print(user)
             } catch {
-                NSLog("Error decoding the bearer token: \(error)")
+                print("Error decoding result")
                 completion(error)
             }
             

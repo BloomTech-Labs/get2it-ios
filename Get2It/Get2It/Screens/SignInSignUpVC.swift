@@ -110,7 +110,7 @@ class SignInSignUpVC: UIViewController {
             
             let user = User(username: username, password: password)
             
-            UserController.shared.signIn(with: user) { (error) in
+            UserController.shared.signIn(user) { (error) in
                 if let error = error {
                     print("Error signing in: \(error)")
                 } else {
@@ -148,7 +148,7 @@ class SignInSignUpVC: UIViewController {
                 }
             }
             
-            UserController.shared.signIn(with: user) { (error) in
+            UserController.shared.signIn(user) { (error) in
                 if let error = error {
                     print("Error signing in: \(error)")
                 } else {

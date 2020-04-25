@@ -8,12 +8,19 @@
 
 import Foundation
 
-struct User: Codable {
-//    let displayName: String
+struct AuthenticatedUser: Codable {
+    let id: Int
     let username: String
     let password: String
 }
 
-struct Token: Codable {
+struct User: Codable {
+    let username: String
+    let password: String
+}
+
+struct UserResult: Codable {
+    let message: String
+    let user: AuthenticatedUser
     let token: String
 }
