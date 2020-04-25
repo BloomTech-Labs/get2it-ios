@@ -28,8 +28,8 @@ class HeaderCell: UICollectionViewCell {
         view.backgroundColor = UIColor(red: 5/255, green: 91/255, blue: 195/255, alpha: 1)
         view.heightAnchor.constraint(equalToConstant: 30).isActive = true
         view.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        view.layer.cornerRadius = 15
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.tintColor = .white
         return view
     }()
     
@@ -53,6 +53,7 @@ class HeaderCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupMainStackView()
+        configureViews()
     }
     
     required init?(coder: NSCoder) {
@@ -65,14 +66,21 @@ class HeaderCell: UICollectionViewCell {
         mainStackView.addArrangedSubview(greetingLabel)
         mainStackView.addArrangedSubview(dateLabel)
         
-        greetingLabel.text = "Greetings!"
-        dateLabel.text = "April 21st, 2020"
-        
         NSLayoutConstraint.activate([
             mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+    
+    func configureViews() {
+        greetingLabel.text = "Greetings \(UserController.shared.authenticatedUser?.username ?? "")!"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateLabel.text = "\(dateFormatter.string(from: Date()))"
+        
+        iconImage.image = UIImage(systemName: "sun.max.fill")
     }
 }
