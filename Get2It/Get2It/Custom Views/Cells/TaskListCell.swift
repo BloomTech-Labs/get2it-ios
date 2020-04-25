@@ -85,6 +85,17 @@ class TaskListCell: UICollectionViewCell {
         fatalError("Not implemented")
     }
     
+    func configure(with task: Task?) {
+        self.titleLabel.text = task?.name
+
+        if let startTime = task?.startTime,
+            let endTime = task?.endTime {
+            self.subtitleLabel.text = "\(startTime) - \(endTime)"
+        }
+    }
+    
+    // MARK: - Private
+    
     private func setupMainStackView() {
         contentView.addSubview(mainStackView)
         
@@ -105,9 +116,6 @@ class TaskListCell: UICollectionViewCell {
     }
     
     private func setupStackView() {
-        self.titleLabel.text = "Trying to set up a task"
-        self.subtitleLabel.text = "1:00 PM - 2:00 PM"
-        
         innerStackView.addArrangedSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(subtitleLabel)

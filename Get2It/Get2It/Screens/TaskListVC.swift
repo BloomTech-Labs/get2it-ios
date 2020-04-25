@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class TaskListVC: UIViewController, UICollectionViewDelegate {
     
@@ -25,6 +26,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
     var taskController: TaskController?
+    var tasksById: [Int: Task] = [:]
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
@@ -36,27 +38,47 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         return collectionView
     }()
     
+    private lazy var fetchedTaskController: NSFetchedResultsController<Task> = {
+        // Fetch request
+        let fetchRequest:NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "name", ascending: true),
+            NSSortDescriptor(key: "startTime", ascending: false),
+            NSSortDescriptor(key: "endTime", ascending: true)
+        ]
+        
+        let moc = CoreDataStack.shared.mainContext
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
+        return frc
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         configureHierarchy()
         configureDataSource()
+        
+        do {
+            try self.fetchedTaskController.performFetch()
+            updateSnapshots()
+        } catch {
+            fatalError("frc crash")
+        }
+        
+        taskController?.fetchTasksFromServer()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // TODO: Change it to the token in user controller once we have it
-        if taskController?.token != nil {
-            // the VC owns this task controller and calling self would create a retaining cycle so [weak self] is needed
-            taskController?.fetchTasksFromServer { [weak self] result in
-                if let createdTasks = try? result.get() {
-                    DispatchQueue.main.async {
-                        self?.taskController?.tasks = createdTasks
-                        self?.collectionView.reloadData()
-                    }
-                }
-            }
-        }
+    func updateSnapshots() {
+        let tasks = fetchedTaskController.fetchedObjects ?? []
+        let taskIds = tasks.map { Int($0.taskId) }
+        tasksById = Dictionary(uniqueKeysWithValues: zip(taskIds, tasks))
+        
+        var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, Int>()
+        snapshot.appendSections([.grid, .list])
+        snapshot.appendItems([1, 2], toSection: .grid)
+        snapshot.appendItems(taskIds, toSection: .list)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -128,6 +150,8 @@ extension TaskListVC {
             if section == .list {
                 // Get a cell of the desired kind
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TaskListCell.reuseIdentifier, for: indexPath) as? TaskListCell {
+                    let task = self.tasksById[identifier]
+                    cell.configure(with: task)
                     return cell
                 } else {
                     fatalError("Can't create new cell")
@@ -153,12 +177,18 @@ extension TaskListVC {
         var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, Int>()
         snapshot.appendSections([.grid, .list])
         snapshot.appendItems([1, 2], toSection: .grid)
-        snapshot.appendItems([3, 4], toSection: .list)
-
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}
+
+extension TaskListVC: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        if controller == self.fetchedTaskController {
+            self.updateSnapshots()
+        }
     }
 }

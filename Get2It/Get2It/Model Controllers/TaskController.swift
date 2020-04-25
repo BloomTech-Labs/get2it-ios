@@ -13,35 +13,34 @@ class TaskController {
     typealias CompletionHandler = (Error?) -> Void
     
     private let baseURL = URL(string: "https://get2it.herokuapp.com/api")!
+    // TODO: don't forget to change this
 //    private var token: Token? {
 //        return UserController.shared.token
 //    }
-    // TODO: don't forget to change this
     var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1MCwidXNlcm5hbWUiOiJ2cyIsImlhdCI6MTU4NzY4NDUwMSwiZXhwIjoxNTg3NzcwOTAxfQ.8oV9-AyB0d5MPfIAvWXtzZcaC9B9qNc7aJcTGeNN67E"
-    var userId = 150 // temporary
-    var tasks: [TaskRepresentation] = []
+    var userId = 150
     
     // MARK: - Server
     
-    func fetchTasksFromServer(completion: @escaping (Result<[TaskRepresentation], NetworkError>) -> Void) {
+    func fetchTasksFromServer(completion: ((Result<[TaskRepresentation], NetworkError>) -> Void)? = nil) {
         let requestURL = baseURL.appendingPathComponent("/users/\(userId)/tasks")
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.get.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(token, forHTTPHeaderField: "Authorization")
+        request.setValue(token, forHTTPHeaderField: "authorization")
 
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let response = response as? HTTPURLResponse,
                 response.statusCode != 200 {
-                completion(.failure(.badAuth))
+                completion?(.failure(.badAuth))
             }
             
             if error != nil {
-                completion(.failure(.otherError))
+                completion?(.failure(.otherError))
             }
             
             guard let data = data else {
-                completion(.failure(.badData))
+                completion?(.failure(.badData))
                 return
             }
             
@@ -49,9 +48,10 @@ class TaskController {
             do {
                 let taskRepresentations = try decoder.decode([TaskRepresentation].self, from: data)
                 self.updateTasksInCoreData(with: taskRepresentations)
+                completion?(.success(taskRepresentations))
             } catch {
                 print("Error decoding tasks: \(error)")
-                completion(.failure(.noDecode))
+                completion?(.failure(.noDecode))
                 return
             }
         }.resume()
