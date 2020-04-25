@@ -87,9 +87,10 @@ class UserController {
             }
             
             do {
-                let user = try JSONDecoder().decode(UserResult.self, from: data)
-                self.authenticatedUser = user.user
-                print(user)
+                let userResult = try JSONDecoder().decode(UserResult.self, from: data)
+                self.authenticatedUser = userResult.user
+                self.token = userResult.token
+                print(userResult)
             } catch {
                 print("Error decoding result")
                 completion(error)

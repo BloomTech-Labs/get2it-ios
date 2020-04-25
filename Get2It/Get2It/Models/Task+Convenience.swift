@@ -45,7 +45,7 @@ extension Task {
     }
     
     // Updates the task object from task representation
-    func apply(_ taskRepresentation: TaskRepresentation) {
+    func applyChanges(from taskRepresentation: TaskRepresentation) {
         self.taskId = Int64(taskRepresentation.taskId ?? 0)
         self.userId = Int64(taskRepresentation.userId ?? 0)
         self.name = taskRepresentation.name

@@ -18,14 +18,14 @@ class TaskController {
         return UserController.shared.token
     }
     
-    private var userId = UserController.shared.authenticatedUser?.id ?? 0
-    
-//    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1MCwidXNlcm5hbWUiOiJ2cyIsImlhdCI6MTU4NzgyOTk2NCwiZXhwIjoxNTg3OTE2MzY0fQ.J_Osqu_cq6szFLcBCyLsBbLP3reVtWIeabNwGa5Cqug"
-//    var userId = 150
+    private var userId: Int? {
+        return UserController.shared.authenticatedUser?.id
+    }
     
     // MARK: - Server
     
     func fetchTasksFromServer(completion: ((Result<[TaskRepresentation], NetworkError>) -> Void)? = nil) {
+        guard let userId = userId else { return }
         let requestURL = baseURL.appendingPathComponent("/users/\(userId)/tasks")
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.get.rawValue
@@ -62,6 +62,7 @@ class TaskController {
     
     // task representation to json to server, get back task rep and save to core data
     func createTaskOnServer(taskRepresentation: TaskRepresentation , completion: @escaping (Result<TaskRepresentation, NetworkError>) -> Void) {
+        guard let userId = userId else { return }
         let requestURL = baseURL.appendingPathComponent("/users/\(userId)/tasks")
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.post.rawValue
@@ -124,7 +125,7 @@ class TaskController {
         let representationsById = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
         var tasksToCreate = representationsById
         let context = CoreDataStack.shared.container.newBackgroundContext()
-        context.performAndWait {
+        context.perform {
             do {
                 let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
                 fetchRequest.predicate = NSPredicate(format: "taskId IN %@", identifiersToFetch)
@@ -134,7 +135,7 @@ class TaskController {
                     let taskId = Int(task.taskId)
                     guard let representation = representationsById[taskId] else { continue }
                     
-                    task.apply(representation)
+                    task.applyChanges(from: representation)
                     
                     tasksToCreate.removeValue(forKey: taskId)
                 }
@@ -152,9 +153,26 @@ class TaskController {
     
     func saveTaskInCoreData(for representation: TaskRepresentation) {
         let context = CoreDataStack.shared.container.newBackgroundContext()
-        context.performAndWait {
+        context.perform {
             Task(representation, context: context)
             CoreDataStack.shared.save(context: context)
+        }
+    }
+}
+
+extension TaskController {
+    static func clearData() {
+        let context = CoreDataStack.shared.container.newBackgroundContext()
+        context.perform {
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Task.fetchRequest()
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            
+            do {
+                try context.execute(deleteRequest)
+                CoreDataStack.shared.save(context: context)
+            } catch {
+                print("Error deleting core data.")
+            }
         }
     }
 }

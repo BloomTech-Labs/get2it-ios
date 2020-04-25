@@ -30,6 +30,9 @@ class SignInSignUpVC: UIViewController {
         createDismissKeyboardTapGesture()
         configureTextFields()
         configureButtons()
+        
+        // Delete anything when the user sign in
+        TaskController.clearData()
     }
     
     func createDismissKeyboardTapGesture() {
@@ -53,6 +56,7 @@ class SignInSignUpVC: UIViewController {
         usernameTextField.placeholder = "username"
         passwordTextField.placeholder = "password"
         confirmPasswordTextField.placeholder = "confirm password"
+        usernameTextField.autocapitalizationType = .none
         
         for view in textFieldViews {
             NSLayoutConstraint.activate([
