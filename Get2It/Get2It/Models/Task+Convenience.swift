@@ -34,14 +34,14 @@ extension Task {
         self.taskId = Int64(taskRepresentation.taskId ?? 0)
         self.userId = Int64(taskRepresentation.userId ?? 0)
         self.name = taskRepresentation.name
-        self.status = taskRepresentation.status
+        self.status = taskRepresentation.status ?? false
         self.date = taskRepresentation.date
         self.startTime = taskRepresentation.startTime
         self.endTime = taskRepresentation.endTime
         self.taskIcon = taskRepresentation.taskIcon
         self.timeLeft = Int64(taskRepresentation.timeLeft ?? 0)
         self.initialNotify = taskRepresentation.initialNotify ?? false
-        self.notifyOn = taskRepresentation.notifyOn
+        self.notifyOn = taskRepresentation.notifyOn ?? false
     }
     
     // Updates the task object from task representation
@@ -49,13 +49,13 @@ extension Task {
         self.taskId = Int64(taskRepresentation.taskId ?? 0)
         self.userId = Int64(taskRepresentation.userId ?? 0)
         self.name = taskRepresentation.name
-        self.status = taskRepresentation.status
+        self.status = taskRepresentation.status ?? false
         self.date = taskRepresentation.date
         self.startTime = taskRepresentation.startTime
         self.endTime = taskRepresentation.endTime
         self.taskIcon = taskRepresentation.taskIcon
         self.timeLeft = Int64(taskRepresentation.timeLeft ?? 0)
         self.initialNotify = taskRepresentation.initialNotify ?? false
-        self.notifyOn = taskRepresentation.notifyOn
+        self.notifyOn = taskRepresentation.notifyOn ?? false
     }
 }

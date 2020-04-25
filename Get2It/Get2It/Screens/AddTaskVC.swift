@@ -56,14 +56,15 @@ extension AddTaskVC {
         }
     
         let newTask = TaskRepresentation(name: title, date: date, startTime: start, endTime: end)
-        taskController?.createTaskOnServer(taskRepresentation: newTask, completion: { (result) in
+        taskController?.createTaskOnServer(taskRepresentation: newTask, completion: { [weak self] result in
             switch result {
             case .failure(let error):
                 print(error)
             case .success(let task):
                 print(task)
+                self?.taskController?.fetchTasksFromServer()
                 DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
+                    self?.dismiss(animated: true, completion: nil)
                 }
             }
         })
