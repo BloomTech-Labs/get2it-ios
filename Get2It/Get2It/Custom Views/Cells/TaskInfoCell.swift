@@ -48,7 +48,8 @@ class TaskInfoCell: UITableViewCell {
     }()
     
     var title: String? {
-        return textField.text
+        get { return textField.text }
+        set { textField.text = newValue }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

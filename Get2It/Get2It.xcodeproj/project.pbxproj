@@ -36,6 +36,7 @@
 		E3648CB2243E4DAE00D4A8E3 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3648CB1243E4DAE00D4A8E3 /* CircleView.swift */; };
 		E38384D6244F8EE90019263C /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384D5244F8EE90019263C /* TaskController.swift */; };
 		E38384D8244F8F080019263C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384D7244F8F080019263C /* APIClient.swift */; };
+		E38384DA2453BF270019263C /* EditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384D92453BF270019263C /* EditTaskVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		E3648CB1243E4DAE00D4A8E3 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		E38384D5244F8EE90019263C /* TaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
 		E38384D7244F8F080019263C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		E38384D92453BF270019263C /* EditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				CC6C2FEF242FCB4C00401937 /* HomeVC.swift */,
 				E3648CA02431886B00D4A8E3 /* TaskListVC.swift */,
 				E3648CA82435705700D4A8E3 /* AddTaskVC.swift */,
+				E38384D92453BF270019263C /* EditTaskVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC33573C24513038009718B5 /* UserController.swift in Sources */,
+				E38384DA2453BF270019263C /* EditTaskVC.swift in Sources */,
 				E326D8F9244CC17100A84BBF /* Task.xcdatamodeld in Sources */,
 				CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */,
 				CC3356F6244B6C48009718B5 /* GTButton.swift in Sources */,
