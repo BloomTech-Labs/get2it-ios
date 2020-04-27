@@ -59,3 +59,24 @@ extension Task {
         self.notifyOn = taskRepresentation.notifyOn ?? false
     }
 }
+
+extension Task {
+    // https://www.donnywals.com/modern-table-views-with-diffable-data-sources/
+    struct Diffable: Hashable {
+        let taskId: Int
+        let name: String?
+        let startTime: String?
+        let endTime: String?
+        let date: String?
+        let task: Task
+        
+        init(task: Task) {
+            self.taskId = Int(task.taskId)
+            self.name = task.name
+            self.startTime = task.startTime
+            self.endTime = task.endTime
+            self.date = task.date
+            self.task = task
+        }
+    }
+}
