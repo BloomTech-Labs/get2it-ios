@@ -50,17 +50,22 @@ extension EditTaskVC {
             self.present(alert, animated: true, completion: nil)
             return
         }
-    
-        let newTask = TaskRepresentation(name: title, date: date, startTime: start, endTime: end)
-        taskController?.createTaskOnServer(taskRepresentation: newTask, completion: { [weak self] result in
+        
+        guard let task = task else { return }
+        
+        task.name = title
+        task.date = date
+        task.startTime = start
+        task.endTime = end
+        
+        taskController?.updateTaskOnServer(task: task, completion: { [weak self] result in
             switch result {
             case .failure(let error):
                 print(error)
-            case .success(let task):
-                print(task)
-                self?.taskController?.fetchTasksFromServer()
+            case .success:
                 DispatchQueue.main.async {
-                    self?.dismiss(animated: true, completion: nil)
+                    CoreDataStack.shared.save()
+                    self?.navigationController?.popViewController(animated: true)
                 }
             }
         })

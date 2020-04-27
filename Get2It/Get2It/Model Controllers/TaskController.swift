@@ -67,7 +67,7 @@ class TaskController {
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.post.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(token, forHTTPHeaderField: "Authorization")
+        request.setValue(token, forHTTPHeaderField: "authorization")
         
         // Encoding the task
         do {
@@ -115,6 +115,36 @@ class TaskController {
 //                completion(.failure(.noDecode))
 //                return
 //            }
+        }.resume()
+    }
+    
+    func updateTaskOnServer(task: Task, completion: @escaping (Result<Task, NetworkError>) -> Void) {
+        guard let taskRepresentation = task.taskRepresentation else { return }
+        let requestURL = baseURL.appendingPathComponent("/users/tasks/\(task.taskId)")
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.put.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(token, forHTTPHeaderField: "authorization")
+        
+        // Encoding the task
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let body = try encoder.encode(taskRepresentation)
+            request.httpBody = body
+        } catch {
+            NSLog("Error encoding task representation: \(error)")
+            completion(.failure(.otherError))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 200 {
+                completion(.success(task))
+            } else {
+                completion(.failure(.otherError))
+            }
         }.resume()
     }
     

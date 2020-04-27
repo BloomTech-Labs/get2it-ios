@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 extension Task {
-    // CoreData -> TaskRepresentation -> JSON
+    // CoreData (Task) -> TaskRepresentation -> JSON
     var taskRepresentation: TaskRepresentation? {
         .init(
             taskId: Int(taskId),

@@ -182,6 +182,7 @@ extension TaskListVC {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let editVC = EditTaskVC()
+        editVC.taskController = taskController
         editVC.task = fetchedTaskController.fetchedObjects?[indexPath.item]
         self.navigationController?.pushViewController(editVC, animated: true)
     }
