@@ -30,7 +30,6 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     var taskController: TaskController?
-    var tasksById: [Int: Task] = [:]
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
@@ -75,8 +74,6 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     
     func updateSnapshots() {
         let tasks = fetchedTaskController.fetchedObjects ?? []
-//        let taskIds = tasks.map { Int($0.taskId) }
-//        tasksById = Dictionary(uniqueKeysWithValues: zip(taskIds, tasks))
         
         var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ListModel>()
         snapshot.appendSections([.grid, .list])
