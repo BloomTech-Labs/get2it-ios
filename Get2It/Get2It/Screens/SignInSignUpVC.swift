@@ -117,11 +117,18 @@ class SignInSignUpVC: UIViewController {
             UserController.shared.signIn(user) { (error) in
                 if let error = error {
                     print("Error signing in: \(error)")
+                    DispatchQueue.main.async {
+                        let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your username and password.", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(ac, animated: true, completion: nil)
+                        return
+                    }
                 } else {
                     DispatchQueue.main.async {
-                        let tabBar = GTTabBarController()
-                        tabBar.modalPresentationStyle = .fullScreen
-                        self.navigationController?.present(tabBar, animated: true, completion: nil)
+                        // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
+                        let taskListNC = TaskListNC()
+                        taskListNC.modalPresentationStyle = .fullScreen
+                        self.navigationController?.present(taskListNC, animated: true, completion: nil)
                     }
                 }
             }
@@ -149,17 +156,25 @@ class SignInSignUpVC: UIViewController {
             UserController.shared.signUp(with: user) { (error) in
                 if let error = error {
                     print("Error signing up: \(error)")
+                    return
                 }
             }
             
             UserController.shared.signIn(user) { (error) in
                 if let error = error {
                     print("Error signing in: \(error)")
+                    DispatchQueue.main.async {
+                        let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your username and password.", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(ac, animated: true, completion: nil)
+                        return
+                    }
                 } else {
                     DispatchQueue.main.async {
-                        let tabBar = GTTabBarController()
-                        tabBar.modalPresentationStyle = .fullScreen
-                        self.navigationController?.present(tabBar, animated: true, completion: nil)
+                        // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
+                        let taskListNC = TaskListNC()
+                        taskListNC.modalPresentationStyle = .fullScreen
+                        self.navigationController?.present(taskListNC, animated: true, completion: nil)
                     }
                 }
             }
@@ -188,4 +203,18 @@ extension SignInSignUpVC: UITextFieldDelegate {
         authenticateUserAndPushTabBarController()
         return true
     }
+}
+
+// MARK: - REMOVE THIS ONCE LISTS WORK
+class TaskListNC: UINavigationController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let taskListVC = TaskListVC()
+        taskListVC.title = "Welcome!"
+        viewControllers = [taskListVC]
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+
 }

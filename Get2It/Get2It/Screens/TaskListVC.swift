@@ -29,8 +29,10 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     }
     
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
-    var taskController: TaskController?
+    // TODO: - CHANGE THIS BACK TO AN OPTIONAL ONCE LISTS ARE IMPLEMENTED
+    let taskController = TaskController()
     var tasksById: [Int: Task] = [:]
+    var tasks: [Task] = []
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
@@ -70,11 +72,11 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
             fatalError("frc crash")
         }
         
-        taskController?.fetchTasksFromServer()
+        taskController.fetchTasksFromServer()
     }
     
     func updateSnapshots() {
-        let tasks = fetchedTaskController.fetchedObjects ?? []
+        tasks = fetchedTaskController.fetchedObjects ?? []
 //        let taskIds = tasks.map { Int($0.taskId) }
 //        tasksById = Dictionary(uniqueKeysWithValues: zip(taskIds, tasks))
         
@@ -150,6 +152,25 @@ extension TaskListVC {
         ])
     }
     
+    @objc func swipeToDelete(sender: UISwipeGestureRecognizer) {
+        let cell = sender.view as! TaskListCell
+        let itemIndex = self.collectionView.indexPath(for: cell)!.item
+        
+        /* In Theory:
+        
+         let task = tasks[itemIndex]
+         tasks.remove(at: itemIndex)
+         updateData(on: tasks)
+         
+         taskController.update() { error in
+            print("unable to remove task")
+         }
+         
+         */
+        
+        self.collectionView.reloadData()
+    }
+    
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>(collectionView: collectionView) {
             collectionView, indexPath, listModel -> UICollectionViewCell? in
@@ -161,6 +182,11 @@ extension TaskListVC {
                     // Only extracting one case for this cell from ListModel enum
                     guard case .task(let taskDiffable) = listModel else { return nil }
                     cell.configure(with: taskDiffable.task)
+                    
+                    let swipeToDeleteAction = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeToDelete(sender:)))
+                    swipeToDeleteAction.direction = UISwipeGestureRecognizer.Direction.left
+                    cell.addGestureRecognizer(swipeToDeleteAction)
+                    
                     return cell
                 } else {
                     fatalError("Can't create new cell")
@@ -173,6 +199,16 @@ extension TaskListVC {
                     cell.contentView.layer.borderColor = UIColor.black.cgColor
                     cell.contentView.layer.borderWidth = 0.2
                     cell.contentView.layer.cornerRadius = section == .grid ? 10 : 0
+                    
+                    if listModel == .grid(1) {
+                        cell.titleLabel.text = "Tasks"
+                        cell.iconImage.image = UIImage(systemName: "list.bullet")
+                        
+                        cell.numberLabel.text = "\(self.tasks.count)"
+                    } else {
+                        cell.titleLabel.text = "Completed Tasks"
+                        cell.iconImage.image = UIImage(systemName: "text.badge.checkmark")
+                    }
                     
                     // Return the cell
                     return cell
@@ -193,10 +229,14 @@ extension TaskListVC {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let editVC = EditTaskVC()
-        editVC.taskController = taskController
-        editVC.task = fetchedTaskController.fetchedObjects?[indexPath.item]
-        self.navigationController?.pushViewController(editVC, animated: true)
+        let section = SectionLayoutKind(rawValue: indexPath.section)!
+        if section == .list {
+            let editVC = EditTaskVC()
+            editVC.taskController = taskController
+            editVC.task = fetchedTaskController.fetchedObjects?[indexPath.item]
+            self.navigationController?.pushViewController(editVC, animated: true)
+        }
+        
     }
 }
 
