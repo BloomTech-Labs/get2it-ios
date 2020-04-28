@@ -117,6 +117,12 @@ class SignInSignUpVC: UIViewController {
             UserController.shared.signIn(user) { (error) in
                 if let error = error {
                     print("Error signing in: \(error)")
+                    DispatchQueue.main.async {
+                        let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your username and password.", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(ac, animated: true, completion: nil)
+                        return
+                    }
                 } else {
                     DispatchQueue.main.async {
                         // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
@@ -150,12 +156,19 @@ class SignInSignUpVC: UIViewController {
             UserController.shared.signUp(with: user) { (error) in
                 if let error = error {
                     print("Error signing up: \(error)")
+                    return
                 }
             }
             
             UserController.shared.signIn(user) { (error) in
                 if let error = error {
                     print("Error signing in: \(error)")
+                    DispatchQueue.main.async {
+                        let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your username and password.", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(ac, animated: true, completion: nil)
+                        return
+                    }
                 } else {
                     DispatchQueue.main.async {
                         // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
