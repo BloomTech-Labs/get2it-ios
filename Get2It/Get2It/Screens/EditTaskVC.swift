@@ -19,7 +19,7 @@ class EditTaskVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        title = "Add New Task"
+        title = "Edit Task"
         configureViewController()
         configureTableViewController()
     }
@@ -41,7 +41,6 @@ extension EditTaskVC {
             let dateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? TaskPickerCell,
             let startTimeCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? TaskPickerCell,
             let endTimeCell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? TaskPickerCell,
-            let date = dateCell.textFieldString,
             let start = startTimeCell.textFieldString,
             let end = endTimeCell.textFieldString else
         {
@@ -50,24 +49,25 @@ extension EditTaskVC {
             self.present(alert, animated: true, completion: nil)
             return
         }
-    
-        let newTask = TaskRepresentation(name: title, date: date, startTime: start, endTime: end)
-        taskController?.createTaskOnServer(taskRepresentation: newTask, completion: { [weak self] result in
+        
+        guard let task = task else { return }
+        
+        task.name = title
+        task.date = dateCell.date
+        task.startTime = start
+        task.endTime = end
+        
+        taskController?.updateTaskOnServer(task: task, completion: { [weak self] result in
             switch result {
             case .failure(let error):
                 print(error)
-            case .success(let task):
-                print(task)
-                self?.taskController?.fetchTasksFromServer()
+            case .success:
                 DispatchQueue.main.async {
-                    self?.dismiss(animated: true, completion: nil)
+                    CoreDataStack.shared.save()
+                    self?.navigationController?.popViewController(animated: true)
                 }
             }
         })
-    }
-    
-    @objc private func backButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
     }
     
     private func configureTableViewController() {

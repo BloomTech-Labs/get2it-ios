@@ -18,8 +18,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.largeTitleDisplayMode = .never
+
         view.backgroundColor = .systemBackground
         configureHierarchy()
         configureDataSource()
@@ -93,7 +92,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let list = dataSource.itemIdentifier(for: indexPath) else { return }
+        guard let _ = dataSource.itemIdentifier(for: indexPath) else { return }
         // TODO: - Add an initialzer that will accept a list and populate the taskVC with the tasks from that list
         let taskListVC = TaskListVC()
         taskListVC.taskController = taskController

@@ -10,6 +10,10 @@ import UIKit
 import CoreData
 
 class TaskListVC: UIViewController, UICollectionViewDelegate {
+    enum ListModel: Hashable {
+        case grid(Int)
+        case task(Task.Diffable)
+    }
     
     enum SectionLayoutKind: Int, CaseIterable {
         case grid, list
@@ -24,7 +28,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         }
     }
     
-    var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
+    var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     var taskController: TaskController?
     var tasksById: [Int: Task] = [:]
     
@@ -71,13 +75,17 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     
     func updateSnapshots() {
         let tasks = fetchedTaskController.fetchedObjects ?? []
-        let taskIds = tasks.map { Int($0.taskId) }
-        tasksById = Dictionary(uniqueKeysWithValues: zip(taskIds, tasks))
+//        let taskIds = tasks.map { Int($0.taskId) }
+//        tasksById = Dictionary(uniqueKeysWithValues: zip(taskIds, tasks))
         
-        var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ListModel>()
         snapshot.appendSections([.grid, .list])
-        snapshot.appendItems([1, 2], toSection: .grid)
-        snapshot.appendItems(taskIds, toSection: .list)
+        
+        let gridItems: [ListModel] = [.grid(1), .grid(2)]
+        snapshot.appendItems(gridItems, toSection: .grid)
+        
+        let listItems: [ListModel] = tasks.map { ListModel.task(Task.Diffable(task: $0)) }
+        snapshot.appendItems(listItems, toSection: .list)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
@@ -143,15 +151,16 @@ extension TaskListVC {
     }
     
     func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<SectionLayoutKind, Int>(collectionView: collectionView) {
-            (collectionView:UICollectionView, indexPath: IndexPath, identifier: Int) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>(collectionView: collectionView) {
+            collectionView, indexPath, listModel -> UICollectionViewCell? in
             
             let section = SectionLayoutKind(rawValue: indexPath.section)!
             if section == .list {
                 // Get a cell of the desired kind
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TaskListCell.reuseIdentifier, for: indexPath) as? TaskListCell {
-                    let task = self.tasksById[identifier]
-                    cell.configure(with: task)
+                    // Only extracting one case for this cell from ListModel enum
+                    guard case .task(let taskDiffable) = listModel else { return nil }
+                    cell.configure(with: taskDiffable.task)
                     return cell
                 } else {
                     fatalError("Can't create new cell")
@@ -174,14 +183,18 @@ extension TaskListVC {
         }
         
         // Initial data
-        var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ListModel>()
         snapshot.appendSections([.grid, .list])
-        snapshot.appendItems([1, 2], toSection: .grid)
+        
+        let gridItems: [ListModel] = [.grid(1), .grid(2)]
+        snapshot.appendItems(gridItems, toSection: .grid)
+        
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let editVC = EditTaskVC()
+        editVC.taskController = taskController
         editVC.task = fetchedTaskController.fetchedObjects?[indexPath.item]
         self.navigationController?.pushViewController(editVC, animated: true)
     }

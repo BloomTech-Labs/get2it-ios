@@ -108,6 +108,10 @@ class TaskPickerCell: UITableViewCell {
         return textField.text
     }
     
+    var date: Date {
+        datePicker.date
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupStackView()
@@ -145,7 +149,6 @@ class TaskPickerCell: UITableViewCell {
         selectedDate = dateFormatter.date(from: date)
         self.cellType = cellType
         titleLabel.text = title
-
         textField.text = date
     }
     

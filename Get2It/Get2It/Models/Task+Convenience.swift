@@ -10,14 +10,14 @@ import Foundation
 import CoreData
 
 extension Task {
-    // CoreData -> TaskRepresentation -> JSON
+    // CoreData (Task) -> TaskRepresentation -> JSON
     var taskRepresentation: TaskRepresentation? {
         .init(
             taskId: Int(taskId),
             userId: Int(userId),
             name: name ?? "",
             status: status,
-            date: date ?? "",
+            date: date ?? Date(),
             startTime: startTime ?? "",
             endTime: endTime ?? "",
             taskIcon: taskIcon ?? "",
@@ -45,7 +45,7 @@ extension Task {
     }
     
     // Updates the task object from task representation
-    func apply(_ taskRepresentation: TaskRepresentation) {
+    func applyChanges(from taskRepresentation: TaskRepresentation) {
         self.taskId = Int64(taskRepresentation.taskId ?? 0)
         self.userId = Int64(taskRepresentation.userId ?? 0)
         self.name = taskRepresentation.name
@@ -57,5 +57,26 @@ extension Task {
         self.timeLeft = Int64(taskRepresentation.timeLeft ?? 0)
         self.initialNotify = taskRepresentation.initialNotify ?? false
         self.notifyOn = taskRepresentation.notifyOn ?? false
+    }
+}
+
+extension Task {
+    // https://www.donnywals.com/modern-table-views-with-diffable-data-sources/
+    struct Diffable: Hashable {
+        let taskId: Int
+        let name: String?
+        let startTime: String?
+        let endTime: String?
+        let date: Date?
+        let task: Task
+        
+        init(task: Task) {
+            self.taskId = Int(task.taskId)
+            self.name = task.name
+            self.startTime = task.startTime
+            self.endTime = task.endTime
+            self.date = task.date
+            self.task = task
+        }
     }
 }
