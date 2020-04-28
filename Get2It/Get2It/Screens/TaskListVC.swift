@@ -29,7 +29,8 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     }
     
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
-    var taskController: TaskController?
+    // TODO: - CHANGE THIS BACK TO AN OPTIONAL ONCE LISTS ARE IMPLEMENTED
+    let taskController = TaskController()
     var tasksById: [Int: Task] = [:]
     
     private lazy var collectionView: UICollectionView = {
@@ -70,7 +71,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
             fatalError("frc crash")
         }
         
-        taskController?.fetchTasksFromServer()
+        taskController.fetchTasksFromServer()
     }
     
     func updateSnapshots() {
@@ -193,10 +194,14 @@ extension TaskListVC {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let editVC = EditTaskVC()
-        editVC.taskController = taskController
-        editVC.task = fetchedTaskController.fetchedObjects?[indexPath.item]
-        self.navigationController?.pushViewController(editVC, animated: true)
+        let section = SectionLayoutKind(rawValue: indexPath.section)!
+        if section == .list {
+            let editVC = EditTaskVC()
+            editVC.taskController = taskController
+            editVC.task = fetchedTaskController.fetchedObjects?[indexPath.item]
+            self.navigationController?.pushViewController(editVC, animated: true)
+        }
+        
     }
 }
 

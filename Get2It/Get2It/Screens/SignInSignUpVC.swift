@@ -119,9 +119,10 @@ class SignInSignUpVC: UIViewController {
                     print("Error signing in: \(error)")
                 } else {
                     DispatchQueue.main.async {
-                        let tabBar = GTTabBarController()
-                        tabBar.modalPresentationStyle = .fullScreen
-                        self.navigationController?.present(tabBar, animated: true, completion: nil)
+                        // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
+                        let taskListNC = TaskListNC()
+                        taskListNC.modalPresentationStyle = .fullScreen
+                        self.navigationController?.present(taskListNC, animated: true, completion: nil)
                     }
                 }
             }
@@ -157,9 +158,10 @@ class SignInSignUpVC: UIViewController {
                     print("Error signing in: \(error)")
                 } else {
                     DispatchQueue.main.async {
-                        let tabBar = GTTabBarController()
-                        tabBar.modalPresentationStyle = .fullScreen
-                        self.navigationController?.present(tabBar, animated: true, completion: nil)
+                        // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
+                        let taskListNC = TaskListNC()
+                        taskListNC.modalPresentationStyle = .fullScreen
+                        self.navigationController?.present(taskListNC, animated: true, completion: nil)
                     }
                 }
             }
@@ -188,4 +190,18 @@ extension SignInSignUpVC: UITextFieldDelegate {
         authenticateUserAndPushTabBarController()
         return true
     }
+}
+
+// MARK: - REMOVE THIS ONCE LISTS WORK
+class TaskListNC: UINavigationController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let taskListVC = TaskListVC()
+        taskListVC.title = "Welcome!"
+        viewControllers = [taskListVC]
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+
 }
