@@ -27,7 +27,7 @@ struct TaskRepresentation: Codable, Hashable {
     let userId: Int?
     let name: String
     let status: Bool?
-    let date: String
+    let date: Date
     let startTime: String
     let endTime: String
     let taskIcon: String?
@@ -35,7 +35,7 @@ struct TaskRepresentation: Codable, Hashable {
     let initialNotify: Bool?
     let notifyOn: Bool?
     
-    init(taskId: Int? = nil, userId: Int? = nil, name: String, status: Bool = false, date: String, startTime: String, endTime: String, taskIcon: String? = nil, timeLeft: Int? = nil, initialNotify: Bool = false, notifyOn: Bool = true) {
+    init(taskId: Int? = nil, userId: Int? = nil, name: String, status: Bool = false, date: Date, startTime: String, endTime: String, taskIcon: String? = nil, timeLeft: Int? = nil, initialNotify: Bool = false, notifyOn: Bool = true) {
         self.taskId = taskId
         self.userId = userId
         self.name = name

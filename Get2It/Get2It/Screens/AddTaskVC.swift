@@ -45,7 +45,6 @@ extension AddTaskVC {
             let dateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? TaskPickerCell,
             let startTimeCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? TaskPickerCell,
             let endTimeCell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? TaskPickerCell,
-            let date = dateCell.textFieldString,
             let start = startTimeCell.textFieldString,
             let end = endTimeCell.textFieldString else
         {
@@ -54,6 +53,8 @@ extension AddTaskVC {
             self.present(alert, animated: true, completion: nil)
             return
         }
+        
+        let date = dateCell.date
     
         let newTask = TaskRepresentation(name: title, date: date, startTime: start, endTime: end)
         taskController?.createTaskOnServer(taskRepresentation: newTask, completion: { [weak self] result in

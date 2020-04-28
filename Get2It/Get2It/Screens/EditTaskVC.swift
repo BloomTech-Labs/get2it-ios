@@ -19,7 +19,7 @@ class EditTaskVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        title = "Add New Task"
+        title = "Edit Task"
         configureViewController()
         configureTableViewController()
     }
@@ -41,7 +41,6 @@ extension EditTaskVC {
             let dateCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? TaskPickerCell,
             let startTimeCell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? TaskPickerCell,
             let endTimeCell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? TaskPickerCell,
-            let date = dateCell.textFieldString,
             let start = startTimeCell.textFieldString,
             let end = endTimeCell.textFieldString else
         {
@@ -54,7 +53,7 @@ extension EditTaskVC {
         guard let task = task else { return }
         
         task.name = title
-        task.date = date
+        task.date = dateCell.date
         task.startTime = start
         task.endTime = end
         

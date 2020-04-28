@@ -48,6 +48,7 @@ class TaskController {
             }
             
             let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .formatted(.iso8601Full)
             do {
                 let taskRepresentations = try decoder.decode([TaskRepresentation].self, from: data)
                 self.updateTasksInCoreData(with: taskRepresentations)
@@ -72,6 +73,7 @@ class TaskController {
         // Encoding the task
         do {
             let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
             encoder.outputFormatting = .prettyPrinted
             let body = try encoder.encode(taskRepresentation)
             request.httpBody = body
@@ -129,6 +131,7 @@ class TaskController {
         // Encoding the task
         do {
             let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
             encoder.outputFormatting = .prettyPrinted
             let body = try encoder.encode(taskRepresentation)
             request.httpBody = body

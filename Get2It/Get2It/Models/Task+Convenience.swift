@@ -17,7 +17,7 @@ extension Task {
             userId: Int(userId),
             name: name ?? "",
             status: status,
-            date: date ?? "",
+            date: date ?? Date(),
             startTime: startTime ?? "",
             endTime: endTime ?? "",
             taskIcon: taskIcon ?? "",
@@ -67,7 +67,7 @@ extension Task {
         let name: String?
         let startTime: String?
         let endTime: String?
-        let date: String?
+        let date: Date?
         let task: Task
         
         init(task: Task) {
