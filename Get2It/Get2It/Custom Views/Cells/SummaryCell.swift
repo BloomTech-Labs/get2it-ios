@@ -40,15 +40,16 @@ class SummaryCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var iconImage: UIImageView = {
+    lazy var iconImage: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = UIColor(red: 5/255, green: 91/255, blue: 195/255, alpha: 1)
         view.layer.cornerRadius = 20
+        view.tintColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AvenirNext-Medium", size: 17)
         label.textColor = .systemBackground
@@ -56,7 +57,7 @@ class SummaryCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var numberLabel: UILabel = {
+    lazy var numberLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AvenirNext-Medium", size: 24)
         label.textColor = .systemBackground
