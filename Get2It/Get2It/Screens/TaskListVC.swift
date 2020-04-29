@@ -156,17 +156,8 @@ extension TaskListVC {
         let cell = sender.view as! TaskListCell
         let itemIndex = self.collectionView.indexPath(for: cell)!.item
         
-        /* In Theory:
-        
-         let task = tasks[itemIndex]
-         tasks.remove(at: itemIndex)
-         updateData(on: tasks)
-         
-         taskController.update() { error in
-            print("unable to remove task")
-         }
-         
-         */
+        let task = tasks[itemIndex]
+        taskController.delete(task: task)
         
         self.collectionView.reloadData()
     }
