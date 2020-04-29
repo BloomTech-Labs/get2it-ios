@@ -42,7 +42,6 @@ class SummaryCell: UICollectionViewCell {
     
     lazy var iconImage: UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = UIColor(red: 5/255, green: 91/255, blue: 195/255, alpha: 1)
         view.layer.cornerRadius = 20
         view.tintColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +51,7 @@ class SummaryCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AvenirNext-Medium", size: 17)
-        label.textColor = .systemBackground
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -60,7 +59,7 @@ class SummaryCell: UICollectionViewCell {
     lazy var numberLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AvenirNext-Medium", size: 24)
-        label.textColor = .systemBackground
+        label.textColor = .white
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -93,7 +92,7 @@ class SummaryCell: UICollectionViewCell {
         mainStackView.addArrangedSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            iconImage.heightAnchor.constraint(equalToConstant: 40),
+            iconImage.heightAnchor.constraint(equalToConstant: 30),
             iconImage.widthAnchor.constraint(equalTo: iconImage.heightAnchor)
         ])
         
