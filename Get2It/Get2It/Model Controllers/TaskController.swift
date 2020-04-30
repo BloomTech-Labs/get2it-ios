@@ -151,6 +151,32 @@ class TaskController {
         }.resume()
     }
     
+    func delete(task: Task, completion: @escaping (Error?) -> Void = { _ in }) {
+        let taskId = task.taskId
+        task.taskId = taskId
+        
+        let requestURL = baseURL.appendingPathComponent("/users/tasks/\(task.taskId)")
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.delete.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(token, forHTTPHeaderField: "authorization")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                completion(error)
+                return
+            }
+            
+            if let error = error {
+                completion(error)
+                return
+            }
+        }.resume()
+        
+        CoreDataStack.shared.mainContext.delete(task)
+        CoreDataStack.shared.save()
+    }
+    
     // MARK: - Core Data (iPhone)
     
     func updateTasksInCoreData(with representations: [TaskRepresentation]) {
