@@ -10,7 +10,7 @@ import UIKit
 
 class SignInSignUpVC: UIViewController {
     
-    let displayNameTextField = GTTextField()
+    let emailTextField = GTTextField()
     let usernameTextField = GTTextField()
     let passwordTextField = GTTextField()
     let confirmPasswordTextField = GTTextField()
@@ -25,7 +25,7 @@ class SignInSignUpVC: UIViewController {
 
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
-        view.addSubviews(displayNameTextField, usernameTextField, passwordTextField, confirmPasswordTextField, callToActionButton, toggleStatusButton)
+        view.addSubviews(emailTextField, usernameTextField, passwordTextField, confirmPasswordTextField, callToActionButton, toggleStatusButton)
         
         createDismissKeyboardTapGesture()
         configureTextFields()
@@ -41,7 +41,7 @@ class SignInSignUpVC: UIViewController {
     }
     
     func configureTextFields() {
-        let textFieldViews = [passwordTextField, confirmPasswordTextField, displayNameTextField, usernameTextField]
+        let textFieldViews = [passwordTextField, confirmPasswordTextField, emailTextField, usernameTextField]
         
         passwordTextField.returnKeyType = .go
         confirmPasswordTextField.returnKeyType = .go
@@ -52,11 +52,12 @@ class SignInSignUpVC: UIViewController {
         passwordTextField.isSecureTextEntry = true
         confirmPasswordTextField.isSecureTextEntry = true
         
-        displayNameTextField.placeholder = "display name"
+        emailTextField.placeholder = "email"
         usernameTextField.placeholder = "username"
         passwordTextField.placeholder = "password"
         confirmPasswordTextField.placeholder = "confirm password"
         usernameTextField.autocapitalizationType = .none
+        emailTextField.autocapitalizationType = .none
         
         for view in textFieldViews {
             NSLayoutConstraint.activate([
@@ -66,13 +67,13 @@ class SignInSignUpVC: UIViewController {
         }
         
         NSLayoutConstraint.activate([
-            displayNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
-            displayNameTextField.heightAnchor.constraint(equalToConstant: padding),
-            
-            usernameTextField.topAnchor.constraint(equalTo: displayNameTextField.bottomAnchor, constant: 20),
+            usernameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
             usernameTextField.heightAnchor.constraint(equalToConstant: padding),
             
-            passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 20),
+            emailTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 20),
+            emailTextField.heightAnchor.constraint(equalToConstant: padding),
+            
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
             passwordTextField.heightAnchor.constraint(equalToConstant: padding),
             
             confirmPasswordTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
@@ -104,21 +105,21 @@ class SignInSignUpVC: UIViewController {
     
     @objc func authenticateUserAndPushTabBarController() {
         if toggleStatus {
-            guard let username = usernameTextField.text, !username.isEmpty,
-                let password = passwordTextField.text, !password.isEmpty else {
-                    let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your username and password.", preferredStyle: .alert)
+            guard let password = passwordTextField.text, !password.isEmpty,
+                let email = emailTextField.text, !email.isEmpty else {
+                    let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your email and password.", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     present(ac, animated: true, completion: nil)
                     return
             }
             
-            let user = User(username: username, password: password)
+            let user = User(username: nil, password: password, email: email)
             
             UserController.shared.signIn(user) { (error) in
                 if let error = error {
                     print("Error signing in: \(error)")
                     DispatchQueue.main.async {
-                        let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your username and password.", preferredStyle: .alert)
+                        let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your email and password.", preferredStyle: .alert)
                         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                         self.present(ac, animated: true, completion: nil)
                         return
@@ -134,7 +135,7 @@ class SignInSignUpVC: UIViewController {
             }
             
         } else {
-            guard let displayName = displayNameTextField.text, !displayName.isEmpty,
+            guard let email = emailTextField.text, !email.isEmpty,
                 let username = usernameTextField.text, !username.isEmpty,
                 let password = passwordTextField.text, !password.isEmpty,
                 let confirmedPassword = confirmPasswordTextField.text, !confirmedPassword.isEmpty else {
@@ -151,7 +152,7 @@ class SignInSignUpVC: UIViewController {
                 return
             }
             
-            let user = User(username: username, password: password)
+            let user = User(username: username, password: password, email: email)
             
             UserController.shared.signUp(with: user) { (error) in
                 if let error = error {
@@ -164,7 +165,7 @@ class SignInSignUpVC: UIViewController {
                 if let error = error {
                     print("Error signing in: \(error)")
                     DispatchQueue.main.async {
-                        let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your username and password.", preferredStyle: .alert)
+                        let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your email and password.", preferredStyle: .alert)
                         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                         self.present(ac, animated: true, completion: nil)
                         return
@@ -184,12 +185,12 @@ class SignInSignUpVC: UIViewController {
     @objc func toggleSignIn() {
         toggleStatus.toggle()
         if toggleStatus {
-            displayNameTextField.isHidden = true
+            usernameTextField.isHidden = true
             confirmPasswordTextField.isHidden = true
             toggleStatusButton.setTitle("No account? Sign Up", for: .normal)
             callToActionButton.setTitle("Sign In", for: .normal)
         } else {
-            displayNameTextField.isHidden = false
+            usernameTextField.isHidden = false
             confirmPasswordTextField.isHidden = false
             toggleStatusButton.setTitle("Have an account? Sign In", for: .normal)
             callToActionButton.setTitle("Sign Up", for: .normal)

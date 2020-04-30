@@ -10,7 +10,7 @@ import Foundation
 
 class UserController {
     static let shared = UserController()
-    private let baseURL = URL(string: "https://get2it.herokuapp.com/api")!
+    private let baseURL = URL(string: "https://get2itpt9.herokuapp.com/api")!
     var token: String?
     var authenticatedUser: AuthenticatedUser?
     

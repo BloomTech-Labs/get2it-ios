@@ -12,11 +12,13 @@ struct AuthenticatedUser: Codable {
     let id: Int
     let username: String
     let password: String
+    let email: String
 }
 
 struct User: Codable {
-    let username: String
+    let username: String?
     let password: String
+    let email: String
 }
 
 struct UserResult: Codable {
