@@ -12,7 +12,7 @@ import CoreData
 class TaskController {
     typealias CompletionHandler = (Error?) -> Void
     
-    private let baseURL = URL(string: "https://get2it.herokuapp.com/api")!
+    private let baseURL = URL(string: "https://get2itpt9.herokuapp.com/api")!
     
     private var token: String? {
         return UserController.shared.token
