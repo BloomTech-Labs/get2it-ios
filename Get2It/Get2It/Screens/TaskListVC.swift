@@ -244,7 +244,7 @@ extension TaskListVC: TaskListCellDelegate {
         guard let task = task else { return }
         task.status = isChecked
 
-        taskController?.updateTaskOnServer(task: task, completion: { result in
+        taskController.updateTaskOnServer(task: task, completion: { result in
             switch result {
             case .failure(let error):
                 print(error)
