@@ -177,6 +177,7 @@ extension TaskListVC {
                     swipeToDeleteAction.direction = UISwipeGestureRecognizer.Direction.left
                     cell.addGestureRecognizer(swipeToDeleteAction)
                     
+                    cell.delegate = self
                     return cell
                 } else {
                     fatalError("Can't create new cell")
