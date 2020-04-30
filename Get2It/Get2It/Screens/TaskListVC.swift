@@ -158,6 +158,7 @@ extension TaskListVC {
                     // Only extracting one case for this cell from ListModel enum
                     guard case .task(let taskDiffable) = listModel else { return nil }
                     cell.configure(with: taskDiffable.task)
+                    cell.delegate = self
                     return cell
                 } else {
                     fatalError("Can't create new cell")
@@ -202,5 +203,24 @@ extension TaskListVC: NSFetchedResultsControllerDelegate {
         if controller == self.fetchedTaskController {
             self.updateSnapshots()
         }
+    }
+}
+
+extension TaskListVC: TaskListCellDelegate {
+    func cellDidToggle(isChecked: Bool, for task: Task?) {
+        guard let task = task else { return }
+        task.status = isChecked
+
+        taskController?.updateTaskOnServer(task: task, completion: { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success:
+                DispatchQueue.main.async {
+                    let moc = CoreDataStack.shared.mainContext
+                    try? moc.save()
+                }
+            }
+        })
     }
 }
