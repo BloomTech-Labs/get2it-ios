@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol TaskListCellDelegate: AnyObject {
+    func cellDidToggle(isChecked: Bool, for task: Task?)
+}
+
 class TaskListCell: UICollectionViewCell {
+    weak var delegate: TaskListCellDelegate?
+    var task: Task?
+    
     static let reuseIdentifier = "TaskListCell"
     
     private lazy var mainStackView: UIStackView = {
@@ -33,6 +40,14 @@ class TaskListCell: UICollectionViewCell {
         view.axis = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private lazy var checkButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(checkButtonDidPress), for: .primaryActionTriggered)
+        return button
     }()
     
     private lazy var titleLabel: UILabel = { // Name of the task
@@ -75,6 +90,7 @@ class TaskListCell: UICollectionViewCell {
         super.init(frame: frame)
         setupMainStackView()
         setupInnerStackView()
+        setupClearButton()
         setupCircleBar()
         setupStackView()
         setupSeperatorView()
@@ -94,6 +110,12 @@ class TaskListCell: UICollectionViewCell {
         }
     }
     
+    @objc func checkButtonDidPress() {
+        circleBar.isChecked.toggle()
+        // change the label color
+        delegate?.cellDidToggle(isChecked: circleBar.isChecked, for: task)
+    }
+    
     // MARK: - Private
     
     private func setupMainStackView() {
@@ -104,6 +126,17 @@ class TaskListCell: UICollectionViewCell {
             mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+    }
+    
+    private func setupClearButton() {
+        contentView.addSubview(checkButton)
+        
+        NSLayoutConstraint.activate([
+            checkButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            checkButton.topAnchor.constraint(equalTo: contentView.topAnchor),
+            checkButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            checkButton.widthAnchor.constraint(equalTo: checkButton.heightAnchor, multiplier: 1.0)
         ])
     }
     
@@ -128,6 +161,10 @@ class TaskListCell: UICollectionViewCell {
             seperatorView.heightAnchor.constraint(equalToConstant: 0.5),
             seperatorView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor)
         ])
+    }
+    
+    private func changeLabelColor() {
+        titleLabel.textColor = .gray
     }
     
     private func setupChevronImage() {

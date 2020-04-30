@@ -76,9 +76,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     }
     
     func updateSnapshots() {
-        tasks = fetchedTaskController.fetchedObjects ?? []
-//        let taskIds = tasks.map { Int($0.taskId) }
-//        tasksById = Dictionary(uniqueKeysWithValues: zip(taskIds, tasks))
+        let tasks = fetchedTaskController.fetchedObjects ?? []
         
         var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ListModel>()
         snapshot.appendSections([.grid, .list])
@@ -173,6 +171,7 @@ extension TaskListVC {
                     // Only extracting one case for this cell from ListModel enum
                     guard case .task(let taskDiffable) = listModel else { return nil }
                     cell.configure(with: taskDiffable.task)
+                    cell.delegate = self
                     
                     let swipeToDeleteAction = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeToDelete(sender:)))
                     swipeToDeleteAction.direction = UISwipeGestureRecognizer.Direction.left
@@ -236,5 +235,24 @@ extension TaskListVC: NSFetchedResultsControllerDelegate {
         if controller == self.fetchedTaskController {
             self.updateSnapshots()
         }
+    }
+}
+
+extension TaskListVC: TaskListCellDelegate {
+    func cellDidToggle(isChecked: Bool, for task: Task?) {
+        guard let task = task else { return }
+        task.status = isChecked
+
+        taskController?.updateTaskOnServer(task: task, completion: { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success:
+                DispatchQueue.main.async {
+                    let moc = CoreDataStack.shared.mainContext
+                    try? moc.save()
+                }
+            }
+        })
     }
 }
