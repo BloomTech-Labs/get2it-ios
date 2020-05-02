@@ -102,18 +102,37 @@ class TaskListCell: UICollectionViewCell {
     }
     
     func configure(with task: Task?) {
-        self.titleLabel.text = task?.name
+        self.task = task
 
         if let startTime = task?.startTime,
             let endTime = task?.endTime {
             self.subtitleLabel.text = "\(startTime) - \(endTime)"
         }
+        
+        circleBar.isChecked = task?.status == true
+        updateStrikethrough()
     }
     
     @objc func checkButtonDidPress() {
         circleBar.isChecked.toggle()
+        
         // change the label color
+        updateStrikethrough()
+        
         delegate?.cellDidToggle(isChecked: circleBar.isChecked, for: task)
+    }
+    
+    func updateStrikethrough() {
+        guard let title = self.task?.name else {
+            return
+        }
+        
+        let attributeString = NSMutableAttributedString(string: title)
+        if circleBar.isChecked == true {
+           attributeString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+        }
+        
+        self.titleLabel.attributedText = attributeString
     }
     
     // MARK: - Private

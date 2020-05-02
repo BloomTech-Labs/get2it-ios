@@ -41,6 +41,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         collectionView.register(SummaryCell.self, forCellWithReuseIdentifier: SummaryCell.reuseIdentifier)
         collectionView.register(TaskListCell.self, forCellWithReuseIdentifier: TaskListCell.reuseIdentifier)
         collectionView.delegate = self
+        collectionView.alwaysBounceVertical = true
         return collectionView
     }()
     
