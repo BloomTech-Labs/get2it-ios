@@ -10,13 +10,13 @@ import Foundation
 
 struct AuthenticatedUser: Codable {
     let id: Int
-    let username: String
+    let displayName: String
     let password: String
     let email: String
 }
 
 struct User: Codable {
-    let username: String?
+    let displayName: String?
     let password: String
     let email: String
 }

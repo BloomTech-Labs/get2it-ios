@@ -75,7 +75,7 @@ class HeaderCell: UICollectionViewCell {
     }
     
     func configureViews() {
-        greetingLabel.text = "Greetings \(UserController.shared.authenticatedUser?.username ?? "")!"
+        greetingLabel.text = "Greetings \(UserController.shared.authenticatedUser?.displayName ?? "")!"
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
