@@ -41,6 +41,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         collectionView.register(SummaryCell.self, forCellWithReuseIdentifier: SummaryCell.reuseIdentifier)
         collectionView.register(TaskListCell.self, forCellWithReuseIdentifier: TaskListCell.reuseIdentifier)
         collectionView.delegate = self
+        collectionView.alwaysBounceVertical = true
         return collectionView
     }()
     
@@ -177,6 +178,7 @@ extension TaskListVC {
                     swipeToDeleteAction.direction = UISwipeGestureRecognizer.Direction.left
                     cell.addGestureRecognizer(swipeToDeleteAction)
                     
+                    cell.delegate = self
                     return cell
                 } else {
                     fatalError("Can't create new cell")
@@ -243,7 +245,7 @@ extension TaskListVC: TaskListCellDelegate {
         guard let task = task else { return }
         task.status = isChecked
 
-        taskController?.updateTaskOnServer(task: task, completion: { result in
+        taskController.updateTaskOnServer(task: task, completion: { result in
             switch result {
             case .failure(let error):
                 print(error)
