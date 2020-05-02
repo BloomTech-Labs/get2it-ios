@@ -44,6 +44,7 @@ class TaskInfoCell: UITableViewCell {
         textField.font = UIFont(name: "AvenirNext-Medium", size: 17)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "New Task"
+        textField.textAlignment = .right
         return textField
     }()
     
