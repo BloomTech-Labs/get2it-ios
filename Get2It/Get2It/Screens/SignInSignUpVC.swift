@@ -136,7 +136,7 @@ class SignInSignUpVC: UIViewController {
             
         } else {
             guard let email = emailTextField.text, !email.isEmpty,
-                let username = displayNameTextField.text, !username.isEmpty,
+                let displayName = displayNameTextField.text, !displayName.isEmpty,
                 let password = passwordTextField.text, !password.isEmpty,
                 let confirmedPassword = confirmPasswordTextField.text, !confirmedPassword.isEmpty else {
                     let ac = UIAlertController(title: "Sign Up Failed", message: "Please fill in all the fields before trying to sign up.", preferredStyle: .alert)
@@ -152,7 +152,7 @@ class SignInSignUpVC: UIViewController {
                 return
             }
             
-            let user = User(displayName: username, password: password, email: email)
+            let user = User(displayName: displayName, password: password, email: email)
             
             UserController.shared.signUp(with: user) { (error) in
                 if let error = error {

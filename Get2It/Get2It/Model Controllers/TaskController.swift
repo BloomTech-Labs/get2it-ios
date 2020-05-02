@@ -151,11 +151,9 @@ class TaskController {
         }.resume()
     }
     
-    func delete(task: Task, completion: @escaping (Error?) -> Void = { _ in }) {
-        let taskId = task.taskId
-        task.taskId = taskId
+    func delete(task: TaskRepresentation, completion: @escaping (Error?) -> Void = { _ in }) {
         
-        let requestURL = baseURL.appendingPathComponent("/users/tasks/\(task.taskId)")
+        let requestURL = baseURL.appendingPathComponent("/users/tasks/\(task.taskId ?? 0)")
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.delete.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -173,7 +171,7 @@ class TaskController {
             }
         }.resume()
         
-        CoreDataStack.shared.mainContext.delete(task)
+        CoreDataStack.shared.mainContext.delete(Task(task, context: CoreDataStack.shared.mainContext))
         CoreDataStack.shared.save()
     }
     
