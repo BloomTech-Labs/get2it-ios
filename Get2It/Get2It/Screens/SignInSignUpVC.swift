@@ -11,7 +11,7 @@ import UIKit
 class SignInSignUpVC: UIViewController {
     
     let emailTextField = GTTextField()
-    let usernameTextField = GTTextField()
+    let displayNameTextField = GTTextField()
     let passwordTextField = GTTextField()
     let confirmPasswordTextField = GTTextField()
     let callToActionButton = GTButton(backgroundColor: .systemBlue, title: "Sign Up")
@@ -25,7 +25,7 @@ class SignInSignUpVC: UIViewController {
 
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
-        view.addSubviews(emailTextField, usernameTextField, passwordTextField, confirmPasswordTextField, callToActionButton, toggleStatusButton)
+        view.addSubviews(emailTextField, displayNameTextField, passwordTextField, confirmPasswordTextField, callToActionButton, toggleStatusButton)
         
         createDismissKeyboardTapGesture()
         configureTextFields()
@@ -41,7 +41,7 @@ class SignInSignUpVC: UIViewController {
     }
     
     func configureTextFields() {
-        let textFieldViews = [passwordTextField, confirmPasswordTextField, emailTextField, usernameTextField]
+        let textFieldViews = [passwordTextField, confirmPasswordTextField, emailTextField, displayNameTextField]
         
         passwordTextField.returnKeyType = .go
         confirmPasswordTextField.returnKeyType = .go
@@ -53,10 +53,10 @@ class SignInSignUpVC: UIViewController {
         confirmPasswordTextField.isSecureTextEntry = true
         
         emailTextField.placeholder = "email"
-        usernameTextField.placeholder = "username"
+        displayNameTextField.placeholder = "display name"
         passwordTextField.placeholder = "password"
         confirmPasswordTextField.placeholder = "confirm password"
-        usernameTextField.autocapitalizationType = .none
+        displayNameTextField.autocapitalizationType = .none
         emailTextField.autocapitalizationType = .none
         
         for view in textFieldViews {
@@ -67,10 +67,10 @@ class SignInSignUpVC: UIViewController {
         }
         
         NSLayoutConstraint.activate([
-            usernameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
-            usernameTextField.heightAnchor.constraint(equalToConstant: padding),
+            displayNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
+            displayNameTextField.heightAnchor.constraint(equalToConstant: padding),
             
-            emailTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 20),
+            emailTextField.topAnchor.constraint(equalTo: displayNameTextField.bottomAnchor, constant: 20),
             emailTextField.heightAnchor.constraint(equalToConstant: padding),
             
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
@@ -113,7 +113,7 @@ class SignInSignUpVC: UIViewController {
                     return
             }
             
-            let user = User(username: nil, password: password, email: email)
+            let user = User(displayName: nil, password: password, email: email)
             
             UserController.shared.signIn(user) { (error) in
                 if let error = error {
@@ -136,7 +136,7 @@ class SignInSignUpVC: UIViewController {
             
         } else {
             guard let email = emailTextField.text, !email.isEmpty,
-                let username = usernameTextField.text, !username.isEmpty,
+                let username = displayNameTextField.text, !username.isEmpty,
                 let password = passwordTextField.text, !password.isEmpty,
                 let confirmedPassword = confirmPasswordTextField.text, !confirmedPassword.isEmpty else {
                     let ac = UIAlertController(title: "Sign Up Failed", message: "Please fill in all the fields before trying to sign up.", preferredStyle: .alert)
@@ -152,7 +152,7 @@ class SignInSignUpVC: UIViewController {
                 return
             }
             
-            let user = User(username: username, password: password, email: email)
+            let user = User(displayName: username, password: password, email: email)
             
             UserController.shared.signUp(with: user) { (error) in
                 if let error = error {
@@ -185,12 +185,12 @@ class SignInSignUpVC: UIViewController {
     @objc func toggleSignIn() {
         toggleStatus.toggle()
         if toggleStatus {
-            usernameTextField.isHidden = true
+            displayNameTextField.isHidden = true
             confirmPasswordTextField.isHidden = true
             toggleStatusButton.setTitle("No account? Sign Up", for: .normal)
             callToActionButton.setTitle("Sign In", for: .normal)
         } else {
-            usernameTextField.isHidden = false
+            displayNameTextField.isHidden = false
             confirmPasswordTextField.isHidden = false
             toggleStatusButton.setTitle("Have an account? Sign In", for: .normal)
             callToActionButton.setTitle("Sign Up", for: .normal)
