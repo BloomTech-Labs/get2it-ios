@@ -48,7 +48,7 @@ class CircleView: UIView {
         let innerCircle = UIBezierPath(ovalIn: CGRect(x: spacer/2, y: spacer/2, width: kDiameter - spacer, height: kDiameter - spacer))
         innerCircleLayer.isHidden = true
         innerCircleLayer.path = innerCircle.cgPath
-        innerCircleLayer.fillColor = UIColor.green.cgColor
+        innerCircleLayer.fillColor = UIColor(red: 5/255, green: 91/255, blue: 195/255, alpha: 1).cgColor
         
         layer.addSublayer(innerCircleLayer)
     }
