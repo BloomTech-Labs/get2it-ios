@@ -18,6 +18,12 @@ class TaskListCell: UICollectionViewCell {
     
     static let reuseIdentifier = "TaskListCell"
     
+    private lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
+        return dateFormatter
+    }()
+    
     private lazy var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -57,7 +63,15 @@ class TaskListCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var subtitleLabel: UILabel = { // Time
+    private lazy var dateLabel: UILabel = { // Date
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "AvenirNext-Medium", size: 15)
+        label.textColor = .gray
+        return label
+    }()
+    
+    private lazy var timeLabel: UILabel = { // Time
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "AvenirNext-Medium", size: 15)
@@ -105,8 +119,10 @@ class TaskListCell: UICollectionViewCell {
         self.task = task
 
         if let startTime = task?.startTime,
-            let endTime = task?.endTime {
-            self.subtitleLabel.text = "\(startTime) - \(endTime)"
+            let endTime = task?.endTime,
+            let date = task?.date {
+            self.timeLabel.text = "\(startTime) - \(endTime)"
+            self.dateLabel.text = dateFormatter.string(from: date)
         }
         
         circleBar.isChecked = task?.status == true
@@ -170,7 +186,8 @@ class TaskListCell: UICollectionViewCell {
     private func setupStackView() {
         innerStackView.addArrangedSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(subtitleLabel)
+        stackView.addArrangedSubview(timeLabel)
+        stackView.addArrangedSubview(dateLabel)
     }
     
     private func setupSeperatorView() {
