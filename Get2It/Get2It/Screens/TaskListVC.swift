@@ -49,9 +49,8 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         // Fetch request
         let fetchRequest:NSFetchRequest<Task> = Task.fetchRequest()
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "name", ascending: true),
-            NSSortDescriptor(key: "startTime", ascending: false),
-            NSSortDescriptor(key: "endTime", ascending: true)
+            NSSortDescriptor(key: "date", ascending: false),
+            NSSortDescriptor(key: "startTime", ascending: true)
         ]
         
         let moc = CoreDataStack.shared.mainContext

@@ -86,21 +86,7 @@ class TaskPickerCell: UITableViewCell {
         return datePicker
     }()
     
-    private lazy var dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-    
-        switch self.cellType {
-        case .some(.taskDate):
-            dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
-        case .some(.startTime), .some(.endTime):
-            dateFormatter.dateFormat = "h:m a"
-        case .none:
-            break
-        }
-        
-        return dateFormatter
-    }()
-    
+    private let dateFormatter = DateFormatter()
     private var cellType: CellType?
     private var selectedDate: Date?
     
@@ -115,6 +101,7 @@ class TaskPickerCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupStackView()
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {
@@ -125,8 +112,10 @@ class TaskPickerCell: UITableViewCell {
         switch cellType {
         case .taskDate:
             datePicker.datePickerMode = .date
+            dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
         case .startTime, .endTime:
             datePicker.datePickerMode = .time
+            dateFormatter.dateFormat = "h:mm a"
         }
         
         selectedDate = date
@@ -141,8 +130,10 @@ class TaskPickerCell: UITableViewCell {
         switch cellType {
         case .taskDate:
             datePicker.datePickerMode = .date
+            dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
         case .startTime, .endTime:
             datePicker.datePickerMode = .time
+            dateFormatter.dateFormat = "h:mm a"
         }
         
         // Convert date from String to Date
