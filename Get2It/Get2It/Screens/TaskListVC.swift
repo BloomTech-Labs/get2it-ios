@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 class TaskListVC: UIViewController, UICollectionViewDelegate {
+    
     enum ListModel: Hashable {
         case grid(Int)
         case task(Task.Diffable)
