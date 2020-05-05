@@ -151,7 +151,7 @@ class TaskController {
         }.resume()
     }
     
-    func delete(task: TaskRepresentation, completion: @escaping (Error?) -> Void = { _ in }) {
+    func delete(task: Task, completion: @escaping (Error?) -> Void = { _ in }) {
         
         let requestURL = baseURL.appendingPathComponent("/users/tasks/\(task.taskId ?? 0)")
         var request = URLRequest(url: requestURL)
@@ -171,7 +171,7 @@ class TaskController {
             }
         }.resume()
         
-        CoreDataStack.shared.mainContext.delete(Task(task, context: CoreDataStack.shared.mainContext))
+        CoreDataStack.shared.mainContext.delete(task)
         CoreDataStack.shared.save()
     }
     

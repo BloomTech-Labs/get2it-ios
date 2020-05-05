@@ -32,8 +32,6 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     // TODO: - CHANGE THIS BACK TO AN OPTIONAL ONCE LISTS ARE IMPLEMENTED
     let taskController = TaskController()
-    var tasksById: [Int: Task] = [:]
-    var taskRepresentations: [TaskRepresentation] = []
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
@@ -73,16 +71,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
             fatalError("frc crash")
         }
         
-        taskController.fetchTasksFromServer { (result) in
-            switch result {
-            case .success(let representations):
-                self.taskRepresentations = representations
-                print(self.taskRepresentations)
-            case .failure(let error):
-                print(error)
-            }
-            
-        }
+        taskController.fetchTasksFromServer()
     }
     
     func updateSnapshots() {
@@ -163,15 +152,14 @@ extension TaskListVC {
     @objc func swipeToDelete(sender: UISwipeGestureRecognizer) {
         let cell = sender.view as! TaskListCell
         let itemIndex = self.collectionView.indexPath(for: cell)!.item
+        let task = self.fetchedTaskController.fetchedObjects?[itemIndex]
         
-        if let items = dataSource.itemIdentifier(for: self.collectionView.indexPath(for: cell) ?? IndexPath()) {
+        if let items = dataSource.itemIdentifier(for: IndexPath(item: itemIndex, section: 1)) {
             var snapshot = dataSource.snapshot()
             snapshot.deleteItems([items])
             dataSource.apply(snapshot, animatingDifferences: true)
-            taskController.delete(task: taskRepresentations[itemIndex])
-            taskRepresentations.remove(at: itemIndex)
+            task.map { taskController.delete(task:$0) }
         }
-        
     }
     
     func configureDataSource() {
@@ -209,14 +197,14 @@ extension TaskListVC {
                         cell.titleLabel.text = "Tasks"
                         cell.iconImage.image = UIImage(systemName: "list.bullet")
                         
-                        cell.numberLabel.text = "\(self.taskRepresentations.count)"
+                        cell.numberLabel.text = "\(self.fetchedTaskController.fetchedObjects?.count ?? 0)"
                     } else {
                         cell.titleLabel.text = "Completed Tasks"
                         cell.iconImage.image = UIImage(systemName: "text.badge.checkmark")
                         
                         var completedTaskCount = 0
                         
-                        for task in self.taskRepresentations {
+                        for task in self.fetchedTaskController.fetchedObjects ?? [] {
                             if task.status == true {
                                 completedTaskCount += 1
                                 cell.numberLabel.text = "\(completedTaskCount)"
