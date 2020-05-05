@@ -10,9 +10,8 @@ import UIKit
 import CoreData
 
 class TaskListVC: UIViewController, UICollectionViewDelegate {
-    
     enum ListModel: Hashable {
-        case grid(Int)
+        case grid(GridDisplay)
         case task(Task.Diffable)
     }
     
@@ -80,7 +79,9 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ListModel>()
         snapshot.appendSections([.grid, .list])
         
-        let gridItems: [ListModel] = [.grid(1), .grid(2)]
+        let completedTasks = tasks.filter { $0.status == true }
+        
+        let gridItems: [ListModel] = [.grid(.tasks(numberOfTasks: tasks.count)), .grid(.completedTasks(numberOfTasks: completedTasks.count))]
         snapshot.appendItems(gridItems, toSection: .grid)
         
         let listItems: [ListModel] = tasks.map { ListModel.task(Task.Diffable(task: $0)) }
@@ -193,23 +194,16 @@ extension TaskListVC {
                     cell.contentView.layer.borderWidth = 0.2
                     cell.contentView.layer.cornerRadius = section == .grid ? 10 : 0
                     
-                    if listModel == .grid(1) {
+                    guard case .grid(let gridDisplay) = listModel else { return nil }
+                    
+                    if gridDisplay.gridIndex == 0 {
                         cell.titleLabel.text = "Tasks"
                         cell.iconImage.image = UIImage(systemName: "list.bullet")
-                        
-                        cell.numberLabel.text = "\(self.fetchedTaskController.fetchedObjects?.count ?? 0)"
+                        cell.numberLabel.text = String(gridDisplay.numberOfTasks)
                     } else {
                         cell.titleLabel.text = "Completed Tasks"
                         cell.iconImage.image = UIImage(systemName: "text.badge.checkmark")
-                        
-                        var completedTaskCount = 0
-                        
-                        for task in self.fetchedTaskController.fetchedObjects ?? [] {
-                            if task.status == true {
-                                completedTaskCount += 1
-                                cell.numberLabel.text = "\(completedTaskCount)"
-                            }
-                        }
+                        cell.numberLabel.text = String(gridDisplay.numberOfTasks)
                     }
                     
                     // Return the cell
@@ -224,7 +218,7 @@ extension TaskListVC {
         var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ListModel>()
         snapshot.appendSections([.grid, .list])
         
-        let gridItems: [ListModel] = [.grid(1), .grid(2)]
+        let gridItems: [ListModel] = [.grid(.tasks()), .grid(.completedTasks())]
         snapshot.appendItems(gridItems, toSection: .grid)
         
         dataSource.apply(snapshot, animatingDifferences: false)
@@ -238,7 +232,6 @@ extension TaskListVC {
             editVC.task = fetchedTaskController.fetchedObjects?[indexPath.item]
             self.navigationController?.pushViewController(editVC, animated: true)
         }
-        
     }
 }
 

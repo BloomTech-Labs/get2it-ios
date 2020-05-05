@@ -9,7 +9,6 @@
 import UIKit
 
 class EditTaskVC: UIViewController {
-    
     let userController = UserController.shared
     
     private let tableView = UITableView(frame: .zero, style: .grouped)

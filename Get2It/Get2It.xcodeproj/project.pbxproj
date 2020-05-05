@@ -26,6 +26,7 @@
 		E326D8F9244CC17100A84BBF /* Task.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E326D8F7244CC17100A84BBF /* Task.xcdatamodeld */; };
 		E326D8FB244CC38800A84BBF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E326D8FA244CC38800A84BBF /* CoreDataStack.swift */; };
 		E326D8FD244CFE4400A84BBF /* Task+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E326D8FC244CFE4400A84BBF /* Task+Convenience.swift */; };
+		E33F8DB22461150A0032C7B5 /* GridDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8DB12461150A0032C7B5 /* GridDisplay.swift */; };
 		E3648CA12431886B00D4A8E3 /* TaskListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3648CA02431886B00D4A8E3 /* TaskListVC.swift */; };
 		E3648CA42432B5C500D4A8E3 /* SummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3648CA32432B5C500D4A8E3 /* SummaryCell.swift */; };
 		E3648CA62432BC1900D4A8E3 /* HomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3648CA52432BC1900D4A8E3 /* HomeListCell.swift */; };
@@ -62,6 +63,7 @@
 		E326D8F8244CC17100A84BBF /* Task.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task.xcdatamodel; sourceTree = "<group>"; };
 		E326D8FA244CC38800A84BBF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E326D8FC244CFE4400A84BBF /* Task+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Convenience.swift"; sourceTree = "<group>"; };
+		E33F8DB12461150A0032C7B5 /* GridDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDisplay.swift; sourceTree = "<group>"; };
 		E3648CA02431886B00D4A8E3 /* TaskListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListVC.swift; sourceTree = "<group>"; };
 		E3648CA32432B5C500D4A8E3 /* SummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCell.swift; sourceTree = "<group>"; };
 		E3648CA52432BC1900D4A8E3 /* HomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCell.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				E326D8FA244CC38800A84BBF /* CoreDataStack.swift */,
 				E326D8FC244CFE4400A84BBF /* Task+Convenience.swift */,
 				CC3356F7244E9825009718B5 /* User.swift */,
+				E33F8DB12461150A0032C7B5 /* GridDisplay.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */,
 				CC3356F6244B6C48009718B5 /* GTButton.swift in Sources */,
 				CC6C2FED242FC65E00401937 /* GTTabBarController.swift in Sources */,
+				E33F8DB22461150A0032C7B5 /* GridDisplay.swift in Sources */,
 				CC6C2FF0242FCB4C00401937 /* HomeVC.swift in Sources */,
 				CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */,
 				E3648CA62432BC1900D4A8E3 /* HomeListCell.swift in Sources */,
