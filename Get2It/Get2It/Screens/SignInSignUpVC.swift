@@ -208,11 +208,13 @@ extension SignInSignUpVC: UITextFieldDelegate {
 
 // MARK: - REMOVE THIS ONCE LISTS WORK
 class TaskListNC: UINavigationController {
+    let userController = UserController.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let taskListVC = TaskListVC()
-        taskListVC.title = "Welcome!"
+        let displayName = userController.authenticatedUser?.displayName ?? ""
+        taskListVC.title = "Welcome \(displayName)!"
         viewControllers = [taskListVC]
         
         navigationController?.navigationBar.prefersLargeTitles = true
