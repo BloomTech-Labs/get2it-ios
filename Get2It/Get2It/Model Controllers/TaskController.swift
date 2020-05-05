@@ -153,7 +153,7 @@ class TaskController {
     
     func delete(task: Task, completion: @escaping (Error?) -> Void = { _ in }) {
         
-        let requestURL = baseURL.appendingPathComponent("/users/tasks/\(task.taskId ?? 0)")
+        let requestURL = baseURL.appendingPathComponent("/users/tasks/\(task.taskId)")
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.delete.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
