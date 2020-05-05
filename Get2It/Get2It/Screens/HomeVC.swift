@@ -9,7 +9,6 @@
 import UIKit
 
 class HomeVC: UIViewController, UICollectionViewDelegate {
-    
     let taskController = TaskController()
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
     var collectionView: UICollectionView! = nil

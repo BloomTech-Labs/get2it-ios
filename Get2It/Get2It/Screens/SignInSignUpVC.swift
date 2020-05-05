@@ -9,7 +9,6 @@
 import UIKit
 
 class SignInSignUpVC: UIViewController {
-    
     let emailTextField = GTTextField()
     let displayNameTextField = GTTextField()
     let passwordTextField = GTTextField()
