@@ -100,4 +100,9 @@ class UserController {
         }.resume()
     }
     
+    func signOut() {
+        self.token = nil
+        self.authenticatedUser = nil
+    }
+    
 }

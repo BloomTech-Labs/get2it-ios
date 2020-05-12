@@ -97,6 +97,9 @@ extension TaskListVC {
         
         let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTaskButtonTapped))
         navigationItem.rightBarButtonItem = addBarButton
+        
+        let signOutBarButton = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOutTapped))
+        navigationItem.leftBarButtonItem = signOutBarButton
     }
     
     @objc func addTaskButtonTapped() {
@@ -104,6 +107,11 @@ extension TaskListVC {
         addTaskVC.taskController = taskController
         let navigationController = UINavigationController(rootViewController: addTaskVC)
         present(navigationController, animated: true, completion: nil)
+    }
+    
+    @objc func signOutTapped() {
+        UserController.shared.signOut()
+        self.dismiss(animated: true, completion: nil)
     }
     
     func createLayout() -> UICollectionViewLayout {
