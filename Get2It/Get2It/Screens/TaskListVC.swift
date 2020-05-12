@@ -110,6 +110,7 @@ extension TaskListVC {
     }
     
     @objc func signOutTapped() {
+        UserController.shared.signOut()
         self.dismiss(animated: true, completion: nil)
     }
     
