@@ -129,6 +129,9 @@ class SignInSignUpVC: UIViewController {
                         let taskListNC = TaskListNC()
                         taskListNC.modalPresentationStyle = .fullScreen
                         self.navigationController?.present(taskListNC, animated: true, completion: nil)
+                        
+                        self.emailTextField.text = ""
+                        self.passwordTextField.text = ""
                     }
                 }
             }
@@ -175,6 +178,11 @@ class SignInSignUpVC: UIViewController {
                         let taskListNC = TaskListNC()
                         taskListNC.modalPresentationStyle = .fullScreen
                         self.navigationController?.present(taskListNC, animated: true, completion: nil)
+                        
+                        self.displayNameTextField.text = ""
+                        self.emailTextField.text = ""
+                        self.passwordTextField.text = ""
+                        self.confirmPasswordTextField.text = ""
                     }
                 }
             }

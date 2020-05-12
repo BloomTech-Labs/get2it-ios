@@ -100,4 +100,8 @@ class UserController {
         }.resume()
     }
     
+    func signOut() {
+        
+    }
+    
 }
