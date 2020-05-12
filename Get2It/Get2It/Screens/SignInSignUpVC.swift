@@ -104,7 +104,7 @@ class SignInSignUpVC: UIViewController {
     
     @objc func authenticateUserAndPushTabBarController() {
         if toggleStatus {
-            guard let password = passwordTextField.text, !password.isEmpty,
+            guard let password = passwordTextField.text, !password.isEmpty, password.count > 7,
                 let email = emailTextField.text, !email.isEmpty else {
                     let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your email and password.", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -139,7 +139,7 @@ class SignInSignUpVC: UIViewController {
         } else {
             guard let email = emailTextField.text, !email.isEmpty,
                 let displayName = displayNameTextField.text, !displayName.isEmpty,
-                let password = passwordTextField.text, !password.isEmpty,
+                let password = passwordTextField.text, !password.isEmpty, password.count > 7,
                 let confirmedPassword = confirmPasswordTextField.text, !confirmedPassword.isEmpty else {
                     let ac = UIAlertController(title: "Sign Up Failed", message: "Please fill in all the fields before trying to sign up.", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
