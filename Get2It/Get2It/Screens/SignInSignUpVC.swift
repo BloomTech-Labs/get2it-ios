@@ -55,8 +55,11 @@ class SignInSignUpVC: UIViewController {
         displayNameTextField.placeholder = "display name"
         passwordTextField.placeholder = "password"
         confirmPasswordTextField.placeholder = "confirm password"
+        
         displayNameTextField.autocapitalizationType = .none
         emailTextField.autocapitalizationType = .none
+        
+        emailTextField.keyboardType = .emailAddress
         
         for view in textFieldViews {
             NSLayoutConstraint.activate([
@@ -104,7 +107,7 @@ class SignInSignUpVC: UIViewController {
     
     @objc func authenticateUserAndPushTabBarController() {
         if toggleStatus {
-            guard let password = passwordTextField.text, !password.isEmpty, password.count > 7,
+            guard let password = passwordTextField.text, !password.isEmpty,
                 let email = emailTextField.text, !email.isEmpty else {
                     let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your email and password.", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -118,7 +121,7 @@ class SignInSignUpVC: UIViewController {
                 if let error = error {
                     print("Error signing in: \(error)")
                     DispatchQueue.main.async {
-                        let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your email and password.", preferredStyle: .alert)
+                        let ac = UIAlertController(title: "Sign In Failed", message: "There was an issue trying to sign in. Please try again.", preferredStyle: .alert)
                         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                         self.present(ac, animated: true, completion: nil)
                         return
@@ -137,18 +140,29 @@ class SignInSignUpVC: UIViewController {
             }
             
         } else {
-            guard let email = emailTextField.text, !email.isEmpty,
-                let displayName = displayNameTextField.text, !displayName.isEmpty,
-                let password = passwordTextField.text, !password.isEmpty, password.count > 7,
-                let confirmedPassword = confirmPasswordTextField.text, !confirmedPassword.isEmpty else {
-                    let ac = UIAlertController(title: "Sign Up Failed", message: "Please fill in all the fields before trying to sign up.", preferredStyle: .alert)
-                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    present(ac, animated: true, completion: nil)
-                    return
+            guard let displayName = displayNameTextField.text, !displayName.isEmpty else {
+                let ac = UIAlertController(title: "Sign Up Failed", message: "Please create a display name before trying to sign up.", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(ac, animated: true, completion: nil)
+                return
             }
             
-            guard confirmedPassword == password else {
-                let ac = UIAlertController(title: "Error", message: "Passwords do not match. Please try again", preferredStyle: .alert)
+            guard let email = emailTextField.text, !email.isEmpty else {
+                let ac = UIAlertController(title: "Sign Up Failed", message: "Please add your email address before trying to sign up.", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(ac, animated: true, completion: nil)
+                return
+            }
+                
+            guard let password = passwordTextField.text, !password.isEmpty, password.count > 7 else {
+                let ac = UIAlertController(title: "Sign Up Failed", message: "Please create a password of at least 8 characters before trying to sign up.", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(ac, animated: true, completion: nil)
+                return
+            }
+                
+            guard let confirmedPassword = confirmPasswordTextField.text, confirmedPassword == password else {
+                let ac = UIAlertController(title: "Sign Up Failed", message: "Please ensure your passwords match before trying to sign up.", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 present(ac, animated: true, completion: nil)
                 return
