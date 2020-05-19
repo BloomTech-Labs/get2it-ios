@@ -55,8 +55,11 @@ class SignInSignUpVC: UIViewController {
         displayNameTextField.placeholder = "display name"
         passwordTextField.placeholder = "password"
         confirmPasswordTextField.placeholder = "confirm password"
+        
         displayNameTextField.autocapitalizationType = .none
         emailTextField.autocapitalizationType = .none
+        
+        emailTextField.keyboardType = .emailAddress
         
         for view in textFieldViews {
             NSLayoutConstraint.activate([
