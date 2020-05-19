@@ -43,7 +43,7 @@ class UserController {
             }
             
             if let response = response as? HTTPURLResponse,
-                response.statusCode != 200 {
+                response.statusCode != 201 {
                 completion(error)
             }
             

@@ -156,34 +156,39 @@ class SignInSignUpVC: UIViewController {
             
             let user = User(displayName: displayName, password: password, email: email)
             
-            UserController.shared.signUp(with: user) { (error) in
+            UserController.shared.signUp(with: user) { [weak self] (error) in
                 if let error = error {
                     print("Error signing up: \(error)")
                     return
                 }
+                
+                // signing in the user
+                self?.signInWithUser(user)
             }
-            
-            UserController.shared.signIn(user) { (error) in
-                if let error = error {
-                    print("Error signing in: \(error)")
-                    DispatchQueue.main.async {
-                        let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your email and password.", preferredStyle: .alert)
-                        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        self.present(ac, animated: true, completion: nil)
-                        return
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
-                        let taskListNC = TaskListNC()
-                        taskListNC.modalPresentationStyle = .fullScreen
-                        self.navigationController?.present(taskListNC, animated: true, completion: nil)
-                        
-                        self.displayNameTextField.text = ""
-                        self.emailTextField.text = ""
-                        self.passwordTextField.text = ""
-                        self.confirmPasswordTextField.text = ""
-                    }
+        }
+    }
+    
+    func signInWithUser(_ user: User) {
+        UserController.shared.signIn(user) { [weak self] (error) in
+            if let error = error {
+                print("Error signing in: \(error)")
+                DispatchQueue.main.async {
+                    let ac = UIAlertController(title: "Sign In Failed", message: "Please enter your email and password.", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self?.present(ac, animated: true, completion: nil)
+                    return
+                }
+            } else {
+                DispatchQueue.main.async {
+                    // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
+                    let taskListNC = TaskListNC()
+                    taskListNC.modalPresentationStyle = .fullScreen
+                    self?.navigationController?.present(taskListNC, animated: true, completion: nil)
+                    
+                    self?.displayNameTextField.text = ""
+                    self?.emailTextField.text = ""
+                    self?.passwordTextField.text = ""
+                    self?.confirmPasswordTextField.text = ""
                 }
             }
         }
