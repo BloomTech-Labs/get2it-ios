@@ -62,6 +62,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         configureViewController()
         configureHierarchy()
         configureDataSource()
+        configureSearchController()
         
         do {
             try self.fetchedTaskController.performFetch()
@@ -112,6 +113,14 @@ extension TaskListVC {
     @objc func signOutTapped() {
         UserController.shared.signOut()
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search for a task"
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
     }
     
     func createLayout() -> UICollectionViewLayout {
@@ -268,4 +277,30 @@ extension TaskListVC: TaskListCellDelegate {
             }
         })
     }
+}
+
+extension TaskListVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if searchController.isActive {
+            guard let filter = searchController.searchBar.text, !filter.isEmpty else {
+                fetchedTaskController.fetchRequest.predicate = nil
+                fetchTasksAndUpdateSnapshot()
+                return
+            }
+            
+            let predicate = NSPredicate(format: "(date CONTAINS %@) OR (startTime CONTAINS %@) OR (endTime CONTAINS %@) OR (name CONTAINS %@)", filter, filter, filter, filter)
+            fetchedTaskController.fetchRequest.predicate = predicate
+            fetchTasksAndUpdateSnapshot()
+        }
+    }
+    
+    private func fetchTasksAndUpdateSnapshot() {
+        do {
+            try self.fetchedTaskController.performFetch()
+            updateSnapshots()
+        } catch {
+            fatalError("frc crash")
+        }
+    }
+    
 }
