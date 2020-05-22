@@ -101,6 +101,7 @@
 		E326D8FA244CC38800A84BBF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E326D8FC244CFE4400A84BBF /* Task+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Convenience.swift"; sourceTree = "<group>"; };
 		E33F8DB12461150A0032C7B5 /* GridDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDisplay.swift; sourceTree = "<group>"; };
+		E34BF17824761D2E0053F87C /* Get2It.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Get2It.entitlements; sourceTree = "<group>"; };
 		E3648CA02431886B00D4A8E3 /* TaskListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListVC.swift; sourceTree = "<group>"; };
 		E3648CA32432B5C500D4A8E3 /* SummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCell.swift; sourceTree = "<group>"; };
 		E3648CA52432BC1900D4A8E3 /* HomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCell.swift; sourceTree = "<group>"; };
@@ -224,6 +225,7 @@
 		CC6C2FD4242FBC5D00401937 /* Get2It */ = {
 			isa = PBXGroup;
 			children = (
+				E34BF17824761D2E0053F87C /* Get2It.entitlements */,
 				E38384D4244F8ED10019263C /* Model Controllers */,
 				E326D8F4244BDB0200A84BBF /* Models */,
 				CC3356F1244B65B7009718B5 /* Extensions */,
@@ -744,9 +746,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Get2It/Get2It.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = ZYPH2NW7MY;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 9XJC3GKNM3;
 				INFOPLIST_FILE = Get2It/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -754,6 +758,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JohnKouris.Get2It;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -763,9 +768,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Get2It/Get2It.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = ZYPH2NW7MY;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 9XJC3GKNM3;
 				INFOPLIST_FILE = Get2It/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
