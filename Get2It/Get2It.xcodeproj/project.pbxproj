@@ -16,6 +16,8 @@
 		CC33573C24513038009718B5 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC33573B24513038009718B5 /* UserController.swift */; };
 		CC4332522437F7F80099023F /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4332512437F7F80099023F /* HeaderCell.swift */; };
 		CC433255243800D90099023F /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC433254243800D90099023F /* UIHelper.swift */; };
+		CC4F5DB1247F4C6B005693DA /* Get2ItUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4F5DB0247F4C6B005693DA /* Get2ItUITests.swift */; };
+		CC4F5DBF247F4C90005693DA /* Get2ItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4F5DBE247F4C90005693DA /* Get2ItTests.swift */; };
 		CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FD5242FBC5D00401937 /* AppDelegate.swift */; };
 		CC6C2FD8242FBC5D00401937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FD7242FBC5D00401937 /* SceneDelegate.swift */; };
 		CC6C2FDF242FBC6000401937 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC6C2FDE242FBC6000401937 /* Assets.xcassets */; };
@@ -41,6 +43,23 @@
 		E38384DC245793DE0019263C /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384DB245793DE0019263C /* DateFormatter+Extensions.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		CC4F5DB3247F4C6B005693DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC6C2FCA242FBC5D00401937 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC6C2FD1242FBC5D00401937;
+			remoteInfo = Get2It;
+		};
+		CC4F5DC1247F4C90005693DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC6C2FCA242FBC5D00401937 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC6C2FD1242FBC5D00401937;
+			remoteInfo = Get2It;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpVC.swift; sourceTree = "<group>"; };
 		CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpNC.swift; sourceTree = "<group>"; };
@@ -51,6 +70,12 @@
 		CC33573B24513038009718B5 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		CC4332512437F7F80099023F /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		CC433254243800D90099023F /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
+		CC4F5DAE247F4C6B005693DA /* Get2ItUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Get2ItUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC4F5DB0247F4C6B005693DA /* Get2ItUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Get2ItUITests.swift; sourceTree = "<group>"; };
+		CC4F5DB2247F4C6B005693DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC4F5DBC247F4C90005693DA /* Get2ItTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Get2ItTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC4F5DBE247F4C90005693DA /* Get2ItTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Get2ItTests.swift; sourceTree = "<group>"; };
+		CC4F5DC0247F4C90005693DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC6C2FD2242FBC5D00401937 /* Get2It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Get2It.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC6C2FD5242FBC5D00401937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC6C2FD7242FBC5D00401937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +104,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CC4F5DAB247F4C6B005693DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC4F5DB9247F4C90005693DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CC6C2FCF242FBC5D00401937 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -130,10 +169,30 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		CC4F5DAF247F4C6B005693DA /* Get2ItUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CC4F5DB0247F4C6B005693DA /* Get2ItUITests.swift */,
+				CC4F5DB2247F4C6B005693DA /* Info.plist */,
+			);
+			path = Get2ItUITests;
+			sourceTree = "<group>";
+		};
+		CC4F5DBD247F4C90005693DA /* Get2ItTests */ = {
+			isa = PBXGroup;
+			children = (
+				CC4F5DBE247F4C90005693DA /* Get2ItTests.swift */,
+				CC4F5DC0247F4C90005693DA /* Info.plist */,
+			);
+			path = Get2ItTests;
+			sourceTree = "<group>";
+		};
 		CC6C2FC9242FBC5D00401937 = {
 			isa = PBXGroup;
 			children = (
 				CC6C2FD4242FBC5D00401937 /* Get2It */,
+				CC4F5DAF247F4C6B005693DA /* Get2ItUITests */,
+				CC4F5DBD247F4C90005693DA /* Get2ItTests */,
 				CC6C2FD3242FBC5D00401937 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -142,6 +201,8 @@
 			isa = PBXGroup;
 			children = (
 				CC6C2FD2242FBC5D00401937 /* Get2It.app */,
+				CC4F5DAE247F4C6B005693DA /* Get2ItUITests.xctest */,
+				CC4F5DBC247F4C90005693DA /* Get2ItTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -252,6 +313,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CC4F5DAD247F4C6B005693DA /* Get2ItUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC4F5DB7247F4C6B005693DA /* Build configuration list for PBXNativeTarget "Get2ItUITests" */;
+			buildPhases = (
+				CC4F5DAA247F4C6B005693DA /* Sources */,
+				CC4F5DAB247F4C6B005693DA /* Frameworks */,
+				CC4F5DAC247F4C6B005693DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC4F5DB4247F4C6B005693DA /* PBXTargetDependency */,
+			);
+			name = Get2ItUITests;
+			productName = Get2ItUITests;
+			productReference = CC4F5DAE247F4C6B005693DA /* Get2ItUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		CC4F5DBB247F4C90005693DA /* Get2ItTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC4F5DC3247F4C90005693DA /* Build configuration list for PBXNativeTarget "Get2ItTests" */;
+			buildPhases = (
+				CC4F5DB8247F4C90005693DA /* Sources */,
+				CC4F5DB9247F4C90005693DA /* Frameworks */,
+				CC4F5DBA247F4C90005693DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC4F5DC2247F4C90005693DA /* PBXTargetDependency */,
+			);
+			name = Get2ItTests;
+			productName = Get2ItTests;
+			productReference = CC4F5DBC247F4C90005693DA /* Get2ItTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CC6C2FD1242FBC5D00401937 /* Get2It */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CC6C2FE6242FBC6000401937 /* Build configuration list for PBXNativeTarget "Get2It" */;
@@ -275,10 +372,18 @@
 		CC6C2FCA242FBC5D00401937 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "John Kouris";
 				TargetAttributes = {
+					CC4F5DAD247F4C6B005693DA = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = CC6C2FD1242FBC5D00401937;
+					};
+					CC4F5DBB247F4C90005693DA = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = CC6C2FD1242FBC5D00401937;
+					};
 					CC6C2FD1242FBC5D00401937 = {
 						CreatedOnToolsVersion = 11.4;
 					};
@@ -298,11 +403,27 @@
 			projectRoot = "";
 			targets = (
 				CC6C2FD1242FBC5D00401937 /* Get2It */,
+				CC4F5DAD247F4C6B005693DA /* Get2ItUITests */,
+				CC4F5DBB247F4C90005693DA /* Get2ItTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CC4F5DAC247F4C6B005693DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC4F5DBA247F4C90005693DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CC6C2FD0242FBC5D00401937 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -315,6 +436,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CC4F5DAA247F4C6B005693DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4F5DB1247F4C6B005693DA /* Get2ItUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC4F5DB8247F4C90005693DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4F5DBF247F4C90005693DA /* Get2ItTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CC6C2FCE242FBC5D00401937 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -354,6 +491,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		CC4F5DB4247F4C6B005693DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC6C2FD1242FBC5D00401937 /* Get2It */;
+			targetProxy = CC4F5DB3247F4C6B005693DA /* PBXContainerItemProxy */;
+		};
+		CC4F5DC2247F4C90005693DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC6C2FD1242FBC5D00401937 /* Get2It */;
+			targetProxy = CC4F5DC1247F4C90005693DA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		CC6C2FE0242FBC6000401937 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -366,6 +516,88 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CC4F5DB5247F4C6B005693DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SE96QQ4Q6G;
+				INFOPLIST_FILE = Get2ItUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JohnKouris.Get2ItUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Get2It;
+			};
+			name = Debug;
+		};
+		CC4F5DB6247F4C6B005693DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SE96QQ4Q6G;
+				INFOPLIST_FILE = Get2ItUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JohnKouris.Get2ItUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Get2It;
+			};
+			name = Release;
+		};
+		CC4F5DC4247F4C90005693DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SE96QQ4Q6G;
+				INFOPLIST_FILE = Get2ItTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JohnKouris.Get2ItTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Get2It.app/Get2It";
+			};
+			name = Debug;
+		};
+		CC4F5DC5247F4C90005693DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SE96QQ4Q6G;
+				INFOPLIST_FILE = Get2ItTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.JohnKouris.Get2ItTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Get2It.app/Get2It";
+			};
+			name = Release;
+		};
 		CC6C2FE4242FBC6000401937 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -521,6 +753,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CC4F5DB7247F4C6B005693DA /* Build configuration list for PBXNativeTarget "Get2ItUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC4F5DB5247F4C6B005693DA /* Debug */,
+				CC4F5DB6247F4C6B005693DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC4F5DC3247F4C90005693DA /* Build configuration list for PBXNativeTarget "Get2ItTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC4F5DC4247F4C90005693DA /* Debug */,
+				CC4F5DC5247F4C90005693DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CC6C2FCD242FBC5D00401937 /* Build configuration list for PBXProject "Get2It" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
