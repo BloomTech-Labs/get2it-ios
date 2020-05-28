@@ -15,6 +15,7 @@ extension Task {
         .init(
             taskId: Int(taskId),
             userId: Int(userId),
+            categoriesId: Int(categoriesId),
             name: name ?? "",
             status: status,
             date: date ?? Date(),
@@ -33,6 +34,7 @@ extension Task {
         self.init(context: context)
         self.taskId = Int64(taskRepresentation.taskId ?? 0)
         self.userId = Int64(taskRepresentation.userId ?? 0)
+        self.categoriesId = Int64(taskRepresentation.categoriesId ?? 0)
         self.name = taskRepresentation.name
         self.status = taskRepresentation.status ?? false
         self.date = taskRepresentation.date
@@ -48,6 +50,7 @@ extension Task {
     func applyChanges(from taskRepresentation: TaskRepresentation) {
         self.taskId = Int64(taskRepresentation.taskId ?? 0)
         self.userId = Int64(taskRepresentation.userId ?? 0)
+        self.categoriesId = Int64(taskRepresentation.categoriesId ?? 0)
         self.name = taskRepresentation.name
         self.status = taskRepresentation.status ?? false
         self.date = taskRepresentation.date
