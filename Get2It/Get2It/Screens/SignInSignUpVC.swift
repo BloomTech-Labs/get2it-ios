@@ -128,10 +128,9 @@ class SignInSignUpVC: UIViewController {
                     }
                 } else {
                     DispatchQueue.main.async {
-                        // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
-                        let taskListNC = TaskListNC()
-                        taskListNC.modalPresentationStyle = .fullScreen
-                        self.navigationController?.present(taskListNC, animated: true, completion: nil)
+                        let homeNC = HomeNC()
+                        homeNC.modalPresentationStyle = .fullScreen
+                        self.navigationController?.present(homeNC, animated: true, completion: nil)
                         
                         self.emailTextField.text = ""
                         self.passwordTextField.text = ""
@@ -195,9 +194,9 @@ class SignInSignUpVC: UIViewController {
             } else {
                 DispatchQueue.main.async {
                     // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
-                    let taskListNC = TaskListNC()
-                    taskListNC.modalPresentationStyle = .fullScreen
-                    self?.navigationController?.present(taskListNC, animated: true, completion: nil)
+                    let homeNC = HomeNC()
+                    homeNC.modalPresentationStyle = .fullScreen
+                    self?.navigationController?.present(homeNC, animated: true, completion: nil)
                     
                     self?.displayNameTextField.text = ""
                     self?.emailTextField.text = ""
@@ -233,15 +232,15 @@ extension SignInSignUpVC: UITextFieldDelegate {
 }
 
 // MARK: - REMOVE THIS ONCE LISTS WORK
-class TaskListNC: UINavigationController {
+class HomeNC: UINavigationController {
     let userController = UserController.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let taskListVC = TaskListVC()
+        let homeVC = HomeVC()
         let displayName = userController.authenticatedUser?.displayName ?? ""
-        taskListVC.title = "Welcome \(displayName)!"
-        viewControllers = [taskListVC]
+        homeVC.title = "Welcome \(displayName)!"
+        viewControllers = [homeVC]
         
         navigationController?.navigationBar.prefersLargeTitles = true
     }
