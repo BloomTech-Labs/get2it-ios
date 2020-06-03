@@ -46,8 +46,9 @@
 		E38384D8244F8F080019263C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384D7244F8F080019263C /* APIClient.swift */; };
 		E38384DA2453BF270019263C /* EditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384D92453BF270019263C /* EditTaskVC.swift */; };
 		E38384DC245793DE0019263C /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384DB245793DE0019263C /* DateFormatter+Extensions.swift */; };
-		E39845B7248EC7D60052E0F1 /* SectionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845B6248EC7D60052E0F1 /* SectionHeaderReusableView.swift */; };
-		E39845B9248F0A390052E0F1 /* HomeCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845B8248F0A390052E0F1 /* HomeCategoryCell.swift */; };
+		E39845A82478A8C70052E0F1 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845A72478A8C70052E0F1 /* NotificationScheduler.swift */; };
+		E39845AA2478AEC10052E0F1 /* UITextField+ Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845A92478AEC10052E0F1 /* UITextField+ Ext.swift */; };
+		E39845AC2478AF6A0052E0F1 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845AB2478AF6A0052E0F1 /* UIAlertController+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,9 @@
 		E38384DB245793DE0019263C /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		E39845B6248EC7D60052E0F1 /* SectionHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderReusableView.swift; sourceTree = "<group>"; };
 		E39845B8248F0A390052E0F1 /* HomeCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCell.swift; sourceTree = "<group>"; };
+		E39845A72478A8C70052E0F1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		E39845A92478AEC10052E0F1 /* UITextField+ Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+ Ext.swift"; sourceTree = "<group>"; };
+		E39845AB2478AF6A0052E0F1 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +168,8 @@
 			children = (
 				CC3356F2244B65CC009718B5 /* UIView+Ext.swift */,
 				E38384DB245793DE0019263C /* DateFormatter+Extensions.swift */,
+				E39845A92478AEC10052E0F1 /* UITextField+ Ext.swift */,
+				E39845AB2478AF6A0052E0F1 /* UIAlertController+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -180,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				CC433254243800D90099023F /* UIHelper.swift */,
+				E39845A72478A8C70052E0F1 /* NotificationScheduler.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -483,6 +490,7 @@
 				E38384DA2453BF270019263C /* EditTaskVC.swift in Sources */,
 				E326D8F9244CC17100A84BBF /* Task.xcdatamodeld in Sources */,
 				CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */,
+				E39845A82478A8C70052E0F1 /* NotificationScheduler.swift in Sources */,
 				CC3356F6244B6C48009718B5 /* GTButton.swift in Sources */,
 				CC6C2FED242FC65E00401937 /* GTTabBarController.swift in Sources */,
 				E33F8DB22461150A0032C7B5 /* GridDisplay.swift in Sources */,
@@ -500,6 +508,7 @@
 				E3648CA12431886B00D4A8E3 /* TaskListVC.swift in Sources */,
 				E3648CAB2435797300D4A8E3 /* TaskInfoCell.swift in Sources */,
 				E326D8F6244BDB1E00A84BBF /* TaskRepresentation.swift in Sources */,
+				E39845AA2478AEC10052E0F1 /* UITextField+ Ext.swift in Sources */,
 				E3648CAD24380F7C00D4A8E3 /* TaskPickerCell.swift in Sources */,
 				E3648CA92435705700D4A8E3 /* AddTaskVC.swift in Sources */,
 				E326D8FD244CFE4400A84BBF /* Task+Convenience.swift in Sources */,
@@ -516,6 +525,7 @@
 				CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */,
 				E38384D6244F8EE90019263C /* TaskController.swift in Sources */,
 				E3648CAF243E27E600D4A8E3 /* TaskListCell.swift in Sources */,
+				E39845AC2478AF6A0052E0F1 /* UIAlertController+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

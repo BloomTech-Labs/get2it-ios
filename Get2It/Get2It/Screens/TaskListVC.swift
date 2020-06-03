@@ -82,13 +82,8 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] (granted, error) in
-            guard let self = self else { return }
-            if granted {
-                self.center.delegate = self
-            }
-            
-        }
+        center.delegate = self
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in }
     }
     
     func updateSnapshots() {
@@ -336,10 +331,12 @@ extension TaskListVC: UISearchResultsUpdating {
 // MARK: - UNUserNotificationCenterDelagate
 
 extension TaskListVC: UNUserNotificationCenterDelegate {
-//  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-//
-//    refreshNotificationList()
-//
-//    completionHandler([.alert, .sound, .badge])
-//  }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound, .badge])
+    }
 }

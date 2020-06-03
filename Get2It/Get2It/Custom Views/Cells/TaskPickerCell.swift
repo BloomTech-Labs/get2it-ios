@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol TaskPickerCellDelegate: AnyObject {
+    func didUpdate(date: Date, for cellType: TaskPickerCell.CellType?)
+}
+
 class TaskPickerCell: UITableViewCell {
     static let reuseIdentifier = "TaskPickerCell"
+    
+    weak var delegate: TaskPickerCellDelegate?
     
     enum CellType {
         case taskDate
@@ -146,7 +152,9 @@ class TaskPickerCell: UITableViewCell {
     @objc func dismissKeyboard() {
         self.textField.endEditing(true)
         
-        selectedDate = datePicker.date
+        let date = datePicker.date
+        selectedDate = date
+        self.delegate?.didUpdate(date: date, for: self.cellType)
         
         let dateString = dateFormatter.string(from: datePicker.date)
         
