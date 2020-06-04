@@ -24,6 +24,7 @@
 		CC6C2FE2242FBC6000401937 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC6C2FE0242FBC6000401937 /* LaunchScreen.storyboard */; };
 		CC6C2FED242FC65E00401937 /* GTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FEC242FC65E00401937 /* GTTabBarController.swift */; };
 		CC6C2FF0242FCB4C00401937 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FEF242FCB4C00401937 /* HomeVC.swift */; };
+		CC7769E824888FBB005145E6 /* TimerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7769E724888FBB005145E6 /* TimerVC.swift */; };
 		E326D8F6244BDB1E00A84BBF /* TaskRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E326D8F5244BDB1E00A84BBF /* TaskRepresentation.swift */; };
 		E326D8F9244CC17100A84BBF /* Task.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E326D8F7244CC17100A84BBF /* Task.xcdatamodeld */; };
 		E326D8FB244CC38800A84BBF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E326D8FA244CC38800A84BBF /* CoreDataStack.swift */; };
@@ -84,6 +85,7 @@
 		CC6C2FE3242FBC6000401937 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC6C2FEC242FC65E00401937 /* GTTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTTabBarController.swift; sourceTree = "<group>"; };
 		CC6C2FEF242FCB4C00401937 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		CC7769E724888FBB005145E6 /* TimerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerVC.swift; sourceTree = "<group>"; };
 		E326D8F5244BDB1E00A84BBF /* TaskRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepresentation.swift; sourceTree = "<group>"; };
 		E326D8F8244CC17100A84BBF /* Task.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task.xcdatamodel; sourceTree = "<group>"; };
 		E326D8FA244CC38800A84BBF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 			children = (
 				CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */,
 				CC6C2FEF242FCB4C00401937 /* HomeVC.swift */,
+				CC7769E724888FBB005145E6 /* TimerVC.swift */,
 				E3648CA02431886B00D4A8E3 /* TaskListVC.swift */,
 				E3648CA82435705700D4A8E3 /* AddTaskVC.swift */,
 				E38384D92453BF270019263C /* EditTaskVC.swift */,
@@ -483,6 +486,7 @@
 				CC3356F3244B65CC009718B5 /* UIView+Ext.swift in Sources */,
 				CC3356F8244E9825009718B5 /* User.swift in Sources */,
 				CC3356EA244B613A009718B5 /* SignInSignUpVC.swift in Sources */,
+				CC7769E824888FBB005145E6 /* TimerVC.swift in Sources */,
 				CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */,
 				E38384D6244F8EE90019263C /* TaskController.swift in Sources */,
 				E3648CAF243E27E600D4A8E3 /* TaskListCell.swift in Sources */,

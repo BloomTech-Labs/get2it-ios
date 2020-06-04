@@ -14,7 +14,7 @@ class GTTabBarController: UITabBarController {
         super.viewDidLoad()
         
         UITabBar.appearance().tintColor = .systemBlue
-        viewControllers = [createHomeNC()]
+        viewControllers = [createHomeNC(), createTimerNC()]
     }
     
     func createHomeNC() -> UINavigationController {
@@ -23,6 +23,14 @@ class GTTabBarController: UITabBarController {
         homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
         
         return UINavigationController(rootViewController: homeVC)
+    }
+    
+    func createTimerNC() -> UINavigationController {
+        let timerVC = TimerVC()
+        timerVC.title = "Timer"
+        timerVC.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 1)
+        
+        return UINavigationController(rootViewController: timerVC)
     }
     
 }

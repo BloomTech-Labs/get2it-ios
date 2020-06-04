@@ -128,9 +128,9 @@ class SignInSignUpVC: UIViewController {
                     }
                 } else {
                     DispatchQueue.main.async {
-                        let homeNC = HomeNC()
-                        homeNC.modalPresentationStyle = .fullScreen
-                        self.navigationController?.present(homeNC, animated: true, completion: nil)
+                        let tabBarNC = GTTabBarController()
+                        tabBarNC.modalPresentationStyle = .fullScreen
+                        self.navigationController?.present(tabBarNC, animated: true, completion: nil)
                         
                         self.emailTextField.text = ""
                         self.passwordTextField.text = ""
