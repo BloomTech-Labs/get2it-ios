@@ -20,15 +20,14 @@ class GTTabBarController: UITabBarController {
     func createHomeNC() -> UINavigationController {
         let homeVC = HomeVC()
         homeVC.title = "Home"
-        homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
+        homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
         
         return UINavigationController(rootViewController: homeVC)
     }
     
     func createTimerNC() -> UINavigationController {
         let timerVC = TimerVC()
-        timerVC.title = "Timer"
-        timerVC.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 1)
+        timerVC.tabBarItem = UITabBarItem(title: "Timer", image: UIImage(systemName: "timer"), tag: 1)
         
         return UINavigationController(rootViewController: timerVC)
     }
