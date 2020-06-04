@@ -234,15 +234,13 @@ extension SignInSignUpVC: UITextFieldDelegate {
 // MARK: - REMOVE THIS ONCE LISTS WORK
 class HomeNC: UINavigationController {
     let userController = UserController.shared
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    init() {
         let homeVC = HomeVC()
-        let displayName = userController.authenticatedUser?.displayName ?? ""
-        homeVC.title = "Welcome \(displayName)!"
-        viewControllers = [homeVC]
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
+        super.init(rootViewController: homeVC)
     }
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
