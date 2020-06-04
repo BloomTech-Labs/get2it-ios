@@ -9,6 +9,8 @@
 import UIKit
 
 class HomeListCell: UICollectionViewCell {
+    /// TODO: - Add once we create TaskCategory
+//    var category: TaskCategory?
     static let reuseIdentifier = "HomeListCell"
     let label = UILabel()
     let accessoryImageView = UIImageView()
@@ -24,6 +26,13 @@ class HomeListCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("Not implemented")
     }
+    
+    /// TODO: - Implement once we create TaskCategory
+//    func configure(with category: TaskCategory?) {
+//        self.taskCategory = taskCategory
+//
+//        self.label.text = "\(taskCategory.name)"
+//    }
     
     private func configureViews() {
         contentView.addSubviews(seperatorView, label, accessoryImageView, iconImageView)

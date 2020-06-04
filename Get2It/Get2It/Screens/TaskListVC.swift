@@ -30,7 +30,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     // TODO: - CHANGE THIS BACK TO AN OPTIONAL ONCE LISTS ARE IMPLEMENTED
-    let taskController = TaskController()
+    var taskController: TaskController!
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
