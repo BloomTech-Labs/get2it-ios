@@ -22,9 +22,6 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         configureHierarchy()
         configureDataSource()
         configureViewController()
-        
-//        navigationItem.largeTitleDisplayMode = .always
-//        navigationItem.largeTitleDisplayMode = .never
     }
     
     func configureHierarchy() {
