@@ -25,6 +25,7 @@
 		CC6C2FED242FC65E00401937 /* GTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FEC242FC65E00401937 /* GTTabBarController.swift */; };
 		CC6C2FF0242FCB4C00401937 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C2FEF242FCB4C00401937 /* HomeVC.swift */; };
 		CC7769E824888FBB005145E6 /* TimerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7769E724888FBB005145E6 /* TimerVC.swift */; };
+		CCD4D43C2489CC5E00E352AE /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD4D43B2489CC5E00E352AE /* Countdown.swift */; };
 		E326D8F6244BDB1E00A84BBF /* TaskRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E326D8F5244BDB1E00A84BBF /* TaskRepresentation.swift */; };
 		E326D8F9244CC17100A84BBF /* Task.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E326D8F7244CC17100A84BBF /* Task.xcdatamodeld */; };
 		E326D8FB244CC38800A84BBF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E326D8FA244CC38800A84BBF /* CoreDataStack.swift */; };
@@ -86,6 +87,7 @@
 		CC6C2FEC242FC65E00401937 /* GTTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTTabBarController.swift; sourceTree = "<group>"; };
 		CC6C2FEF242FCB4C00401937 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		CC7769E724888FBB005145E6 /* TimerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerVC.swift; sourceTree = "<group>"; };
+		CCD4D43B2489CC5E00E352AE /* Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countdown.swift; sourceTree = "<group>"; };
 		E326D8F5244BDB1E00A84BBF /* TaskRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepresentation.swift; sourceTree = "<group>"; };
 		E326D8F8244CC17100A84BBF /* Task.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task.xcdatamodel; sourceTree = "<group>"; };
 		E326D8FA244CC38800A84BBF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				E326D8FC244CFE4400A84BBF /* Task+Convenience.swift */,
 				CC3356F7244E9825009718B5 /* User.swift */,
 				E33F8DB12461150A0032C7B5 /* GridDisplay.swift */,
+				CCD4D43B2489CC5E00E352AE /* Countdown.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */,
 				E3648CA62432BC1900D4A8E3 /* HomeListCell.swift in Sources */,
 				CC4332522437F7F80099023F /* HeaderCell.swift in Sources */,
+				CCD4D43C2489CC5E00E352AE /* Countdown.swift in Sources */,
 				CC433255243800D90099023F /* UIHelper.swift in Sources */,
 				E38384D8244F8F080019263C /* APIClient.swift in Sources */,
 				CC6C2FD8242FBC5D00401937 /* SceneDelegate.swift in Sources */,
