@@ -9,41 +9,36 @@
 import UIKit
 
 class HomeVC: UIViewController, UICollectionViewDelegate {
-//    enum ListModel: Hashable {
-//        case header
-//        case summary
-//        case list
-//        case category
-//    }
-//
-//    enum SectionLayouKind: Int, CaseIterable {
-//        case header, summary, list, category
-//
-//        var columnCount: Int {
-//            switch self {
-//            case .header:
-//                return 1
-//            case .summary:
-//                return 2
-//            case .list:
-//                return 1
-//            case .category:
-//                return 1
-//            }
-//        }
-//    }
+    enum ListModel: Hashable {
+        case header
+        case grid(GridDisplay)
+        case list(name: String)
+        case category(name: String)
+    }
+
+    enum SectionLayoutKind: Int, CaseIterable {
+        case header, grid, list, category
+
+        var columnCount: Int {
+            switch self {
+            case .header:
+                return 1
+            case .grid:
+                return 2
+            case .list:
+                return 1
+            case .category:
+                return 1
+            }
+        }
+    }
     
     let taskController = TaskController()
-    var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
+    var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     var collectionView: UICollectionView! = nil
-    
-    var lists: [String] = ["Today", "Tomorrow", "Someday"]
-    var lists2: [String] = ["Personal", "Work"]
-    
-//    private lazy var collectionView: UICollectionView = {
-//        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
-//
-//    }
+
+//    var lists: [String] = ["Today", "Tomorrow", "Someday", "Past"]
+//    var categories: [String] = ["Personal", "Work"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,17 +62,18 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     }
     
     func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<SectionLayoutKind, Int>(collectionView: collectionView) {
-            (collectionView:UICollectionView, indexPath: IndexPath, identifier: Int) -> UICollectionViewCell? in
+        dataSource = UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>(collectionView: collectionView) {
+            (collectionView:UICollectionView, indexPath: IndexPath, model: ListModel) -> UICollectionViewCell? in
             
             let section = SectionLayoutKind(rawValue: indexPath.section)!
             
             if section == .list {
                 // Get a cell of the desired kind
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListCell.reuseIdentifier, for: indexPath) as? HomeListCell {
-                    
-                    cell.label.text = self.lists[indexPath.row]
-                    
+                    if case .list(let name) = model {
+                        cell.label.text = name
+                    }
+
                     return cell
                 } else {
                     fatalError("Can't create new cell")
@@ -96,12 +92,13 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
                 } else {
                     fatalError("Can't create new cell")
                 }
-            } else if section == .list2 {
+            } else if section == .category {
                 // Get a cell of the desired kind
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListCell.reuseIdentifier, for: indexPath) as? HomeListCell {
-                    print(indexPath.row)
-                     cell.label.text = self.lists2[indexPath.row]
-                    
+                    if case .category(let name) = model {
+                        cell.label.text = name
+                    }
+
                     return cell
                 } else {
                     fatalError("Can't create new cell")
@@ -123,12 +120,18 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         }
         
         // Initial data
-        var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, Int>()
-        snapshot.appendSections([.header, .grid, .list, .list2])
-        snapshot.appendItems([1], toSection: .header)
-        snapshot.appendItems([2, 3], toSection: .grid)
-        snapshot.appendItems([4, 5, 6], toSection: .list)
-        snapshot.appendItems([7, 8], toSection: .list2)
+        var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ListModel>()
+        snapshot.appendSections([.header, .grid, .list, .category])
+        snapshot.appendItems([.header], toSection: .header)
+        
+        let gridItems: [ListModel] = [.grid(.tasks()), .grid(.completedTasks())]
+        snapshot.appendItems(gridItems, toSection: .grid)
+        
+        let listItems: [ListModel] = [.list(name: "Today"), .list(name: "Tomorrow"), .list(name: "Someday"), .list(name: "Past")]
+        snapshot.appendItems(listItems, toSection: .list)
+        
+        let categoryItems: [ListModel] = [.category(name: "Personal")]
+        snapshot.appendItems(categoryItems, toSection: .category)
         
         dataSource.apply(snapshot, animatingDifferences: false)
     }
@@ -141,6 +144,8 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         taskListVC.title = "Task List"
         navigationController?.pushViewController(taskListVC, animated: true)
     }
+    
+    
 }
 
 extension HomeVC {
