@@ -9,11 +9,41 @@
 import UIKit
 
 class HomeVC: UIViewController, UICollectionViewDelegate {
+//    enum ListModel: Hashable {
+//        case header
+//        case summary
+//        case list
+//        case category
+//    }
+//
+//    enum SectionLayouKind: Int, CaseIterable {
+//        case header, summary, list, category
+//
+//        var columnCount: Int {
+//            switch self {
+//            case .header:
+//                return 1
+//            case .summary:
+//                return 2
+//            case .list:
+//                return 1
+//            case .category:
+//                return 1
+//            }
+//        }
+//    }
+    
     let taskController = TaskController()
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, Int>! = nil
     var collectionView: UICollectionView! = nil
     
     var lists: [String] = ["Today", "Tomorrow", "Someday"]
+    var lists2: [String] = ["Personal", "Work"]
+    
+//    private lazy var collectionView: UICollectionView = {
+//        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
+//
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +60,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         collectionView.backgroundColor = .systemBackground
         collectionView.register(HeaderCell.self, forCellWithReuseIdentifier: HeaderCell.reuseIdentifier)
         collectionView.register(SummaryCell.self, forCellWithReuseIdentifier: SummaryCell.reuseIdentifier)
+        collectionView.register(HomeListCell.self, forCellWithReuseIdentifier: HomeListCell.reuseIdentifier)
         collectionView.register(HomeListCell.self, forCellWithReuseIdentifier: HomeListCell.reuseIdentifier)
         view.addSubview(collectionView)
         collectionView.delegate = self
@@ -65,6 +96,16 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
                 } else {
                     fatalError("Can't create new cell")
                 }
+            } else if section == .list2 {
+                // Get a cell of the desired kind
+                if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListCell.reuseIdentifier, for: indexPath) as? HomeListCell {
+                    print(indexPath.row)
+                     cell.label.text = self.lists2[indexPath.row]
+                    
+                    return cell
+                } else {
+                    fatalError("Can't create new cell")
+                }
             } else {
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeaderCell.reuseIdentifier, for: indexPath) as? HeaderCell {
                     
@@ -83,10 +124,11 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         
         // Initial data
         var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, Int>()
-        snapshot.appendSections([.header, .grid, .list])
+        snapshot.appendSections([.header, .grid, .list, .list2])
         snapshot.appendItems([1], toSection: .header)
         snapshot.appendItems([2, 3], toSection: .grid)
         snapshot.appendItems([4, 5, 6], toSection: .list)
+        snapshot.appendItems([7, 8], toSection: .list2)
         
         dataSource.apply(snapshot, animatingDifferences: false)
     }

@@ -9,7 +9,7 @@
 import UIKit
 
 enum SectionLayoutKind: Int, CaseIterable {
-    case header, grid, list
+    case header, grid, list, list2
     
     var columnCount: Int {
         switch self {
@@ -18,6 +18,8 @@ enum SectionLayoutKind: Int, CaseIterable {
         case .grid:
             return 2
         case .list:
+            return 1
+        case .list2:
             return 1
         }
     }
@@ -65,6 +67,18 @@ enum UIHelper {
                 let section = NSCollectionLayoutSection(group: group)
                 
                 section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20)
+                
+                return section
+                
+            case .list2:
+                let size = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(40))
+                let item = NSCollectionLayoutItem(layoutSize: size)
+                item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(8), trailing: nil, bottom: .fixed(8))
+                
+                let group = NSCollectionLayoutGroup.vertical(layoutSize: size, subitems: [item])
+                let section = NSCollectionLayoutSection(group: group)
+                
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
                 
                 return section
             }
