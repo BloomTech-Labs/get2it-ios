@@ -14,6 +14,16 @@ class SectionHeaderReusableView: UICollectionReusableView {
         return String(describing: SectionHeaderReusableView.self)
     }
     
+    private lazy var stackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        view.isLayoutMarginsRelativeArrangement = true
+        view.spacing = 8
+        return view
+    }()
+    
     // Setup the title label’s style
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -29,6 +39,18 @@ class SectionHeaderReusableView: UICollectionReusableView {
             .defaultHigh,
             for: .horizontal)
         return label
+    }()
+    
+    lazy var addButton: UIButton = {
+        let largeSize = UIImage.SymbolConfiguration(weight: .bold)
+        let image = UIImage(systemName: "plus", withConfiguration: largeSize)
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        // TODO: For adding a category
+        //        button.addTarget(self, action: #selector(addPressed), for: .primaryActionTriggered)
+        
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -49,5 +71,10 @@ class SectionHeaderReusableView: UICollectionReusableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupStackView() {
+        addSubview(stackView)
+        
     }
 }
