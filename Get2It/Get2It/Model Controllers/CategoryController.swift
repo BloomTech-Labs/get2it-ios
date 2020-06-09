@@ -121,4 +121,29 @@ class CategoryController {
             }
         }
     }
+    
+    func saveCategoryInCoreData(for representation: CategoryRepresentation) {
+        let context = CoreDataStack.shared.container.newBackgroundContext()
+        context.perform {
+            Category(representation, context: context)
+            CoreDataStack.shared.save(context: context)
+        }
+    }
+}
+
+extension CategoryController {
+    static func clearData() {
+        let context = CoreDataStack.shared.container.newBackgroundContext()
+        context.perform {
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Category.fetchRequest()
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            
+            do {
+                try context.execute(deleteRequest)
+                CoreDataStack.shared.save(context: context)
+            } catch {
+                print("Error deleting core data")
+            }
+        }
+    }
 }
