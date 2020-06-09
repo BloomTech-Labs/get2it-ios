@@ -9,7 +9,7 @@
 import UIKit
 
 enum SectionLayoutKind: Int, CaseIterable {
-    case header, grid, list, list2
+    case header, grid, list, category
     
     var columnCount: Int {
         switch self {
@@ -19,19 +19,31 @@ enum SectionLayoutKind: Int, CaseIterable {
             return 2
         case .list:
             return 1
-        case .list2:
+        case .category:
             return 1
         }
     }
 }
 
 enum UIHelper {
-    static func createHomeLayout() -> UICollectionViewLayout {
+    static func createHomeLayout() -> UICollectionViewLayout {        
         let layout = UICollectionViewCompositionalLayout {
             (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             guard let sectionLayoutKind = SectionLayoutKind(rawValue: sectionIndex) else { return nil }
             
             switch sectionLayoutKind {
+            case .header:
+                let size = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(40))
+                let item = NSCollectionLayoutItem(layoutSize: size)
+                item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(8), trailing: nil, bottom: .fixed(8))
+                
+                let group = NSCollectionLayoutGroup.vertical(layoutSize: size, subitems: [item])
+                let section = NSCollectionLayoutSection(group: group)
+                
+                section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20)
+                
+                return section
+                
             case .grid:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -54,11 +66,16 @@ enum UIHelper {
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: size, subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
                 
+                // for header section
+                let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(20))
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+                section.boundarySupplementaryItems = [sectionHeader]
+                
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
                 
                 return section
                 
-            case .header:
+            case .category:
                 let size = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(40))
                 let item = NSCollectionLayoutItem(layoutSize: size)
                 item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(8), trailing: nil, bottom: .fixed(8))
@@ -66,17 +83,10 @@ enum UIHelper {
                 let group = NSCollectionLayoutGroup.vertical(layoutSize: size, subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
                 
-                section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20)
-                
-                return section
-                
-            case .list2:
-                let size = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(40))
-                let item = NSCollectionLayoutItem(layoutSize: size)
-                item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: .fixed(8), trailing: nil, bottom: .fixed(8))
-                
-                let group = NSCollectionLayoutGroup.vertical(layoutSize: size, subitems: [item])
-                let section = NSCollectionLayoutSection(group: group)
+                // for header section
+                let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(20))
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+                section.boundarySupplementaryItems = [sectionHeader]
                 
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
                 

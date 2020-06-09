@@ -36,9 +36,6 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     let taskController = TaskController()
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     var collectionView: UICollectionView! = nil
-
-//    var lists: [String] = ["Today", "Tomorrow", "Someday", "Past"]
-//    var categories: [String] = ["Personal", "Work"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +53,8 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         collectionView.register(HeaderCell.self, forCellWithReuseIdentifier: HeaderCell.reuseIdentifier)
         collectionView.register(SummaryCell.self, forCellWithReuseIdentifier: SummaryCell.reuseIdentifier)
         collectionView.register(HomeListCell.self, forCellWithReuseIdentifier: HomeListCell.reuseIdentifier)
-        collectionView.register(HomeListCell.self, forCellWithReuseIdentifier: HomeListCell.reuseIdentifier)
+        collectionView.register(HomeCategoryCell.self, forCellWithReuseIdentifier: HomeCategoryCell.reuseIdentifier)
+        collectionView.register(SectionHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderReusableView.reuseIdentifier)
         view.addSubview(collectionView)
         collectionView.delegate = self
     }
@@ -119,6 +117,22 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             }
         }
         
+        // Get an instance of the section for the supplementary view
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            // Ensure the supplementary view provider asks for a header
+            guard kind == UICollectionView.elementKindSectionHeader else {
+                return nil
+            }
+            
+            // Dequeue a new header view
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderReusableView.reuseIdentifier, for: indexPath)  as? SectionHeaderReusableView
+            
+            // Retrieve the section from the data source, then set the titleLabel‘s text value to the section‘s title
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            view?.titleLabel.text = section.title
+            return view
+        }
+        
         // Initial data
         var snapshot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ListModel>()
         snapshot.appendSections([.header, .grid, .list, .category])
@@ -140,12 +154,10 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         guard let _ = dataSource.itemIdentifier(for: indexPath) else { return }
         // TODO: - Add an initialzer that will accept a list and populate the taskVC with the tasks from that list
         let taskListVC = TaskListVC()
-//        taskListVC.taskController = taskController
+        //taskListVC.taskController = taskController
         taskListVC.title = "Task List"
         navigationController?.pushViewController(taskListVC, animated: true)
     }
-    
-    
 }
 
 extension HomeVC {
@@ -174,5 +186,18 @@ extension HomeVC {
     @objc func signOutTapped() {
         UserController.shared.signOut()
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension HomeVC.SectionLayoutKind {
+    var title: String? {
+        switch self {
+        case .list:
+            return "Tasks"
+        case . category:
+            return "Categories"
+        default:
+            return nil
+        }
     }
 }
