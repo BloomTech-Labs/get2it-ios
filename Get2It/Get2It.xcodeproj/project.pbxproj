@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC20DD02248F27A000AD9A03 /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC20DD01248F27A000AD9A03 /* CategoryController.swift */; };
 		CC3356EA244B613A009718B5 /* SignInSignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */; };
 		CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */; };
 		CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3356EF244B649A009718B5 /* GTTextField.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CC20DD01248F27A000AD9A03 /* CategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryController.swift; sourceTree = "<group>"; };
 		CC3356E9244B613A009718B5 /* SignInSignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpVC.swift; sourceTree = "<group>"; };
 		CC3356EC244B6228009718B5 /* SignInSignUpNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInSignUpNC.swift; sourceTree = "<group>"; };
 		CC3356EF244B649A009718B5 /* GTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTTextField.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				E38384D5244F8EE90019263C /* TaskController.swift */,
+				CC20DD01248F27A000AD9A03 /* CategoryController.swift */,
 				CC33573B24513038009718B5 /* UserController.swift */,
 				E38384D7244F8F080019263C /* APIClient.swift */,
 			);
@@ -507,6 +510,7 @@
 				CC7769E824888FBB005145E6 /* TimerVC.swift in Sources */,
 				E39845B7248EC7D60052E0F1 /* SectionHeaderReusableView.swift in Sources */,
 				E39845B9248F0A390052E0F1 /* HomeCategoryCell.swift in Sources */,
+				CC20DD02248F27A000AD9A03 /* CategoryController.swift in Sources */,
 				CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */,
 				E38384D6244F8EE90019263C /* TaskController.swift in Sources */,
 				E3648CAF243E27E600D4A8E3 /* TaskListCell.swift in Sources */,
