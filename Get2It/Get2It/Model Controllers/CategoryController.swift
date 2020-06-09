@@ -60,6 +60,36 @@ class CategoryController {
         }.resume()
     }
     
+    func createCategoryOnServer(categoryRepresentation: CategoryRepresentation, completion: @escaping (Result<CategoryRepresentation, NetworkError>) -> Void) {
+        guard let userId = userId else { return }
+        let requestURL = baseURL.appendingPathComponent("/categories/\(userId)/categories")
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(token, forHTTPHeaderField: "authorization")
+        
+        do {
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            encoder.outputFormatting = .prettyPrinted
+            let body = try encoder.encode(categoryRepresentation)
+            request.httpBody = body
+        } catch {
+            print("Error encoding category representation: \(error)")
+            completion(.failure(.otherError))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 201 {
+                completion(.success(categoryRepresentation))
+            } else {
+                completion(.failure(.otherError))
+            }
+        }.resume()
+    }
+    
     func updateCategoriesInCoreData(with representations: [CategoryRepresentation]) {
         let identifiersToFetch = representations.map { $0.categoriesId }
         let representationsById = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
