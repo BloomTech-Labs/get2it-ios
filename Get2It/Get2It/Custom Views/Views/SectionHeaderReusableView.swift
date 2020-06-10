@@ -53,20 +53,15 @@ class SectionHeaderReusableView: UICollectionReusableView {
         return button
     }()
     
+    var hideAddButton = false {
+        didSet {
+            addButton.isHidden = hideAddButton
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        // Add the title label to the header view and set up its Auto Layout constraints
-        backgroundColor = .systemBackground
-        addSubview(titleLabel)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(
-                equalTo: topAnchor,
-                constant: 10),
-            titleLabel.bottomAnchor.constraint(
-                equalTo: bottomAnchor,
-                constant: -10)
-        ])
+        setupStackView()
     }
     
     required init?(coder: NSCoder) {
@@ -76,5 +71,15 @@ class SectionHeaderReusableView: UICollectionReusableView {
     private func setupStackView() {
         addSubview(stackView)
         
+        NSLayoutConstraint.activate([
+            self.stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            self.stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            self.stackView.topAnchor.constraint(equalTo: topAnchor),
+            self.stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        
+        // Add the title label to the header view and set up its Auto Layout constraints
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(addButton)
     }
 }

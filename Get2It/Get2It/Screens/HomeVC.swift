@@ -130,6 +130,9 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             // Retrieve the section from the data source, then set the titleLabel‘s text value to the section‘s title
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
             view?.titleLabel.text = section.title
+            if section == .list {
+                view?.hideAddButton = true
+            }
             return view
         }
         
