@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SectionHeaderReusableViewDelegate: AnyObject {
+    func addCategoryPressed()
+}
+
 // This means the section header view can be reused just like the cells.
 class SectionHeaderReusableView: UICollectionReusableView {
     static var reuseIdentifier: String {
@@ -47,34 +51,44 @@ class SectionHeaderReusableView: UICollectionReusableView {
         let button = UIButton()
         button.setImage(image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        // TODO: For adding a category
-        //        button.addTarget(self, action: #selector(addPressed), for: .primaryActionTriggered)
+        button.addTarget(self, action: #selector(addPressed), for: .primaryActionTriggered)
         
         return button
     }()
     
+    weak var delegate: SectionHeaderReusableViewDelegate?
+    
+    var hideAddButton = false {
+        didSet {
+            addButton.isHidden = hideAddButton
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        // Add the title label to the header view and set up its Auto Layout constraints
-        backgroundColor = .systemBackground
-        addSubview(titleLabel)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(
-                equalTo: topAnchor,
-                constant: 10),
-            titleLabel.bottomAnchor.constraint(
-                equalTo: bottomAnchor,
-                constant: -10)
-        ])
+        setupStackView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func addPressed() {
+        delegate?.addCategoryPressed()
+    }
+    
     private func setupStackView() {
         addSubview(stackView)
         
+        NSLayoutConstraint.activate([
+            self.stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            self.stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            self.stackView.topAnchor.constraint(equalTo: topAnchor),
+            self.stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        
+        // Add the title label to the header view and set up its Auto Layout constraints
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(addButton)
     }
 }

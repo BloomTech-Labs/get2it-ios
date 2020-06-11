@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class HomeVC: UIViewController, UICollectionViewDelegate {
     enum ListModel: Hashable {
@@ -34,8 +35,21 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     }
     
     let taskController = TaskController()
+    let categoryController = CategoryController()
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     var collectionView: UICollectionView! = nil
+    
+    private lazy var fetchedCategoryController: NSFetchedResultsController<Category> = {
+        let fetchRequest:NSFetchRequest<Category> = Category.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "name", ascending: false)
+        ]
+        
+        let moc = CoreDataStack.shared.mainContext
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
+        return frc
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +58,15 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         configureHierarchy()
         configureDataSource()
         configureViewController()
+        
+        do {
+            try self.fetchedCategoryController.performFetch()
+            updateSnapshots()
+        } catch {
+            fatalError("frc crash")
+        }
+        
+        categoryController.fetchCategoriesFromServer()
     }
     
     func configureHierarchy() {
@@ -130,6 +153,11 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             // Retrieve the section from the data source, then set the titleLabel‘s text value to the section‘s title
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
             view?.titleLabel.text = section.title
+            if section == .list {
+                view?.hideAddButton = true
+            }
+            
+            view?.delegate = self
             return view
         }
         
@@ -148,6 +176,21 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         snapshot.appendItems(categoryItems, toSection: .category)
         
         dataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
+    func updateSnapshots() {
+        let categories = fetchedCategoryController.fetchedObjects ?? []
+        
+        var snapshot = dataSource.snapshot()
+        
+        var categoryItems: [ListModel] = [.category(name: "Personal")]
+        categoryItems.append(contentsOf: categories.map { ListModel.category(name: $0.name ?? "") })
+        
+        snapshot.deleteSections([.category])
+        snapshot.appendSections([.category])
+        snapshot.appendItems(categoryItems, toSection: .category)
+        
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -176,6 +219,39 @@ extension HomeVC {
         collectionView.alwaysBounceVertical = true
     }
     
+    private func addCategory() {
+        let alert = UIAlertController(title: "Add a New Category", message: "Custom your own category", preferredStyle: .alert)
+        
+        alert.addTextField { textField in
+            textField.placeholder = "Enter category name"
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { action in
+            let textField = alert.textFields![0] as UITextField
+            guard let stringTextField = textField.text else { return }
+            
+            let newCategory = CategoryRepresentation(name: stringTextField)
+            self.categoryController.createCategoryOnServer(categoryRepresentation: newCategory) { result in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let category):
+                    print(category)
+                }
+            }
+        }
+        
+        alert.addAction(saveAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+            print("Cancel")
+        }
+        
+        alert.addAction(cancelAction)
+
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc func addTaskButtonTapped() {
         let addTaskVC = AddTaskVC()
         addTaskVC.taskController = taskController
@@ -198,6 +274,20 @@ extension HomeVC.SectionLayoutKind {
             return "Categories"
         default:
             return nil
+        }
+    }
+}
+
+extension HomeVC: SectionHeaderReusableViewDelegate {
+    func addCategoryPressed() {
+        addCategory()
+    }
+}
+
+extension HomeVC: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        if controller == self.fetchedCategoryController {
+            self.updateSnapshots()
         }
     }
 }
