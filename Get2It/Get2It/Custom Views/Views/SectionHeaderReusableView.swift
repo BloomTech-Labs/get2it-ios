@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SectionHeaderReusableViewDelegate: AnyObject {
+    func addCategoryPressed()
+}
+
 // This means the section header view can be reused just like the cells.
 class SectionHeaderReusableView: UICollectionReusableView {
     static var reuseIdentifier: String {
@@ -47,11 +51,12 @@ class SectionHeaderReusableView: UICollectionReusableView {
         let button = UIButton()
         button.setImage(image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        // TODO: For adding a category
-        //        button.addTarget(self, action: #selector(addPressed), for: .primaryActionTriggered)
+        button.addTarget(self, action: #selector(addPressed), for: .primaryActionTriggered)
         
         return button
     }()
+    
+    weak var delegate: SectionHeaderReusableViewDelegate?
     
     var hideAddButton = false {
         didSet {
@@ -66,6 +71,10 @@ class SectionHeaderReusableView: UICollectionReusableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func addPressed() {
+        delegate?.addCategoryPressed()
     }
     
     private func setupStackView() {

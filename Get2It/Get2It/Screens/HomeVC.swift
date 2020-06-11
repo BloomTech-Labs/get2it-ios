@@ -133,6 +133,8 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             if section == .list {
                 view?.hideAddButton = true
             }
+            
+            view?.delegate = self
             return view
         }
         
@@ -179,6 +181,29 @@ extension HomeVC {
         collectionView.alwaysBounceVertical = true
     }
     
+    private func addCategory() {
+        let alert = UIAlertController(title: "Add a New Category", message: "Custom your own category", preferredStyle: .alert)
+        
+        alert.addTextField { textField in
+            textField.placeholder = "Enter category name"
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { action in
+            let textField = alert.textFields![0] as UITextField
+            print("\(textField)")
+        }
+        
+        alert.addAction(saveAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+            print("Cancel")
+        }
+        
+        alert.addAction(cancelAction)
+
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc func addTaskButtonTapped() {
         let addTaskVC = AddTaskVC()
         addTaskVC.taskController = taskController
@@ -202,5 +227,11 @@ extension HomeVC.SectionLayoutKind {
         default:
             return nil
         }
+    }
+}
+
+extension HomeVC: SectionHeaderReusableViewDelegate {
+    func addCategoryPressed() {
+        addCategory()
     }
 }
