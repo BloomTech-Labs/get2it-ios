@@ -10,7 +10,7 @@ import Foundation
 
 struct CategoryRepresentation: Codable, Hashable {
     enum CodingKeys: String, CodingKey {
-        case categoriesId = "categories_id"
+        case categoriesId = "id"
         case userId = "user_id"
         case name
     }
