@@ -22,7 +22,7 @@ class SectionHeaderReusableView: UICollectionReusableView {
         let view = UIStackView()
         view.axis = .horizontal
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        view.layoutMargins = UIEdgeInsets(top: 20, left: 8, bottom: 8, right: 8)
         view.isLayoutMarginsRelativeArrangement = true
         view.spacing = 8
         return view

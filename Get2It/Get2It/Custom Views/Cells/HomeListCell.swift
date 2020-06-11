@@ -64,6 +64,7 @@ class HomeListCell: UICollectionViewCell {
             iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
             iconImageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -inset),
             iconImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
+            iconImageView.widthAnchor.constraint(equalToConstant: 20),
             
             label.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: inset),
             label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
