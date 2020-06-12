@@ -172,9 +172,6 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         let listItems: [ListModel] = [.list(name: "Today"), .list(name: "Tomorrow"), .list(name: "Someday"), .list(name: "Past")]
         snapshot.appendItems(listItems, toSection: .list)
         
-        let categoryItems: [ListModel] = [.category(name: "Personal")]
-        snapshot.appendItems(categoryItems, toSection: .category)
-        
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
@@ -182,9 +179,8 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         let categories = fetchedCategoryController.fetchedObjects ?? []
         
         var snapshot = dataSource.snapshot()
-        
-        var categoryItems: [ListModel] = [.category(name: "Personal")]
-        categoryItems.append(contentsOf: categories.map { ListModel.category(name: $0.name ?? "") })
+
+        let categoryItems = categories.map { ListModel.category(name: $0.name ?? "") }
         
         snapshot.deleteSections([.category])
         snapshot.appendSections([.category])
@@ -231,7 +227,7 @@ extension HomeVC {
             guard let stringTextField = textField.text else { return }
             
             let newCategory = CategoryRepresentation(name: stringTextField)
-            self.categoryController.createCategoryOnServer(categoryRepresentation: newCategory) { result in
+            self.categoryController.createCategoryOnServer(categoryRepresentation: newCategory) { [weak self] result in
                 switch result {
                 case .failure(let error):
                     print(error)
