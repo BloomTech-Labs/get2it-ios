@@ -84,6 +84,7 @@ class CategoryController {
             if let response = response as? HTTPURLResponse,
                 response.statusCode == 201 {
                 completion(.success(categoryRepresentation))
+                self.updateCategoriesInCoreData(with: [categoryRepresentation])
             } else {
                 completion(.failure(.otherError))
             }
