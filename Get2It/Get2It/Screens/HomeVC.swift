@@ -194,7 +194,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         guard let _ = dataSource.itemIdentifier(for: indexPath) else { return }
         // TODO: - Add an initialzer that will accept a list and populate the taskVC with the tasks from that list
         let taskListVC = TaskListVC()
-        //taskListVC.taskController = taskController
+        taskListVC.taskController = taskController
         taskListVC.title = "Task List"
         navigationController?.pushViewController(taskListVC, animated: true)
     }
@@ -228,7 +228,7 @@ extension HomeVC {
             guard let stringTextField = textField.text else { return }
             
             let newCategory = CategoryRepresentation(name: stringTextField)
-            self.categoryController.createCategoryOnServer(categoryRepresentation: newCategory) { [weak self] result in
+            self.categoryController.createCategoryOnServer(categoryRepresentation: newCategory) { result in
                 switch result {
                 case .failure(let error):
                     print(error)
