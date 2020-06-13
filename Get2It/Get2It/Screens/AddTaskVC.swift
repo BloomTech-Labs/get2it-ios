@@ -56,8 +56,9 @@ extension AddTaskVC {
         
         // setting up the local notification
         let date = dateCell.date
-        let components = Calendar.current.dateComponents([.month, .day, .year, .hour, .minute], from: startTime.addingTimeInterval(0))
-        print(components)
+        // setting when the notification will be fired -600 = 10 minutes before start time
+        let components = Calendar.current.dateComponents([.month, .day, .year, .hour, .minute], from: startTime.addingTimeInterval(-600))
+        print("probe", components)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
         scheduleNotification(trigger: trigger, title: title, sound: true)
     
