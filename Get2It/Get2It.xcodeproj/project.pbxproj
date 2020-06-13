@@ -33,6 +33,8 @@
 		E326D8F9244CC17100A84BBF /* Task.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E326D8F7244CC17100A84BBF /* Task.xcdatamodeld */; };
 		E326D8FB244CC38800A84BBF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E326D8FA244CC38800A84BBF /* CoreDataStack.swift */; };
 		E326D8FD244CFE4400A84BBF /* Task+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E326D8FC244CFE4400A84BBF /* Task+Convenience.swift */; };
+		E32A324A24932E920067F8C4 /* HomeCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845B8248F0A390052E0F1 /* HomeCategoryCell.swift */; };
+		E32A324B24932EC70067F8C4 /* SectionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845B6248EC7D60052E0F1 /* SectionHeaderReusableView.swift */; };
 		E33F8DB22461150A0032C7B5 /* GridDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F8DB12461150A0032C7B5 /* GridDisplay.swift */; };
 		E3648CA12431886B00D4A8E3 /* TaskListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3648CA02431886B00D4A8E3 /* TaskListVC.swift */; };
 		E3648CA42432B5C500D4A8E3 /* SummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3648CA32432B5C500D4A8E3 /* SummaryCell.swift */; };
@@ -46,8 +48,9 @@
 		E38384D8244F8F080019263C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384D7244F8F080019263C /* APIClient.swift */; };
 		E38384DA2453BF270019263C /* EditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384D92453BF270019263C /* EditTaskVC.swift */; };
 		E38384DC245793DE0019263C /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384DB245793DE0019263C /* DateFormatter+Extensions.swift */; };
-		E39845B7248EC7D60052E0F1 /* SectionHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845B6248EC7D60052E0F1 /* SectionHeaderReusableView.swift */; };
-		E39845B9248F0A390052E0F1 /* HomeCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845B8248F0A390052E0F1 /* HomeCategoryCell.swift */; };
+		E39845A82478A8C70052E0F1 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845A72478A8C70052E0F1 /* NotificationScheduler.swift */; };
+		E39845AA2478AEC10052E0F1 /* UITextField+ Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845A92478AEC10052E0F1 /* UITextField+ Ext.swift */; };
+		E39845AC2478AF6A0052E0F1 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845AB2478AF6A0052E0F1 /* UIAlertController+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +104,7 @@
 		E326D8FA244CC38800A84BBF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		E326D8FC244CFE4400A84BBF /* Task+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Convenience.swift"; sourceTree = "<group>"; };
 		E33F8DB12461150A0032C7B5 /* GridDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDisplay.swift; sourceTree = "<group>"; };
+		E34BF17824761D2E0053F87C /* Get2It.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Get2It.entitlements; sourceTree = "<group>"; };
 		E3648CA02431886B00D4A8E3 /* TaskListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListVC.swift; sourceTree = "<group>"; };
 		E3648CA32432B5C500D4A8E3 /* SummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCell.swift; sourceTree = "<group>"; };
 		E3648CA52432BC1900D4A8E3 /* HomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListCell.swift; sourceTree = "<group>"; };
@@ -113,6 +117,9 @@
 		E38384D7244F8F080019263C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		E38384D92453BF270019263C /* EditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVC.swift; sourceTree = "<group>"; };
 		E38384DB245793DE0019263C /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
+		E39845A72478A8C70052E0F1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		E39845A92478AEC10052E0F1 /* UITextField+ Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+ Ext.swift"; sourceTree = "<group>"; };
+		E39845AB2478AF6A0052E0F1 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 		E39845B6248EC7D60052E0F1 /* SectionHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderReusableView.swift; sourceTree = "<group>"; };
 		E39845B8248F0A390052E0F1 /* HomeCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +170,8 @@
 			children = (
 				CC3356F2244B65CC009718B5 /* UIView+Ext.swift */,
 				E38384DB245793DE0019263C /* DateFormatter+Extensions.swift */,
+				E39845A92478AEC10052E0F1 /* UITextField+ Ext.swift */,
+				E39845AB2478AF6A0052E0F1 /* UIAlertController+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -179,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				CC433254243800D90099023F /* UIHelper.swift */,
+				E39845A72478A8C70052E0F1 /* NotificationScheduler.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -224,6 +234,7 @@
 		CC6C2FD4242FBC5D00401937 /* Get2It */ = {
 			isa = PBXGroup;
 			children = (
+				E34BF17824761D2E0053F87C /* Get2It.entitlements */,
 				E38384D4244F8ED10019263C /* Model Controllers */,
 				E326D8F4244BDB0200A84BBF /* Models */,
 				CC3356F1244B65B7009718B5 /* Extensions */,
@@ -481,12 +492,15 @@
 				E38384DA2453BF270019263C /* EditTaskVC.swift in Sources */,
 				E326D8F9244CC17100A84BBF /* Task.xcdatamodeld in Sources */,
 				CC3356F0244B649A009718B5 /* GTTextField.swift in Sources */,
+				E39845A82478A8C70052E0F1 /* NotificationScheduler.swift in Sources */,
 				CC3356F6244B6C48009718B5 /* GTButton.swift in Sources */,
+				E32A324B24932EC70067F8C4 /* SectionHeaderReusableView.swift in Sources */,
 				CC6C2FED242FC65E00401937 /* GTTabBarController.swift in Sources */,
 				E33F8DB22461150A0032C7B5 /* GridDisplay.swift in Sources */,
 				CC6C2FF0242FCB4C00401937 /* HomeVC.swift in Sources */,
 				CC6C2FD6242FBC5D00401937 /* AppDelegate.swift in Sources */,
 				E3648CA62432BC1900D4A8E3 /* HomeListCell.swift in Sources */,
+				E32A324A24932E920067F8C4 /* HomeCategoryCell.swift in Sources */,
 				CC4332522437F7F80099023F /* HeaderCell.swift in Sources */,
 				CCD4D43C2489CC5E00E352AE /* Countdown.swift in Sources */,
 				CC4F5DC9247F51F1005693DA /* Category+Convenience.swift in Sources */,
@@ -498,6 +512,7 @@
 				E3648CA12431886B00D4A8E3 /* TaskListVC.swift in Sources */,
 				E3648CAB2435797300D4A8E3 /* TaskInfoCell.swift in Sources */,
 				E326D8F6244BDB1E00A84BBF /* TaskRepresentation.swift in Sources */,
+				E39845AA2478AEC10052E0F1 /* UITextField+ Ext.swift in Sources */,
 				E3648CAD24380F7C00D4A8E3 /* TaskPickerCell.swift in Sources */,
 				E3648CA92435705700D4A8E3 /* AddTaskVC.swift in Sources */,
 				E326D8FD244CFE4400A84BBF /* Task+Convenience.swift in Sources */,
@@ -508,12 +523,11 @@
 				CC4F5DC7247F51C0005693DA /* CategoryRepresentation.swift in Sources */,
 				CC3356EA244B613A009718B5 /* SignInSignUpVC.swift in Sources */,
 				CC7769E824888FBB005145E6 /* TimerVC.swift in Sources */,
-				E39845B7248EC7D60052E0F1 /* SectionHeaderReusableView.swift in Sources */,
-				E39845B9248F0A390052E0F1 /* HomeCategoryCell.swift in Sources */,
 				CC20DD02248F27A000AD9A03 /* CategoryController.swift in Sources */,
 				CC3356ED244B6228009718B5 /* SignInSignUpNC.swift in Sources */,
 				E38384D6244F8EE90019263C /* TaskController.swift in Sources */,
 				E3648CAF243E27E600D4A8E3 /* TaskListCell.swift in Sources */,
+				E39845AC2478AF6A0052E0F1 /* UIAlertController+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,9 +758,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Get2It/Get2It.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = ZYPH2NW7MY;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 9XJC3GKNM3;
 				INFOPLIST_FILE = Get2It/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -754,6 +770,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JohnKouris.Get2It;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -763,9 +780,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Get2It/Get2It.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = ZYPH2NW7MY;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 9XJC3GKNM3;
 				INFOPLIST_FILE = Get2It/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

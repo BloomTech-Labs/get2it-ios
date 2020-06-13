@@ -8,7 +8,8 @@
 
 import UIKit
 
-class AddTaskVC: UIViewController {
+class AddTaskVC: UIViewController, NotificationScheduler {
+    
     let userController = UserController.shared
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
@@ -53,8 +54,15 @@ extension AddTaskVC {
             return
         }
         
+        // setting up the local notification
         let date = dateCell.date
+        // setting when the notification will be fired -600 = 10 minutes before start time
+        let components = Calendar.current.dateComponents([.month, .day, .year, .hour, .minute], from: startTime.addingTimeInterval(-600))
+        print("probe", components)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        scheduleNotification(trigger: trigger, title: title, sound: true)
     
+        // saving the new task to the server
         let newTask = TaskRepresentation(name: title, date: date, startTime: start, endTime: end)
         taskController?.createTaskOnServer(taskRepresentation: newTask, completion: { [weak self] result in
             switch result {
@@ -120,13 +128,14 @@ extension AddTaskVC: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(with: "Start Time", date: startTime, cellType: .startTime)
-            
+            cell.delegate = self
             return cell
         case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskPickerCell.reuseIdentifier, for: indexPath) as? TaskPickerCell else {
                 return UITableViewCell()
             }
             cell.configure(with: "End Time", date: endTime, cellType: .endTime)
+            cell.delegate = self
             
             return cell
         default:
@@ -137,4 +146,13 @@ extension AddTaskVC: UITableViewDataSource {
 
 extension AddTaskVC: UITableViewDelegate {
     
+}
+
+extension AddTaskVC: TaskPickerCellDelegate {
+    func didUpdate(date: Date, for cellType: TaskPickerCell.CellType?) {
+        if cellType == .some(.startTime) {
+            print(date)
+            self.startTime = date
+        }
+    }
 }

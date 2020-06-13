@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 class TaskListVC: UIViewController, UICollectionViewDelegate {
     enum ListModel: Hashable {
@@ -29,8 +30,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     }
     
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
-    // TODO: - CHANGE THIS BACK TO AN OPTIONAL ONCE LISTS ARE IMPLEMENTED
-    var taskController: TaskController!
+    var taskController: TaskController?
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())
@@ -71,7 +71,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
             fatalError("frc crash")
         }
         
-        taskController.fetchTasksFromServer()
+        taskController?.fetchTasksFromServer()
     }
     
     func updateSnapshots() {
@@ -168,7 +168,7 @@ extension TaskListVC {
             var snapshot = dataSource.snapshot()
             snapshot.deleteItems([items])
             dataSource.apply(snapshot, animatingDifferences: true)
-            task.map { taskController.delete(task:$0) }
+            task.map { taskController?.delete(task:$0) }
         }
     }
     
@@ -257,7 +257,7 @@ extension TaskListVC: TaskListCellDelegate {
         guard let task = task else { return }
         task.status = isChecked
 
-        taskController.updateTaskOnServer(task: task, completion: { result in
+        taskController?.updateTaskOnServer(task: task, completion: { result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -294,5 +294,5 @@ extension TaskListVC: UISearchResultsUpdating {
             fatalError("frc crash")
         }
     }
-    
 }
+

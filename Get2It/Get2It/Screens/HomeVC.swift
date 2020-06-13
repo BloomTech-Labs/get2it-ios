@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 class HomeVC: UIViewController, UICollectionViewDelegate {
     enum ListModel: Hashable {
@@ -51,6 +52,10 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         return frc
     }()
     
+    private let center = UNUserNotificationCenter.current()
+    private var pending: [UNNotificationRequest] = []
+    private var delivered: [UNNotification] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -67,6 +72,12 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         }
         
         categoryController.fetchCategoriesFromServer()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        center.delegate = self
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in }
     }
     
     func configureHierarchy() {
@@ -193,7 +204,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         guard let _ = dataSource.itemIdentifier(for: indexPath) else { return }
         // TODO: - Add an initialzer that will accept a list and populate the taskVC with the tasks from that list
         let taskListVC = TaskListVC()
-        //taskListVC.taskController = taskController
+        taskListVC.taskController = taskController
         taskListVC.title = "Task List"
         navigationController?.pushViewController(taskListVC, animated: true)
     }
@@ -227,7 +238,7 @@ extension HomeVC {
             guard let stringTextField = textField.text else { return }
             
             let newCategory = CategoryRepresentation(name: stringTextField)
-            self.categoryController.createCategoryOnServer(categoryRepresentation: newCategory) { [weak self] result in
+            self.categoryController.createCategoryOnServer(categoryRepresentation: newCategory) { result in
                 switch result {
                 case .failure(let error):
                     print(error)
@@ -284,6 +295,40 @@ extension HomeVC: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         if controller == self.fetchedCategoryController {
             self.updateSnapshots()
+        }
+    }
+}
+
+// MARK: - UNUserNotificationCenterDelagate
+extension HomeVC: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound, .badge])
+    }
+}
+
+extension HomeVC {
+    private func refreshNotificationList() {
+        center.getPendingNotificationRequests { [weak self] requests in
+            guard let self = self else { return }
+            
+            self.pending = requests
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+        
+        center.getDeliveredNotifications { [weak self] requests in
+            guard let self = self else { return }
+            
+            self.delivered = requests
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
     }
 }
