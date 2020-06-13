@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AddTaskVC: UIViewController, NotificationScheduler {
     
@@ -17,14 +18,56 @@ class AddTaskVC: UIViewController, NotificationScheduler {
     private var todaysDate = Date()
     private var startTime = Date()
     private var endTime = Date().addingTimeInterval(60 * 60)
+    private let categoryPicker = UIPickerView()
     var taskController: TaskController?
+    var categoryController: CategoryController?
+    
+    private lazy var fetchedCategoryController: NSFetchedResultsController<Category> = {
+        let fetchRequest:NSFetchRequest<Category> = Category.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "name", ascending: false)
+        ]
+        
+        let moc = CoreDataStack.shared.mainContext
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
+        return frc
+    }()
+    
+    lazy private var categoryPickerData: [[String]] = {
+        updatePickerData()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         title = "Add New Task"
+        configurePickerView()
         configureViewController()
         configureTableViewController()
+        
+        do {
+            try self.fetchedCategoryController.performFetch()
+        } catch {
+            fatalError("frc crash")
+        }
+        
+    }
+    
+    private func configurePickerView() {
+        categoryPicker.dataSource = self
+        categoryPicker.delegate = self
+        categoryPicker.translatesAutoresizingMaskIntoConstraints = false
+        
+        categoryPicker.backgroundColor = .systemBackground
+    }
+    
+    private func updatePickerData() -> [[String]] {
+        let categories = fetchedCategoryController.fetchedObjects ?? []
+        let categoryItems = categories.map { $0.name ?? ""}
+        
+        let data: [[String]] = [["Category"], categoryItems]
+        return data
     }
 }
 
@@ -90,12 +133,17 @@ extension AddTaskVC {
         tableView.register(TaskPickerCell.self, forCellReuseIdentifier: TaskPickerCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(tableView)
+        view.addSubviews(tableView, categoryPicker)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            categoryPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            categoryPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            categoryPicker.topAnchor.constraint(equalTo: tableView.topAnchor, constant: view.frame.height / 3 + 20),
+            categoryPicker.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
 }
@@ -154,6 +202,38 @@ extension AddTaskVC: TaskPickerCellDelegate {
         if cellType == .some(.startTime) {
             print(date)
             self.startTime = date
+        }
+    }
+}
+
+extension AddTaskVC: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return categoryPickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categoryPickerData[component].count
+    }
+}
+
+extension AddTaskVC: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categoryPickerData[component][row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return 110
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+}
+
+extension AddTaskVC: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        if controller == self.fetchedCategoryController {
+            
         }
     }
 }

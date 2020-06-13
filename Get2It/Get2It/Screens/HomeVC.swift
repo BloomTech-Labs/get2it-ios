@@ -262,6 +262,7 @@ extension HomeVC {
     @objc func addTaskButtonTapped() {
         let addTaskVC = AddTaskVC()
         addTaskVC.taskController = taskController
+        addTaskVC.categoryController = categoryController
         let navigationController = UINavigationController(rootViewController: addTaskVC)
         present(navigationController, animated: true, completion: nil)
     }
