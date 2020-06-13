@@ -49,20 +49,17 @@ class TimerVC: UIViewController {
     
     private var duration: TimeInterval {
         let minuteString = countdownPicker.selectedRow(inComponent: 0)
-        let secondString = countdownPicker.selectedRow(inComponent: 2)
         
-        let minutes = Int(minuteString)
-        let seconds = Int(secondString)
+        let minutes = Int(minuteString) + 1
         
-        let totalSeconds = TimeInterval(minutes * 60 + seconds)
+        let totalSeconds = TimeInterval(minutes * 300)
         return totalSeconds
     }
     
     lazy private var countdownPickerData: [[String]] = {
-        let minutes: [String] = Array(0...60).map { String($0) }
-        let seconds: [String] = Array(0...59).map { String($0) }
+        let minutes: [String] = Array(1...12).map { String($0 * 5) }
         
-        let data: [[String]] = [minutes, ["min"], seconds, ["sec"]]
+        let data: [[String]] = [minutes, ["minutes"]]
         return data
     }()
 
@@ -85,15 +82,14 @@ class TimerVC: UIViewController {
     func configureViews() {
         countdownPicker.dataSource = self
         countdownPicker.delegate = self
-        countdownPicker.selectRow(1, inComponent: 0, animated: false)
-        countdownPicker.selectRow(30, inComponent: 2, animated: false)
+        countdownPicker.selectRow(4, inComponent: 0, animated: false)
         countdownPicker.translatesAutoresizingMaskIntoConstraints = false
         
         startButton.addTarget(self, action: #selector(startTimer), for: .touchUpInside)
         resetButton.addTarget(self, action: #selector(resetTimer), for: .touchUpInside)
         
         timeLabel.text = "00:00:00"
-        timeLabel.font = UIFont.monospacedSystemFont(ofSize: 50, weight: .bold)
+        timeLabel.font = UIFont.monospacedSystemFont(ofSize: 60, weight: .bold)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.textAlignment = .center
     }
@@ -115,7 +111,7 @@ class TimerVC: UIViewController {
         NSLayoutConstraint.activate([
             timeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             timeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            timeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            timeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
             timeLabel.heightAnchor.constraint(equalToConstant: 80),
             
             countdownPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -138,11 +134,18 @@ class TimerVC: UIViewController {
     
     private func updateViews() {
         startButton.isEnabled = true
+        resetButton.isEnabled = false
+        
+        startButton.backgroundColor = .systemBlue
+        resetButton.backgroundColor = .systemGray
         
         switch countdown.state {
         case .started:
             timeLabel.text = string(from: countdown.timeRemaining)
             startButton.isEnabled = false
+            resetButton.isEnabled = true
+            startButton.backgroundColor = .systemGray
+            resetButton.backgroundColor = .systemBlue
         case .finished:
             timeLabel.text = string(from: 0)
         case .reset:
@@ -177,7 +180,7 @@ extension TimerVC: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return 50
+        return 100
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
