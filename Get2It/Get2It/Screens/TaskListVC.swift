@@ -30,7 +30,6 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     }
     
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
-    // TODO: - CHANGE THIS BACK TO AN OPTIONAL ONCE LISTS ARE IMPLEMENTED
     var taskController: TaskController?
     
     private lazy var collectionView: UICollectionView = {
@@ -43,11 +42,6 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         collectionView.alwaysBounceVertical = true
         return collectionView
     }()
-    
-    // TODO: - Move this to the HomeVC
-    private let center = UNUserNotificationCenter.current()
-    private var pending: [UNNotificationRequest] = []
-    private var delivered: [UNNotification] = []
     
     private lazy var fetchedTaskController: NSFetchedResultsController<Task> = {
         // Fetch request
@@ -80,12 +74,6 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         taskController?.fetchTasksFromServer()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        center.delegate = self
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in }
-    }
-    
     func updateSnapshots() {
         let tasks = fetchedTaskController.fetchedObjects ?? []
         
@@ -104,26 +92,6 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
 }
 
 extension TaskListVC {
-    private func refreshNotificationList() {
-        center.getPendingNotificationRequests { [weak self] requests in
-            guard let self = self else { return }
-            
-            self.pending = requests
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-        
-        center.getDeliveredNotifications { [weak self] requests in
-            guard let self = self else { return }
-            
-            self.delivered = requests
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-    }
-    
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -327,17 +295,4 @@ extension TaskListVC: UISearchResultsUpdating {
         }
     }
 }
-    
-// TODO: - Move this to HomeVC
-// MARK: - UNUserNotificationCenterDelagate
 
-extension TaskListVC: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        completionHandler()
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound, .badge])
-    }
-}
