@@ -9,21 +9,11 @@
 import UIKit
 
 extension UIAlertController {
-    class func okWithMessage(_ message: String, presentingViewController: UIViewController?, completion: (() -> Void)? = nil, onOK: ((UIAlertAction?) -> Void)? = nil) {
-        let vc: UIViewController?
-
-        if let presentingViewController = presentingViewController {
-            vc = presentingViewController
-        } else {
-            vc = UIApplication.shared.keyWindow?.rootViewController
-        }
-
-        if let presentingViewController = vc {
-            let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            alert.addOKButton(onOK)
-
-            presentingViewController.present(alert, animated: true, completion: completion)
-        }
+    class func okWithMessage(_ message: String, presentingViewController: UIViewController, completion: (() -> Void)? = nil, onOK: ((UIAlertAction?) -> Void)? = nil)
+    {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addOKButton(onOK)
+        presentingViewController.present(alert, animated: true, completion: completion)
     }
 
     class func cancelWithMessage(_ message: String, presentingViewController: UIViewController?, completion: (() -> Void)? = nil, onOK: ((UIAlertAction?) -> Void)? = nil) {
