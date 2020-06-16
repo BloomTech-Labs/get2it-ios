@@ -22,6 +22,7 @@ struct TaskRepresentation: Codable, Hashable {
         case timeLeft
         case initialNotify
         case notifyOn
+        case notificationId = "notification_id"
     }
     
     let taskId: Int?
@@ -36,8 +37,10 @@ struct TaskRepresentation: Codable, Hashable {
     let timeLeft: Int?
     let initialNotify: Bool?
     let notifyOn: Bool?
+    let notificationId: String?
     
-    init(taskId: Int? = nil, userId: Int? = nil, categoriesId: Int? = nil, name: String, status: Bool = false, date: Date, startTime: String, endTime: String, taskIcon: String? = nil, timeLeft: Int? = nil, initialNotify: Bool = false, notifyOn: Bool = true) {
+    init(taskId: Int? = nil, userId: Int? = nil, categoriesId: Int? = nil, name: String, status: Bool = false, date: Date, startTime: String, endTime: String, taskIcon: String? = nil, timeLeft: Int? = nil, initialNotify: Bool = false, notifyOn: Bool = true, notificationId: String? = nil)
+    {
         self.taskId = taskId
         self.userId = userId
         self.categoriesId = categoriesId
@@ -50,5 +53,6 @@ struct TaskRepresentation: Codable, Hashable {
         self.timeLeft = timeLeft
         self.initialNotify = initialNotify
         self.notifyOn = notifyOn
+        self.notificationId = notificationId
     }
 }
