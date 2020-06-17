@@ -25,7 +25,7 @@ struct TaskRepresentation: Codable, Hashable {
         case notificationId = "notification_id"
     }
     
-    let taskId: Int?
+    var taskId: Int?
     let userId: Int?
     let categoriesId: Int?
     let name: String

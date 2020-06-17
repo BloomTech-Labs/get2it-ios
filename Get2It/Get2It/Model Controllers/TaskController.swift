@@ -85,9 +85,21 @@ class TaskController {
         }
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                completion(.failure(.badData))
+                return
+            }
+
             if let response = response as? HTTPURLResponse,
                 response.statusCode == 201 {
-                completion(.success(taskRepresentation))
+                let decoder = JSONDecoder()
+                do {
+                    struct CreateTaskResponse: Decodable { let id: Int }
+                    let createTaskResponse = try decoder.decode(CreateTaskResponse.self, from: data)
+                    var taskRepresentation = taskRepresentation
+                    taskRepresentation.taskId = createTaskResponse.id
+                    completion(.success(taskRepresentation))
+                } catch { fatalError() }
             } else {
                 print("status code is not 201")
                 completion(.failure(.otherError))
@@ -234,7 +246,7 @@ class TaskController {
             guard let date = fullFormatter.date(from: "\(dayString) \(task.startTime)") else { continue }
             
             let components = Calendar.current.dateComponents([.month, .day, .year, .hour, .minute], from: date.addingTimeInterval(-600))
-            print("\(components)")
+
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
             let notificationId = UUID().uuidString
             scheduleNotification(identifier: notificationId, trigger: trigger, title: task.name, sound: true)

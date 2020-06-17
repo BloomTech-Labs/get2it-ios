@@ -69,7 +69,8 @@ extension AddTaskVC {
             case .failure(let error):
                 print(error)
             case .success(let task):
-                print(task)
+                print(task.taskId)
+                // TODO: do the second network call
                 self?.taskController?.fetchTasksFromServer()
                 DispatchQueue.main.async {
                     self?.dismiss(animated: true, completion: nil)
