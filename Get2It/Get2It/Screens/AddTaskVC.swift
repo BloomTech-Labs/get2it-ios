@@ -64,7 +64,7 @@ class AddTaskVC: UIViewController, NotificationScheduler {
     
     private func updatePickerData() -> [[String]] {
         let categories = fetchedCategoryController.fetchedObjects ?? []
-        let categoryItems = categories.map { $0.name ?? "" }
+        let categoryItems = categories.map { $0.name ?? ""}
         
         let data: [[String]] = [["Category"], categoryItems]
         return data
