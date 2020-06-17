@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UserNotifications
 
 class TaskController {
     typealias CompletionHandler = (Error?) -> Void
@@ -207,6 +208,8 @@ class TaskController {
                 NSLog("Error fetching tasks from persistent store")
             }
         }
+        
+        syncLocalNotifications(tasks: representations)
     }
     
     func saveTaskInCoreData(for representation: TaskRepresentation) {
@@ -216,7 +219,30 @@ class TaskController {
             CoreDataStack.shared.save(context: context)
         }
     }
+    
+    func syncLocalNotifications(tasks: [TaskRepresentation]) {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        
+        let fullFormatter = DateFormatter()
+        fullFormatter.dateFormat = "MMMM dd, yyyy h:mm a"
+        
+        for task in tasks {
+            let dayString = dateFormatter.string(from: task.date)
+            guard let date = fullFormatter.date(from: "\(dayString) \(task.startTime)") else { continue }
+            
+            let components = Calendar.current.dateComponents([.month, .day, .year, .hour, .minute], from: date.addingTimeInterval(-600))
+            print("\(components)")
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let notificationId = UUID().uuidString
+            scheduleNotification(identifier: notificationId, trigger: trigger, title: task.name, sound: true)
+        }
+    }
 }
+
+extension TaskController: NotificationScheduler {}
 
 extension TaskController {
     static func clearData() {

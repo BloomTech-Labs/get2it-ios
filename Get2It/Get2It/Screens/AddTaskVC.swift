@@ -55,15 +55,15 @@ extension AddTaskVC {
         }
         
         // setting up the local notification
-        let date = dateCell.date
         // setting when the notification will be fired -600 = 10 minutes before start time
         let components = Calendar.current.dateComponents([.month, .day, .year, .hour, .minute], from: startTime.addingTimeInterval(-600))
-        print("probe", components)
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-        scheduleNotification(trigger: trigger, title: title, sound: true)
+        let notificationId = UUID().uuidString
+        scheduleNotification(identifier: notificationId, trigger: trigger, title: title, sound: true)
     
         // saving the new task to the server
-        let newTask = TaskRepresentation(name: title, date: date, startTime: start, endTime: end)
+        let newTask = TaskRepresentation(name: title, date: dateCell.date, startTime: start, endTime: end, notificationId: notificationId)
         taskController?.createTaskOnServer(taskRepresentation: newTask, completion: { [weak self] result in
             switch result {
             case .failure(let error):
