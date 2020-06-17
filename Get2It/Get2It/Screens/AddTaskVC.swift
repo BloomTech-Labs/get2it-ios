@@ -64,7 +64,7 @@ class AddTaskVC: UIViewController, NotificationScheduler {
     
     private func updatePickerData() -> [[String]] {
         let categories = fetchedCategoryController.fetchedObjects ?? []
-        let categoryItems = categories.map { $0.name ?? ""}
+        let categoryItems = categories.map { $0.name ?? "" }
         
         let data: [[String]] = [["Category"], categoryItems]
         return data
@@ -114,6 +114,7 @@ extension AddTaskVC {
             case .success(let task):
                 print(task)
                 self?.taskController?.fetchTasksFromServer()
+//                self?.categoryController?.assignCategoryToTask(with: 0, categoryId: 0)
                 DispatchQueue.main.async {
                     self?.dismiss(animated: true, completion: nil)
                 }
