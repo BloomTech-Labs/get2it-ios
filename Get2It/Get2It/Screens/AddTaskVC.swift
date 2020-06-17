@@ -34,6 +34,12 @@ class AddTaskVC: UIViewController, NotificationScheduler {
         return frc
     }()
     
+    private lazy var categoriesDictionary: [Int64: String] = {
+        let categories = fetchedCategoryController.fetchedObjects ?? []
+        let categoryDictionary = Dictionary(uniqueKeysWithValues: zip(categories.map { $0.categoriesId }, categories.map { $0.name ?? ""}))
+        return categoryDictionary
+    }()
+    
     lazy private var categoryPickerData: [[String]] = {
         updatePickerData()
     }()
@@ -45,7 +51,6 @@ class AddTaskVC: UIViewController, NotificationScheduler {
         configurePickerView()
         configureViewController()
         configureTableViewController()
-        
         do {
             try self.fetchedCategoryController.performFetch()
         } catch {
@@ -64,8 +69,7 @@ class AddTaskVC: UIViewController, NotificationScheduler {
     
     private func updatePickerData() -> [[String]] {
         let categories = fetchedCategoryController.fetchedObjects ?? []
-        let categoryItems = categories.map { $0.name ?? ""}
-        
+        let categoryItems = categories.map { $0.name ?? "" }
         let data: [[String]] = [["Category"], categoryItems]
         return data
     }
