@@ -234,7 +234,7 @@ class TaskController {
             guard let date = fullFormatter.date(from: "\(dayString) \(task.startTime)") else { continue }
             
             let components = Calendar.current.dateComponents([.month, .day, .year, .hour, .minute], from: date.addingTimeInterval(-600))
-
+            print("\(components)")
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
             let notificationId = UUID().uuidString
             scheduleNotification(identifier: notificationId, trigger: trigger, title: task.name, sound: true)
