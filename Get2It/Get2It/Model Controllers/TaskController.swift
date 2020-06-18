@@ -189,6 +189,43 @@ class TaskController {
         CoreDataStack.shared.save()
     }
     
+    // Getting tasks from Category Id
+    func fetchTasksFromServerBy(categoryId: Int?, completion: ((Result<[TaskRepresentation], NetworkError>) -> Void)? = nil) {
+        guard let categoryId = categoryId else { return }
+        let requestURL = baseURL.appendingPathComponent("/categories/\(categoryId)/tasks")
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.get.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(token, forHTTPHeaderField: "authorization")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode != 200 {
+                completion?(.failure(.badAuth))
+            }
+            
+            if error != nil {
+                completion?(.failure(.otherError))
+            }
+            
+            guard let data = data else {
+                completion?(.failure(.badData))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .formatted(.iso8601Full)
+            do {
+                let taskRepresentations = try decoder.decode([TaskRepresentation].self, from: data)
+                completion?(.success(taskRepresentations))
+            } catch {
+                print("Error decoding tasks: \(error)")
+                completion?(.failure(.noDecode))
+                return
+            }
+        }.resume()
+    }
+    
     // MARK: - Core Data (iPhone)
     
     func updateTasksInCoreData(with representations: [TaskRepresentation]) {

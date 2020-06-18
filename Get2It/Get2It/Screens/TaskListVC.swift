@@ -36,6 +36,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     var filterBy: FilterBy?
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     var taskController: TaskController?
+    var category: Category?
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: self.createLayout())

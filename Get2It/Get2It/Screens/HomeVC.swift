@@ -272,6 +272,11 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             default:
                 break
             }
+        } else if indexPath.section == 3 {
+            let categories = fetchedCategoryController.fetchedObjects ?? []
+            let category = categories[indexPath.row]
+            
+            taskListVC.category = category
         }
         
         navigationController?.pushViewController(taskListVC, animated: true)
