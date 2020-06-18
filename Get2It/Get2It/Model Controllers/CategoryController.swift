@@ -91,6 +91,26 @@ class CategoryController {
         }.resume()
     }
     
+    func assignCategoryToTask(with taskId: Int, categoryId: Int) {
+        let requestURL = baseURL.appendingPathComponent("/categories/\(categoryId)/tasks")
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(token, forHTTPHeaderField: "authorization")
+        
+        let bodyObject: [String : Any] = ["task_id": taskId]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 200 {
+                print("Error")
+            } else {
+                print("Error")
+            }
+        }.resume()
+    }
+    
     func updateCategoriesInCoreData(with representations: [CategoryRepresentation]) {
         let identifiersToFetch = representations.map { $0.categoriesId }
         let representationsById = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
