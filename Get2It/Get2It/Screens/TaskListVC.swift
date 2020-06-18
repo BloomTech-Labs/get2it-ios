@@ -70,8 +70,6 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         } catch {
             fatalError("frc crash")
         }
-        
-        taskController?.fetchTasksFromServer()
     }
     
     func updateSnapshots() {
@@ -178,7 +176,7 @@ extension TaskListVC {
             
             let section = SectionLayoutKind(rawValue: indexPath.section)!
             if section == .list {
-                // Get a cell of the desired kind
+                // Cell for Tasks
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TaskListCell.reuseIdentifier, for: indexPath) as? TaskListCell {
                     // Only extracting one case for this cell from ListModel enum
                     guard case .task(let taskDiffable) = listModel else { return nil }
@@ -195,7 +193,7 @@ extension TaskListVC {
                     fatalError("Can't create new cell")
                 }
             } else {
-                // Get a cell of the desired kind
+                // Cell for Summary Cards
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SummaryCell.reuseIdentifier, for: indexPath) as? SummaryCell {
 
                     cell.contentView.backgroundColor = UIColor(red: 44/255, green: 44/255, blue: 46/255, alpha: 1)
