@@ -91,7 +91,7 @@ class CategoryController {
         }.resume()
     }
     
-    func assignCategoryToTask(with taskId: Int, categoryId: Int) {
+    func assignCategoryToTask(with taskId: Int, categoryId: Int, completion: @escaping (Error?) -> Void = { _ in }) {
         let requestURL = baseURL.appendingPathComponent("/categories/\(categoryId)/tasks")
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.post.rawValue
@@ -103,10 +103,11 @@ class CategoryController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let response = response as? HTTPURLResponse,
-                response.statusCode == 200 {
-                print("Error")
+                response.statusCode != 201 {
+                completion(error)
+                return
             } else {
-                print("Error")
+                
             }
         }.resume()
     }
