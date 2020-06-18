@@ -29,6 +29,11 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         }
     }
     
+    enum FilterBy {
+        case today, tomorrow, someday, past, completed
+    }
+    
+    var filterBy: FilterBy?
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     var taskController: TaskController?
     
@@ -46,6 +51,29 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     private lazy var fetchedTaskController: NSFetchedResultsController<Task> = {
         // Fetch request
         let fetchRequest:NSFetchRequest<Task> = Task.fetchRequest()
+        
+        if let thereIsAFilter = self.filterBy {
+            let predicate: NSPredicate
+            
+            switch thereIsAFilter {
+            case .today:
+                let today = Date()
+                predicate = predicateForFilteringBy(date: today)
+            case .tomorrow:
+                let tomorrow = Date().addingTimeInterval(86400)
+                predicate = predicateForFilteringBy(date: tomorrow)
+            case .past:
+                predicate = predicateForFilteringBefore(date: Date())
+            case .someday:
+                let tomorrow = Date().addingTimeInterval(86400)
+                predicate = predicateForFilteringAfter(date: tomorrow)
+            case .completed:
+                predicate = NSPredicate(format: "status == YES")
+            }
+            
+            fetchRequest.predicate = predicate
+        }
+        
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "date", ascending: false),
             NSSortDescriptor(key: "startTime", ascending: true)
@@ -90,6 +118,46 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
 }
 
 extension TaskListVC {
+    // Filtering the Tasks based on the date
+    func predicateForFilteringBy(date: Date) -> NSPredicate {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        components.hour = 00
+        components.minute = 00
+        components.second = 00
+        let startDate = calendar.date(from: components)
+        components.hour = 23
+        components.minute = 59
+        components.second = 59
+        let endDate = calendar.date(from: components)
+        
+        return NSPredicate(format: "date >= %@ AND date =< %@", argumentArray: [startDate!, endDate!])
+    }
+    
+    // someday
+    func predicateForFilteringAfter(date: Date) -> NSPredicate {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        components.hour = 23
+        components.minute = 59
+        components.second = 59
+        let startDate = calendar.date(from: components)
+        return NSPredicate(format: "date >= %@", argumentArray: [startDate!])
+    }
+    
+    // past
+    func predicateForFilteringBefore(date: Date) -> NSPredicate {
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        components.hour = 00
+        components.minute = 00
+        components.second = 00
+        let startDate = calendar.date(from: components)
+        return NSPredicate(format: "date <= %@", argumentArray: [startDate!])
+    }
+}
+
+extension TaskListVC {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -130,7 +198,7 @@ extension TaskListVC {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                                subitem: item,
                                                                count: sectionLayoutKind.columnCount)
-
+                
                 let section = NSCollectionLayoutSection(group: group)
                 section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
                 return section
@@ -195,7 +263,7 @@ extension TaskListVC {
             } else {
                 // Cell for Summary Cards
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SummaryCell.reuseIdentifier, for: indexPath) as? SummaryCell {
-
+                    
                     cell.contentView.backgroundColor = UIColor(red: 44/255, green: 44/255, blue: 46/255, alpha: 1)
                     cell.contentView.layer.borderColor = UIColor.black.cgColor
                     cell.contentView.layer.borderWidth = 0.2
@@ -254,7 +322,7 @@ extension TaskListVC: TaskListCellDelegate {
     func cellDidToggle(isChecked: Bool, for task: Task?) {
         guard let task = task else { return }
         task.status = isChecked
-
+        
         taskController?.updateTaskOnServer(task: task, completion: { result in
             switch result {
             case .failure(let error):
