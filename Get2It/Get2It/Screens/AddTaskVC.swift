@@ -119,6 +119,8 @@ extension AddTaskVC {
             case .failure(let error):
                 print(error)
             case .success(let task):
+                print(task.taskId)
+                print(self?.selectedCategory?.categoriesId)
                 // TODO: do the second network call
                 self?.taskController?.fetchTasksFromServer()
                 self?.categoryController?.assignCategoryToTask(with: task.taskId!, categoryId: Int(self?.selectedCategory?.categoriesId ?? 0))
@@ -235,6 +237,7 @@ extension AddTaskVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let category = categories[row]
         self.selectedCategory = category
+        print(selectedCategory)
     }
 }
 
