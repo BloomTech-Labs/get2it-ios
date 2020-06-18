@@ -15,7 +15,7 @@ struct CategoryRepresentation: Codable, Hashable {
         case name
     }
     
-    let categoriesId: Int?
+    var categoriesId: Int?
     let userId: Int?
     let name: String
     
