@@ -35,10 +35,24 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         }
     }
     
+    private var workItem: DispatchWorkItem?
+    
     let taskController = TaskController()
     let categoryController = CategoryController()
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     var collectionView: UICollectionView! = nil
+    
+    private lazy var fetchedTaskController: NSFetchedResultsController<Task> = {
+        // Fetch request
+        let fetchRequest:NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "date", ascending: false),
+        ]
+        let moc = CoreDataStack.shared.mainContext
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
+        return frc
+    }()
     
     private lazy var fetchedCategoryController: NSFetchedResultsController<Category> = {
         let fetchRequest:NSFetchRequest<Category> = Category.fetchRequest()
@@ -66,12 +80,14 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         
         do {
             try self.fetchedCategoryController.performFetch()
+            try self.fetchedTaskController.performFetch()
             updateSnapshots()
         } catch {
             fatalError("frc crash")
         }
         
         categoryController.fetchCategoriesFromServer()
+        taskController.fetchTasksFromServer()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,7 +116,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             let section = SectionLayoutKind(rawValue: indexPath.section)!
             
             if section == .list {
-                // Get a cell of the desired kind
+                // Cell for Task List
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListCell.reuseIdentifier, for: indexPath) as? HomeListCell {
                     if case .list(let name) = model {
                         cell.label.text = name
@@ -111,7 +127,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
                     fatalError("Can't create new cell")
                 }
             } else if section == .grid {
-                // Get a cell of the desired kind
+                // Cell for Summary Cards
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SummaryCell.reuseIdentifier, for: indexPath) as? SummaryCell {
                     
                     cell.contentView.backgroundColor = UIColor(red: 44/255, green: 44/255, blue: 46/255, alpha: 1)
@@ -119,13 +135,25 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
                     cell.contentView.layer.borderWidth = 0.2
                     cell.contentView.layer.cornerRadius = section == .grid ? 10 : 0
                     
+                    guard case .grid(let gridDisplay) = model else { return nil }
+                    
+                    if gridDisplay.gridIndex == 0 {
+                        cell.titleLabel.text = "Tasks"
+                        cell.iconImage.image = UIImage(systemName: "list.bullet")
+                        cell.numberLabel.text = String(gridDisplay.numberOfTasks)
+                    } else {
+                        cell.titleLabel.text = "Completed Tasks"
+                        cell.iconImage.image = UIImage(systemName: "text.badge.checkmark")
+                        cell.numberLabel.text = String(gridDisplay.numberOfTasks)
+                    }
+                    
                     // Return the cell
                     return cell
                 } else {
                     fatalError("Can't create new cell")
                 }
             } else if section == .category {
-                // Get a cell of the desired kind
+                // Cell for Category List
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeListCell.reuseIdentifier, for: indexPath) as? HomeListCell {
                     if case .category(let name) = model {
                         cell.label.text = name
@@ -136,6 +164,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
                     fatalError("Can't create new cell")
                 }
             } else {
+                // Cell for Header
                 if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeaderCell.reuseIdentifier, for: indexPath) as? HeaderCell {
                     
                     cell.contentView.backgroundColor = UIColor(red: 0.02, green: 0.357, blue: 0.765, alpha: 1)
@@ -187,11 +216,21 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     }
     
     func updateSnapshots() {
+        let tasks: [Task] = fetchedTaskController.fetchedObjects ?? []
+        
+        let completedTasks = tasks.filter { $0.status == true }
+        
         let categories = fetchedCategoryController.fetchedObjects ?? []
         
         var snapshot = dataSource.snapshot()
 
         let categoryItems = categories.map { ListModel.category(name: $0.name ?? "") }
+
+        let gridItems: [ListModel] = [.grid(.tasks(numberOfTasks: tasks.count)), .grid(.completedTasks(numberOfTasks: completedTasks.count))]
+        
+        // Delete the old grids and recreate new ones after fetching the tasks
+        snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .grid))
+        snapshot.appendItems(gridItems, toSection: .grid)
         
         snapshot.deleteSections([.category])
         snapshot.appendSections([.category])
@@ -293,9 +332,15 @@ extension HomeVC: SectionHeaderReusableViewDelegate {
 
 extension HomeVC: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        if controller == self.fetchedCategoryController {
+        // Cancel previous work item because there are two fetching controllers performing
+        self.workItem?.cancel()
+        
+        let workItem = DispatchWorkItem {
             self.updateSnapshots()
         }
+        self.workItem = workItem
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: workItem)
     }
 }
 
