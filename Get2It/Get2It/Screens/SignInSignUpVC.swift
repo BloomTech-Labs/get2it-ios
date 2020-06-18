@@ -176,18 +176,6 @@ class SignInSignUpVC: UIViewController {
                     print("Error signing up: \(error)")
                     return
                 }
-                
-                // Creating a Personal category
-//                let personalCategory = CategoryRepresentation(name: "Personal")
-//                self?.categoryController.createCategoryOnServer(categoryRepresentation: personalCategory, completion: { result in
-//                    switch result {
-//                    case .failure(let error):
-//                        print(error)
-//                    case .success(let category):
-//                        self?.categoryController.fetchCategoriesFromServer()
-//                        print(category)
-//                    }
-//                })
                                 
                 // signing in the user
                 self?.signInWithUser(user)
