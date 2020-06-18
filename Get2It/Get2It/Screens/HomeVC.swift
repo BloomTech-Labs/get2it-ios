@@ -249,12 +249,26 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             switch indexPath.row {
             case 0:
                 taskListVC.filterBy = .today
+                taskListVC.title = "Today List"
             case 1:
                 taskListVC.filterBy = .tomorrow
+                taskListVC.title = "Tomorrow List"
             case 2:
                 taskListVC.filterBy = .someday
+                taskListVC.title = "Someday List"
             case 3:
                 taskListVC.filterBy = .past
+                taskListVC.title = "Past List"
+                
+            default:
+                break
+            }
+        } else if indexPath.section == 1 {
+            switch indexPath.row {
+            case 0:
+                break
+            case 1:
+                taskListVC.filterBy = .completed
             default:
                 break
             }

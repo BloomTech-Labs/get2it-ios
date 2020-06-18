@@ -68,7 +68,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
                 let tomorrow = Date().addingTimeInterval(86400)
                 predicate = predicateForFilteringAfter(date: tomorrow)
             case .completed:
-                predicate = NSPredicate(format: "status == %@", true)
+                predicate = NSPredicate(format: "status == YES")
             }
             
             fetchRequest.predicate = predicate
