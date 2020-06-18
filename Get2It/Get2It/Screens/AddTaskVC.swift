@@ -21,6 +21,8 @@ class AddTaskVC: UIViewController, NotificationScheduler {
     private let categoryPicker = UIPickerView()
     var taskController: TaskController?
     var categoryController: CategoryController?
+    var categories = [Category]()
+    var selectedCategory: Category?
     
     private lazy var fetchedCategoryController: NSFetchedResultsController<Category> = {
         let fetchRequest:NSFetchRequest<Category> = Category.fetchRequest()
@@ -53,6 +55,7 @@ class AddTaskVC: UIViewController, NotificationScheduler {
         configureTableViewController()
         do {
             try self.fetchedCategoryController.performFetch()
+            self.categories = fetchedCategoryController.fetchedObjects ?? []
         } catch {
             fatalError("frc crash")
         }
@@ -116,10 +119,9 @@ extension AddTaskVC {
             case .failure(let error):
                 print(error)
             case .success(let task):
-                print(task.taskId)
                 // TODO: do the second network call
                 self?.taskController?.fetchTasksFromServer()
-//                self?.categoryController?.assignCategoryToTask(with: 0, categoryId: 0)
+                self?.categoryController?.assignCategoryToTask(with: task.taskId!, categoryId: Int(self?.selectedCategory?.categoriesId ?? 0))
                 DispatchQueue.main.async {
                     self?.dismiss(animated: true, completion: nil)
                 }
@@ -230,8 +232,9 @@ extension AddTaskVC: UIPickerViewDelegate {
         return 110
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let category = categories[row]
+        self.selectedCategory = category
     }
 }
 
