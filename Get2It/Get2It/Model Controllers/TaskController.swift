@@ -89,6 +89,8 @@ class TaskController {
                 completion(.failure(.badData))
                 return
             }
+            
+            let outputString = String(data: data, encoding: String.Encoding.utf8)
 
             if let response = response as? HTTPURLResponse,
                 response.statusCode == 201 {
