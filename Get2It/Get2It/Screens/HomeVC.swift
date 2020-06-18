@@ -241,10 +241,25 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let _ = dataSource.itemIdentifier(for: indexPath) else { return }
-        // TODO: - Add an initialzer that will accept a list and populate the taskVC with the tasks from that list
         let taskListVC = TaskListVC()
         taskListVC.taskController = taskController
         taskListVC.title = "Task List"
+        
+        if indexPath.section == 2 {
+            switch indexPath.row {
+            case 0:
+                taskListVC.filterBy = .today
+            case 1:
+                taskListVC.filterBy = .tomorrow
+            case 2:
+                taskListVC.filterBy = .someday
+            case 3:
+                taskListVC.filterBy = .past
+            default:
+                break
+            }
+        }
+        
         navigationController?.pushViewController(taskListVC, animated: true)
     }
 }
