@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class AddTaskVC: UIViewController, NotificationScheduler {
+class AddTaskVC: UIViewController, NotificationScheduler, NSFetchedResultsControllerDelegate {
     
     let userController = UserController.shared
     
@@ -37,48 +37,14 @@ class AddTaskVC: UIViewController, NotificationScheduler {
         return frc
     }()
     
-    private lazy var categoriesDictionary: [Int64: String] = {
-        let categories = fetchedCategoryController.fetchedObjects ?? []
-        let categoryDictionary = Dictionary(uniqueKeysWithValues: zip(categories.map { $0.categoriesId }, categories.map { $0.name ?? ""}))
-        return categoryDictionary
-    }()
-    
-    lazy private var categoryPickerData: [[String]] = {
-        updatePickerData()
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         title = "Add New Task"
-        configurePickerView()
         configureViewController()
         configureTableViewController()
         configureLabel()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        do {
-            try self.fetchedCategoryController.performFetch()
-            self.categories = fetchedCategoryController.fetchedObjects ?? []
-        } catch {
-            fatalError("frc crash")
-        }
-    }
-    
-    private func configurePickerView() {
-        categoryPicker.dataSource = self
-        categoryPicker.delegate = self
-        categoryPicker.translatesAutoresizingMaskIntoConstraints = false
-        
-        categoryPicker.backgroundColor = .systemBackground
-    }
-    
-    private func updatePickerData() -> [[String]] {
-        let categories = fetchedCategoryController.fetchedObjects ?? []
-        let categoryItems = categories.map { $0.name ?? "" }
-        let data: [[String]] = [categoryItems]
-        return data
+        self.categories = fetchedCategoryController.fetchedObjects ?? []
     }
     
     private func configureLabel() {
@@ -148,24 +114,15 @@ extension AddTaskVC {
         tableView.delegate = self
         tableView.register(TaskInfoCell.self, forCellReuseIdentifier: TaskInfoCell.reuseIdentifier)
         tableView.register(TaskPickerCell.self, forCellReuseIdentifier: TaskPickerCell.reuseIdentifier)
+        tableView.register(CategoryPickerCell.self, forCellReuseIdentifier: CategoryPickerCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubviews(tableView, categoryLabel, categoryPicker)
+        view.addSubviews(tableView)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            categoryLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: view.frame.height / 3 + 20),
-            categoryLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            categoryLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            categoryLabel.heightAnchor.constraint(equalToConstant: 20),
-            
-            categoryPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            categoryPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            categoryPicker.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 20),
-            categoryPicker.heightAnchor.constraint(equalToConstant: 160)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
@@ -176,7 +133,7 @@ extension AddTaskVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -209,6 +166,14 @@ extension AddTaskVC: UITableViewDataSource {
             cell.delegate = self
             
             return cell
+        case 4:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CategoryPickerCell.reuseIdentifier, for: indexPath) as? CategoryPickerCell else {
+                return UITableViewCell()
+            }
+            cell.delegate = self
+            cell.configure(with: "Category", categories: categories)
+            
+            return cell
         default:
             return UITableViewCell()
         }
@@ -228,36 +193,10 @@ extension AddTaskVC: TaskPickerCellDelegate {
     }
 }
 
-extension AddTaskVC: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return categoryPickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return categoryPickerData[component].count
+extension AddTaskVC: CategoryPickerCellDelegate {
+    func didUpdate(categories: [Category]) {
+        self.categories = categories
     }
 }
 
-extension AddTaskVC: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categoryPickerData[component][row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return view.frame.width
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let category = categories[row]
-        print(category)
-        self.selectedCategory = category
-    }
-}
 
-extension AddTaskVC: NSFetchedResultsControllerDelegate {
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        if controller == self.fetchedCategoryController {
-            
-        }
-    }
-}
