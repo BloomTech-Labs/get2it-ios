@@ -195,7 +195,7 @@ extension AddTaskVC: TaskPickerCellDelegate {
 
 extension AddTaskVC: CategoryPickerCellDelegate {
     func didUpdate(categories: [Category]) {
-        self.categories = categories
+        
     }
 }
 

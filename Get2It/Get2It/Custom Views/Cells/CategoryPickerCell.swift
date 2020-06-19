@@ -83,6 +83,7 @@ class CategoryPickerCell: UITableViewCell {
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont(name: "AvenirNext-Medium", size: 17)
+        textField.inputView = self.categoryPicker
         textField.inputAccessoryView = self.toolbar
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -107,13 +108,9 @@ class CategoryPickerCell: UITableViewCell {
     private lazy var categoryPicker: UIPickerView = {
         let categoryPicker = UIPickerView()
         categoryPicker.backgroundColor = .systemBackground
-        
+
         return categoryPicker
     }()
-    
-    var textFieldString: String? {
-        return textField.text
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -126,8 +123,11 @@ class CategoryPickerCell: UITableViewCell {
     }
     
     func configure(with title: String, categories: [Category]) {
+        configurePickerView()
         self.categories = categories
         titleLabel.text = title
+        
+        textField.text = self.selectedCategory?.name
     }
     
     @objc func dismissKeyboard() {
