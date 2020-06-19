@@ -19,6 +19,7 @@ class AddTaskVC: UIViewController, NotificationScheduler {
     private var startTime = Date()
     private var endTime = Date().addingTimeInterval(60 * 60)
     private let categoryPicker = UIPickerView()
+    private let categoryLabel = UILabel()
     var taskController: TaskController?
     var categoryController: CategoryController?
     var categories = [Category]()
@@ -53,6 +54,7 @@ class AddTaskVC: UIViewController, NotificationScheduler {
         configurePickerView()
         configureViewController()
         configureTableViewController()
+        configureLabel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,8 +77,14 @@ class AddTaskVC: UIViewController, NotificationScheduler {
     private func updatePickerData() -> [[String]] {
         let categories = fetchedCategoryController.fetchedObjects ?? []
         let categoryItems = categories.map { $0.name ?? "" }
-        let data: [[String]] = [["Category"], categoryItems]
+        let data: [[String]] = [categoryItems]
         return data
+    }
+    
+    private func configureLabel() {
+        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
+        categoryLabel.text = "Category"
+        categoryLabel.font = UIFont.systemFont(ofSize: 16)
     }
 }
 
@@ -142,17 +150,22 @@ extension AddTaskVC {
         tableView.register(TaskPickerCell.self, forCellReuseIdentifier: TaskPickerCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubviews(tableView, categoryPicker)
+        view.addSubviews(tableView, categoryLabel, categoryPicker)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
+            categoryLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: view.frame.height / 3 + 20),
+            categoryLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            categoryLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            categoryLabel.heightAnchor.constraint(equalToConstant: 20),
+            
             categoryPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoryPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            categoryPicker.topAnchor.constraint(equalTo: tableView.topAnchor, constant: view.frame.height / 3 + 20),
-            categoryPicker.heightAnchor.constraint(equalToConstant: 100)
+            categoryPicker.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 20),
+            categoryPicker.heightAnchor.constraint(equalToConstant: 160)
         ])
     }
 }
@@ -231,7 +244,7 @@ extension AddTaskVC: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return 110
+        return view.frame.width
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
