@@ -86,16 +86,16 @@ class CategoryController {
                 return
             }
             
-            let outputString = String(data: data, encoding: String.Encoding.utf8)
-            
             if let response = response as? HTTPURLResponse,
                 response.statusCode == 201 {
+                
                 let decoder = JSONDecoder()
                 do {
                     struct CreateCategoryResponse: Decodable { let id: Int }
                     let createCategoryResponse = try decoder.decode(CreateCategoryResponse.self, from: data)
                     var categoryRepresentation = categoryRepresentation
                     categoryRepresentation.categoriesId = createCategoryResponse.id
+                    self.updateCategoriesInCoreData(with: [categoryRepresentation])
                     completion(.success(categoryRepresentation))
                 } catch { fatalError() }
             } else {

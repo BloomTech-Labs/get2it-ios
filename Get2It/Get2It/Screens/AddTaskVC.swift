@@ -53,13 +53,15 @@ class AddTaskVC: UIViewController, NotificationScheduler {
         configurePickerView()
         configureViewController()
         configureTableViewController()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         do {
             try self.fetchedCategoryController.performFetch()
             self.categories = fetchedCategoryController.fetchedObjects ?? []
         } catch {
             fatalError("frc crash")
         }
-        
     }
     
     private func configurePickerView() {
@@ -234,6 +236,7 @@ extension AddTaskVC: UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let category = categories[row]
+        print(category)
         self.selectedCategory = category
     }
 }
