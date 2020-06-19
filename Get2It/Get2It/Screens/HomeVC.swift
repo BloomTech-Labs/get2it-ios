@@ -242,6 +242,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let _ = dataSource.itemIdentifier(for: indexPath) else { return }
         let taskListVC = TaskListVC()
+        taskListVC.categoryController = categoryController
         taskListVC.taskController = taskController
         taskListVC.title = "Task List"
         
@@ -272,6 +273,11 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             default:
                 break
             }
+        } else if indexPath.section == 3 {
+            let categories = fetchedCategoryController.fetchedObjects ?? []
+            let category = categories[indexPath.row]
+            
+            taskListVC.category = category
         }
         
         navigationController?.pushViewController(taskListVC, animated: true)
