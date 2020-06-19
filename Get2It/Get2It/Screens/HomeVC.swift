@@ -242,6 +242,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let _ = dataSource.itemIdentifier(for: indexPath) else { return }
         let taskListVC = TaskListVC()
+        taskListVC.categoryController = categoryController
         taskListVC.taskController = taskController
         taskListVC.title = "Task List"
         

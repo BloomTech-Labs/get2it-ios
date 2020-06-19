@@ -31,11 +31,13 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
     
     enum FilterBy {
         case today, tomorrow, someday, past, completed
+        case tasks(ids: [Int])
     }
     
     var filterBy: FilterBy?
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     var taskController: TaskController?
+    var categoryController: CategoryController?
     var category: Category?
     
     private lazy var collectionView: UICollectionView = {
@@ -70,6 +72,8 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
                 predicate = predicateForFilteringAfter(date: tomorrow)
             case .completed:
                 predicate = NSPredicate(format: "status == YES")
+            case .tasks(let ids):
+                predicate = NSPredicate(format: "taskId in %@", ids)
             }
             
             fetchRequest.predicate = predicate
@@ -93,6 +97,26 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         configureDataSource()
         configureSearchController()
         
+        // check if it should be filtered by Category
+        if let category = category {
+            taskController?.fetchTasksFromServerBy(categoryId: Int(category.categoriesId)) { [weak self] result in
+                switch result {
+                case .success(let tasks):
+                    let ids = tasks.compactMap { $0.taskId }
+                    self?.filterBy = .tasks(ids: ids)
+                    DispatchQueue.main.async {
+                        self?.performFetch()
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        } else {
+            performFetch()
+        }
+    }
+    
+    private func performFetch() {
         do {
             try self.fetchedTaskController.performFetch()
             updateSnapshots()
