@@ -278,6 +278,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             let category = categories[indexPath.row]
             
             taskListVC.category = category
+            taskListVC.title = category.name
         }
         
         navigationController?.pushViewController(taskListVC, animated: true)
