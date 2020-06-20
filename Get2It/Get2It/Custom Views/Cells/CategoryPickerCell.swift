@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 protocol CategoryPickerCellDelegate: AnyObject {
-    func didUpdate(categories: [Category])
+    func didUpdate(category: Category?)
 }
 
 class CategoryPickerCell: UITableViewCell {
@@ -77,6 +77,7 @@ class CategoryPickerCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AvenirNext-Medium", size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
     }()
     
@@ -86,6 +87,8 @@ class CategoryPickerCell: UITableViewCell {
         textField.inputView = self.categoryPicker
         textField.inputAccessoryView = self.toolbar
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Select Category"
+        textField.textAlignment = .right
         return textField
     }()
     
@@ -132,10 +135,7 @@ class CategoryPickerCell: UITableViewCell {
     
     @objc func dismissKeyboard() {
         self.textField.endEditing(true)
-        
-        let category = categoryPicker
-        // selectedCategory = category
-//        self.delegate?.didUpdate(category: category)
+        self.delegate?.didUpdate(category: selectedCategory)
     }
     
     private func setupStackView() {
@@ -174,8 +174,8 @@ extension CategoryPickerCell: UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let category = categories[row]
-        print(category)
         self.selectedCategory = category
+        textField.text = category.name
     }
 }
 
