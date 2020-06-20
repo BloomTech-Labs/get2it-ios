@@ -81,10 +81,23 @@ class CategoryController {
         }
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                completion(.failure(.badData))
+                return
+            }
+            
             if let response = response as? HTTPURLResponse,
                 response.statusCode == 201 {
-                completion(.success(categoryRepresentation))
-                self.updateCategoriesInCoreData(with: [categoryRepresentation])
+                
+                let decoder = JSONDecoder()
+                do {
+                    struct CreateCategoryResponse: Decodable { let id: Int }
+                    let createCategoryResponse = try decoder.decode(CreateCategoryResponse.self, from: data)
+                    var categoryRepresentation = categoryRepresentation
+                    categoryRepresentation.categoriesId = createCategoryResponse.id
+                    self.updateCategoriesInCoreData(with: [categoryRepresentation])
+                    completion(.success(categoryRepresentation))
+                } catch { fatalError() }
             } else {
                 completion(.failure(.otherError))
             }

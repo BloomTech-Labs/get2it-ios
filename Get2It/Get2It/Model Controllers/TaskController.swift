@@ -105,32 +105,6 @@ class TaskController {
                 completion(.failure(.otherError))
             }
             
-            // TODO: Temporary until we sort out the backend
-//            if let response = response as? HTTPURLResponse,
-//                response.statusCode != 201 {
-//                completion(.failure(.badAuth))
-//            }
-//
-//            if error != nil {
-//                completion(.failure(.otherError))
-//            }
-//
-//            guard let data = data else {
-//                completion(.failure(.badData))
-//                return
-//            }
-//
-//             decode to save it
-//            let decoder = JSONDecoder()
-//            do {
-//                let taskRepresentation = try decoder.decode(TaskRepresentation.self, from: data)
-//                self.saveTaskInCoreData(for: taskRepresentation)
-//                completion(.success(taskRepresentation))
-//            } catch {
-//                print("Error decoding tasks: \(error)")
-//                completion(.failure(.noDecode))
-//                return
-//            }
         }.resume()
     }
     
