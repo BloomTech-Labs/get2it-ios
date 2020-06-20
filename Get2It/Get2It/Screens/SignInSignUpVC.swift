@@ -195,10 +195,9 @@ class SignInSignUpVC: UIViewController {
                 }
             } else {
                 DispatchQueue.main.async {
-                    // TODO: - CHANGE THIS BACK TO TABBAR ONCE LISTS GET IMPLEMENTED
-                    let homeNC = HomeNC()
-                    homeNC.modalPresentationStyle = .fullScreen
-                    self?.navigationController?.present(homeNC, animated: true, completion: nil)
+                    let tabBarNC = GTTabBarController()
+                    tabBarNC.modalPresentationStyle = .fullScreen
+                    self?.navigationController?.present(tabBarNC, animated: true, completion: nil)
                     
                     self?.displayNameTextField.text = ""
                     self?.emailTextField.text = ""
