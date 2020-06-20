@@ -188,7 +188,7 @@ extension TaskListVC {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTaskButtonTapped))
-        navigationItem.rightBarButtonItem = addBarButton
+//        navigationItem.rightBarButtonItem = addBarButton
     }
     
     @objc func addTaskButtonTapped() {
