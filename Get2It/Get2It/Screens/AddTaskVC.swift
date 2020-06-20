@@ -96,9 +96,9 @@ extension AddTaskVC {
                 print(error)
             case .success(let task):
                 // TODO: do the second network call
-                self?.taskController?.fetchTasksFromServer()
                 self?.categoryController?.assignCategoryToTask(with: task.taskId!, categoryId: Int(self?.selectedCategory?.categoriesId ?? 0))
                 DispatchQueue.main.async {
+                    self?.taskController?.fetchTasksFromServer()
                     self?.dismiss(animated: true, completion: nil)
                 }
             }

@@ -96,23 +96,31 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         configureHierarchy()
         configureDataSource()
         configureSearchController()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         // check if it should be filtered by Category
         if let category = category {
-            taskController?.fetchTasksFromServerBy(categoryId: Int(category.categoriesId)) { [weak self] result in
-                switch result {
-                case .success(let tasks):
-                    let ids = tasks.compactMap { $0.taskId }
-                    self?.filterBy = .tasks(ids: ids)
-                    DispatchQueue.main.async {
-                        self?.performFetch()
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            fetchByCategories(category: category)
         } else {
             performFetch()
+        }
+    }
+    
+    func fetchByCategories(category: Category) {
+        taskController?.fetchTasksFromServerBy(categoryId: Int(category.categoriesId)) { [weak self] result in
+            switch result {
+            case .success(let tasks):
+                let ids = tasks.compactMap { $0.taskId }
+                self?.filterBy = .tasks(ids: ids)
+                DispatchQueue.main.async {
+                    self?.performFetch()
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
@@ -193,6 +201,7 @@ extension TaskListVC {
     
     @objc func addTaskButtonTapped() {
         let addTaskVC = AddTaskVC()
+        addTaskVC.categoryController = categoryController
         addTaskVC.taskController = taskController
         addTaskVC.categoryController = categoryController
         let navigationController = UINavigationController(rootViewController: addTaskVC)
