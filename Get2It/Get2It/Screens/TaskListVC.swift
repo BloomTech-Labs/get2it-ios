@@ -188,12 +188,13 @@ extension TaskListVC {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTaskButtonTapped))
-        navigationItem.rightBarButtonItem = addBarButton
+//        navigationItem.rightBarButtonItem = addBarButton
     }
     
     @objc func addTaskButtonTapped() {
         let addTaskVC = AddTaskVC()
         addTaskVC.taskController = taskController
+        addTaskVC.categoryController = categoryController
         let navigationController = UINavigationController(rootViewController: addTaskVC)
         present(navigationController, animated: true, completion: nil)
     }
@@ -367,22 +368,13 @@ extension TaskListVC: UISearchResultsUpdating {
         if searchController.isActive {
             guard let filter = searchController.searchBar.text, !filter.isEmpty else {
                 fetchedTaskController.fetchRequest.predicate = nil
-                fetchTasksAndUpdateSnapshot()
+                performFetch()
                 return
             }
             
             let predicate = NSPredicate(format: "(date CONTAINS %@) OR (startTime CONTAINS %@) OR (endTime CONTAINS %@) OR (name CONTAINS %@)", filter, filter, filter, filter)
             fetchedTaskController.fetchRequest.predicate = predicate
-            fetchTasksAndUpdateSnapshot()
-        }
-    }
-    
-    private func fetchTasksAndUpdateSnapshot() {
-        do {
-            try self.fetchedTaskController.performFetch()
-            updateSnapshots()
-        } catch {
-            fatalError("frc crash")
+            performFetch()
         }
     }
 }
