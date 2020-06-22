@@ -35,13 +35,6 @@ class HomeListCell: UICollectionViewCell {
         fatalError("Not implemented")
     }
     
-    /// TODO: - Implement once we create TaskCategory
-//    func configure(with category: TaskCategory?) {
-//        self.taskCategory = taskCategory
-//
-//        self.label.text = "\(taskCategory.name)"
-//    }
-    
     private func configureViews() {
         contentView.addSubviews(seperatorView, label, accessoryImageView, iconImageView)
         
