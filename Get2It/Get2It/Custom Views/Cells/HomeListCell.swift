@@ -9,8 +9,6 @@
 import UIKit
 
 class HomeListCell: UICollectionViewCell {
-    /// TODO: - Add once we create TaskCategory
-//    var category: TaskCategory?
     static let reuseIdentifier = "HomeListCell"
     let label = UILabel()
     let accessoryImageView = UIImageView()
