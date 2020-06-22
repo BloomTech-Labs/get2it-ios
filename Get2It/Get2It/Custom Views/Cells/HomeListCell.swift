@@ -15,14 +15,6 @@ class HomeListCell: UICollectionViewCell {
     let seperatorView = UIView()
     let iconImageView = UIImageView()
     
-    private lazy var titleLabel: UILabel = { // Name of the task
-        let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 17)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontForContentSizeCategory = true
-        return label
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureViews()
