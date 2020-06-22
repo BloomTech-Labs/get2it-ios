@@ -17,6 +17,14 @@ class HomeListCell: UICollectionViewCell {
     let seperatorView = UIView()
     let iconImageView = UIImageView()
     
+    private lazy var titleLabel: UILabel = { // Name of the task
+        let label = UILabel()
+        label.font = UIFont(name: "AvenirNext-Medium", size: 17)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureViews()
@@ -46,7 +54,7 @@ class HomeListCell: UICollectionViewCell {
         seperatorView.backgroundColor = .lightGray
         
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont(name: "AvenirNext-Medium", size: 17)
         
         let rtl = effectiveUserInterfaceLayoutDirection == .rightToLeft
         let chevronImageName = rtl ? "chevron.left" : "chevron.right"
