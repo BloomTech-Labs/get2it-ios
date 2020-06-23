@@ -40,10 +40,13 @@ class SettingsVC: UIViewController {
         buttonStackView.addArrangedSubview(signOutButton)
         
         NSLayoutConstraint.activate([
-            buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            buttonStackView.heightAnchor.constraint(equalToConstant: 120)
+            buttonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            
+            signOutButton.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor),
+            signOutButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
     
