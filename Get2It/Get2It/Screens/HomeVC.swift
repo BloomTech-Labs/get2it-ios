@@ -302,9 +302,6 @@ extension HomeVC {
         let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTaskButtonTapped))
         navigationItem.rightBarButtonItem = addBarButton
         
-        let signOutBarButton = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOutTapped))
-        navigationItem.leftBarButtonItem = signOutBarButton
-        
         collectionView.alwaysBounceVertical = true
     }
     
