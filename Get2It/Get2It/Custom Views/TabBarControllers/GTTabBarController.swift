@@ -13,7 +13,7 @@ class GTTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UITabBar.appearance().tintColor = .systemBlue
+        UITabBar.appearance().tintColor = Theme.primaryBlue
         viewControllers = [createHomeNC(), createTimerNC()]
     }
     
