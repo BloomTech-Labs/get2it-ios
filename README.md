@@ -4,13 +4,11 @@ You can find the deployed project at [Get2It - Simple Task List](https://testfli
 
 ## Contributors
 
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add or delete these place-holders as needed
-
 | [Vici Shaweddy](https://github.com/vshaweddy) | [John Kouris](https://github.com/jdkouris) |
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
-| [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)
-|                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)             |           
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | 
+| [<img src="https://github.com/Lambda-School-Labs/get2it-ios/blob/master/Images/Vici.jpg" width = "200" />](https://github.com/vshaweddy)                       |                      [<img src="https://github.com/Lambda-School-Labs/get2it-ios/blob/master/Images/John.png" width = "200" />](https://github.com/jdkouris)
+|                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/vshaweddy)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jdkouris)             |           
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/vicishaweddy/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/johndkouris/) | 
 
 
 [![Swift Version][swift-image]][swift-url]
@@ -43,7 +41,7 @@ In the workplace, time is money. At  home, time is a commodity too valuable to w
 
 ### Authentication API here
 
-Authentication handled by custom back-end service deployed [here](https://get2itpt9.herokuapp.com/api). Back-end documentation is [here](https://github.com/Lambda-School-Labs/get2it-be)
+Authentication handled by custom back-end service. Back-end documentation is [here](https://github.com/Lambda-School-Labs/get2it-be)
 
 ## Requirements
 
@@ -97,7 +95,7 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Backend Documentation](_link to your backend readme here_) for details on the backend of our project.
+See [Backend Documentation](https://github.com/Lambda-School-Labs/get2it-be) for details on the backend of our project.
 
 
 [swift-image]: https://img.shields.io/badge/swift-3.0-orange.svg
