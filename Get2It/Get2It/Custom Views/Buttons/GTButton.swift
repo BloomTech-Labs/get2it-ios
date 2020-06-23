@@ -28,7 +28,7 @@ class GTButton: UIButton {
     private func configure() {
         layer.cornerRadius = 10
         setTitleColor(.white, for: .normal)
-        titleLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+        titleLabel?.font = UIFont(name: "AvenirNext-Bold", size: 17)
         translatesAutoresizingMaskIntoConstraints = false
     }
 

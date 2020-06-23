@@ -13,7 +13,7 @@ class SignInSignUpVC: UIViewController {
     let displayNameTextField = GTTextField()
     let passwordTextField = GTTextField()
     let confirmPasswordTextField = GTTextField()
-    let callToActionButton = GTButton(backgroundColor: .systemBlue, title: "Sign Up")
+    let callToActionButton = GTButton(backgroundColor: UIColor(red: 5/255, green: 91/255, blue: 195/255, alpha: 1), title: "Sign Up")
     let toggleStatusButton = UIButton(frame: .zero)
     let categoryController = CategoryController()
     
