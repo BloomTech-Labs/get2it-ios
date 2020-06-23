@@ -35,7 +35,7 @@ class HeaderCell: UICollectionViewCell {
     
     private lazy var greetingLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 14)
+        label.font = Font.bodyText
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -43,7 +43,7 @@ class HeaderCell: UICollectionViewCell {
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 12)
+        label.font = Font.subcaptionText
         label.textColor = .white
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false

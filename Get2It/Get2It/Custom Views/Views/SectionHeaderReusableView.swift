@@ -33,7 +33,7 @@ class SectionHeaderReusableView: UICollectionReusableView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "AvenirNext-Bold", size: 24)
+        label.font = Font.secondaryHeaderText
         label.adjustsFontForContentSizeCategory = true
         label.textColor = .label
         label.textAlignment = .left

@@ -37,7 +37,7 @@ class HomeListCell: UICollectionViewCell {
         seperatorView.backgroundColor = .lightGray
         
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont(name: "AvenirNext-Medium", size: 17)
+        label.font = Font.bodyText
         
         let rtl = effectiveUserInterfaceLayoutDirection == .rightToLeft
         let chevronImageName = rtl ? "chevron.left" : "chevron.right"

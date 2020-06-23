@@ -100,7 +100,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     // Custom Navigation Title
     func setFont() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 5/255, green: 91/255, blue: 195/255, alpha: 1), NSAttributedString.Key.font: UIFont(name: "AvenirNext-Bold", size: 42) ?? UIFont.systemFont(ofSize: 42)]
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: Theme.primaryBlue, NSAttributedString.Key.font: Font.primaryHeaderText ?? UIFont.systemFont(ofSize: 42)]
     }
     
     func configureHierarchy() {

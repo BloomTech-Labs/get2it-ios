@@ -13,7 +13,7 @@ class SignInSignUpVC: UIViewController {
     let displayNameTextField = GTTextField()
     let passwordTextField = GTTextField()
     let confirmPasswordTextField = GTTextField()
-    let callToActionButton = GTButton(backgroundColor: UIColor(red: 5/255, green: 91/255, blue: 195/255, alpha: 1), title: "Sign Up")
+    let callToActionButton = GTButton(backgroundColor: Theme.primaryBlue, title: "Sign Up")
     let toggleStatusButton = UIButton(frame: .zero)
     let categoryController = CategoryController()
     
@@ -88,8 +88,8 @@ class SignInSignUpVC: UIViewController {
     func configureButtons() {
         toggleStatusButton.translatesAutoresizingMaskIntoConstraints = false
         toggleStatusButton.setTitle("Have an account? Sign In", for: .normal)
-        toggleStatusButton.setTitleColor(.systemBlue, for: .normal)
-        toggleStatusButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
+        toggleStatusButton.setTitleColor(Theme.secondaryBlue, for: .normal)
+        toggleStatusButton.titleLabel?.font = Font.bodyText
         
         callToActionButton.addTarget(self, action: #selector(authenticateUserAndPushTabBarController), for: .touchUpInside)
         toggleStatusButton.addTarget(self, action: #selector(toggleSignIn), for: .touchUpInside)

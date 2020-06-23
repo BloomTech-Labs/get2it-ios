@@ -23,8 +23,8 @@ class TimerVC: UIViewController {
     
     let countdownPicker = UIPickerView()
     let timeLabel = UILabel(frame: .zero)
-    let startButton = GTButton(backgroundColor: .systemBlue, title: "Start")
-    let resetButton = GTButton(backgroundColor: .systemBlue, title: "Reset")
+    let startButton = GTButton(backgroundColor: Theme.primaryBlue, title: "Start")
+    let resetButton = GTButton(backgroundColor: Theme.primaryBlue, title: "Reset")
     
     private let countdown = Countdown()
     

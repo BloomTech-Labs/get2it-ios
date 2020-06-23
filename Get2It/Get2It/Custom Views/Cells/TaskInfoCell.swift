@@ -33,7 +33,7 @@ class TaskInfoCell: UITableViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 15)
+        label.font = Font.captionText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Name of the Task"
         return label
@@ -41,7 +41,7 @@ class TaskInfoCell: UITableViewCell {
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.font = UIFont(name: "AvenirNext-Medium", size: 17)
+        textField.font = Font.bodyText
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "New Task"
         textField.textAlignment = .right

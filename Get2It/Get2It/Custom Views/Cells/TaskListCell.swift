@@ -58,7 +58,7 @@ class TaskListCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = { // Name of the task
         let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 17)
+        label.font = Font.bodyText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -66,7 +66,7 @@ class TaskListCell: UICollectionViewCell {
     private lazy var dateLabel: UILabel = { // Date
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "AvenirNext-Medium", size: 15)
+        label.font = Font.captionText
         label.textColor = .gray
         return label
     }()
@@ -74,7 +74,7 @@ class TaskListCell: UICollectionViewCell {
     private lazy var timeLabel: UILabel = { // Time
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "AvenirNext-Medium", size: 15)
+        label.font = Font.captionText
         label.textColor = .gray
         return label
     }()
