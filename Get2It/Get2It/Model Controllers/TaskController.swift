@@ -269,7 +269,7 @@ extension TaskController: NotificationScheduler {}
 
 extension TaskController {
     static func clearData() {
-        let context = CoreDataStack.shared.container.newBackgroundContext()
+        let context = CoreDataStack.shared.mainContext
         context.perform {
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Task.fetchRequest()
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)

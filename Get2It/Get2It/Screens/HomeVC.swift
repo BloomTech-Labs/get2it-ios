@@ -42,7 +42,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
     var dataSource: UICollectionViewDiffableDataSource<SectionLayoutKind, ListModel>!
     var collectionView: UICollectionView! = nil
     
-    private lazy var fetchedTaskController: NSFetchedResultsController<Task> = {
+    private lazy var fetchedTaskController: NSFetchedResultsController<Task> = { [weak self] in
         // Fetch request
         let fetchRequest:NSFetchRequest<Task> = Task.fetchRequest()
         fetchRequest.sortDescriptors = [
@@ -54,7 +54,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         return frc
     }()
     
-    private lazy var fetchedCategoryController: NSFetchedResultsController<Category> = {
+    private lazy var fetchedCategoryController: NSFetchedResultsController<Category> = { [weak self] in
         let fetchRequest:NSFetchRequest<Category> = Category.fetchRequest()
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "name", ascending: false)
@@ -188,7 +188,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         }
         
         // Get an instance of the section for the supplementary view
-        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+        dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             // Ensure the supplementary view provider asks for a header
             guard kind == UICollectionView.elementKindSectionHeader else {
                 return nil
@@ -198,8 +198,8 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderReusableView.reuseIdentifier, for: indexPath)  as? SectionHeaderReusableView
             
             // Retrieve the section from the data source, then set the titleLabel‘s text value to the section‘s title
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-            view?.titleLabel.text = section.title
+            let section = self?.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            view?.titleLabel.text = section?.title
             if section == .list {
                 view?.hideAddButton = true
             }
@@ -379,8 +379,8 @@ extension HomeVC: NSFetchedResultsControllerDelegate {
         // Cancel previous work item because there are two fetching controllers performing
         self.workItem?.cancel()
         
-        let workItem = DispatchWorkItem {
-            self.updateSnapshots()
+        let workItem = DispatchWorkItem { [weak self] in
+            self?.updateSnapshots()
         }
         self.workItem = workItem
         

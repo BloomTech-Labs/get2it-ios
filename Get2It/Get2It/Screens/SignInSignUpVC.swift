@@ -30,7 +30,10 @@ class SignInSignUpVC: UIViewController {
         createDismissKeyboardTapGesture()
         configureTextFields()
         configureButtons()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         // Delete anything when the user sign in
         TaskController.clearData()
         CategoryController.clearData()
