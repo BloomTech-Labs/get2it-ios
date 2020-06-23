@@ -12,7 +12,8 @@ protocol SectionHeaderReusableViewDelegate: AnyObject {
     func addCategoryPressed()
 }
 
-// This means the section header view can be reused just like the cells.
+// This means the section header view can be reused just like the cells
+// This is for the Header List: Task and Category List
 class SectionHeaderReusableView: UICollectionReusableView {
     static var reuseIdentifier: String {
         return String(describing: SectionHeaderReusableView.self)
@@ -32,9 +33,7 @@ class SectionHeaderReusableView: UICollectionReusableView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(
-            ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize,
-            weight: .bold)
+        label.font = Font.secondaryHeaderText
         label.adjustsFontForContentSizeCategory = true
         label.textColor = .label
         label.textAlignment = .left

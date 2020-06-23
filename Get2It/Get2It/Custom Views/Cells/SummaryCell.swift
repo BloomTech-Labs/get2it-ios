@@ -50,7 +50,7 @@ class SummaryCell: UICollectionViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 17)
+        label.font = Font.bodyText
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -58,7 +58,7 @@ class SummaryCell: UICollectionViewCell {
     
     lazy var numberLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 24)
+        label.font = Font.secondaryHeaderText
         label.textColor = .white
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false

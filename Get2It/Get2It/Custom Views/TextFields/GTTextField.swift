@@ -29,7 +29,7 @@ class GTTextField: UITextField {
         textColor = .label
         tintColor = .label
         textAlignment = .center
-        font = UIFont.preferredFont(forTextStyle: .title2)
+        font = Font.bodyText
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 12
         

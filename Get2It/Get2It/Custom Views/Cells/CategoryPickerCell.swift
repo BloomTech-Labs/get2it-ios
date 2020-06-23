@@ -75,7 +75,7 @@ class CategoryPickerCell: UITableViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 15)
+        label.font = Font.captionText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
@@ -83,7 +83,7 @@ class CategoryPickerCell: UITableViewCell {
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.font = UIFont(name: "AvenirNext-Medium", size: 17)
+        textField.font = Font.bodyText
         textField.inputView = self.categoryPicker
         textField.inputAccessoryView = self.toolbar
         textField.translatesAutoresizingMaskIntoConstraints = false

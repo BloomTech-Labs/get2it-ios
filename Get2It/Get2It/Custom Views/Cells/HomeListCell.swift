@@ -9,8 +9,6 @@
 import UIKit
 
 class HomeListCell: UICollectionViewCell {
-    /// TODO: - Add once we create TaskCategory
-//    var category: TaskCategory?
     static let reuseIdentifier = "HomeListCell"
     let label = UILabel()
     let accessoryImageView = UIImageView()
@@ -27,13 +25,6 @@ class HomeListCell: UICollectionViewCell {
         fatalError("Not implemented")
     }
     
-    /// TODO: - Implement once we create TaskCategory
-//    func configure(with category: TaskCategory?) {
-//        self.taskCategory = taskCategory
-//
-//        self.label.text = "\(taskCategory.name)"
-//    }
-    
     private func configureViews() {
         contentView.addSubviews(seperatorView, label, accessoryImageView, iconImageView)
         
@@ -46,7 +37,7 @@ class HomeListCell: UICollectionViewCell {
         seperatorView.backgroundColor = .lightGray
         
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = Font.bodyText
         
         let rtl = effectiveUserInterfaceLayoutDirection == .rightToLeft
         let chevronImageName = rtl ? "chevron.left" : "chevron.right"

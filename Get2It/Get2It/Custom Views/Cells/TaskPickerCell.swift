@@ -45,14 +45,14 @@ class TaskPickerCell: UITableViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AvenirNext-Medium", size: 15)
+        label.font = Font.captionText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.font = UIFont(name: "AvenirNext-Medium", size: 17)
+        textField.font = Font.bodyText
         textField.inputView = self.datePicker
         textField.inputAccessoryView = self.toolbar
         textField.translatesAutoresizingMaskIntoConstraints = false
