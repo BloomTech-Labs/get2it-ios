@@ -10,16 +10,21 @@ You can find the deployed project at [Get2It - Simple Task List](https://testfli
 |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/vshaweddy)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jdkouris)             |           
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/vicishaweddy/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/johndkouris/) | 
 
-
 [![Swift Version][swift-image]][swift-url]
-[![Build Status][travis-image]][travis-url]
 [![License][license-image]][license-url]
+[![Build Status][travis-image]][travis-url]
 [![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)](http://cocoapods.org/pods/LFAlertController)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Lambda-School-Labs/get2it-ios)
+![GitHub issues](https://img.shields.io/github/issues/Lambda-School-Labs/get2it-ios)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4bf07c07141f7423fa42/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/get2it-ios/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/4bf07c07141f7423fa42/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/get2it-ios/test_coverage)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+
 
 ## Project Overview
 
-- You can find the deployed project at [Get2It - Simple Task List](https://testflight.apple.com/join/2xUU7jVe).
+- You can find the deployed project on TestFlight at [Get2It - Simple Task List](https://testflight.apple.com/join/2xUU7jVe).
 
 - [Trello Board](https://trello.com/b/op90zWa0/labspt9-get2it)
 
@@ -98,7 +103,7 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 See [Backend Documentation](https://github.com/Lambda-School-Labs/get2it-be) for details on the backend of our project.
 
 
-[swift-image]: https://img.shields.io/badge/swift-3.0-orange.svg
+[swift-image]: https://img.shields.io/badge/swift-5.0-green.svg
 [swift-url]: https://swift.org/
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: LICENSE
