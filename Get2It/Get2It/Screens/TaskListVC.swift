@@ -81,7 +81,7 @@ class TaskListVC: UIViewController, UICollectionViewDelegate {
         
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "date", ascending: false),
-            NSSortDescriptor(key: "startTime", ascending: true)
+            NSSortDescriptor(key: "startTime", ascending: false)
         ]
         
         let moc = CoreDataStack.shared.mainContext
