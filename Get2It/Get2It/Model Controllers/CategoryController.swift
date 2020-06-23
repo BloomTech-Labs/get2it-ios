@@ -168,7 +168,7 @@ class CategoryController {
 
 extension CategoryController {
     static func clearData() {
-        let context = CoreDataStack.shared.container.newBackgroundContext()
+        let context = CoreDataStack.shared.mainContext
         context.perform {
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Category.fetchRequest()
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
