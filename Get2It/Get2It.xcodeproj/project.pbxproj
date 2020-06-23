@@ -50,6 +50,7 @@
 		E38384DA2453BF270019263C /* EditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384D92453BF270019263C /* EditTaskVC.swift */; };
 		E38384DC245793DE0019263C /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38384DB245793DE0019263C /* DateFormatter+Extensions.swift */; };
 		E38FF05924A190BA00203036 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38FF05824A190BA00203036 /* Theme.swift */; };
+		E38FF05B24A1B27500203036 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38FF05A24A1B27500203036 /* SettingsVC.swift */; };
 		E39845A82478A8C70052E0F1 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845A72478A8C70052E0F1 /* NotificationScheduler.swift */; };
 		E39845AA2478AEC10052E0F1 /* UITextField+ Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845A92478AEC10052E0F1 /* UITextField+ Ext.swift */; };
 		E39845AC2478AF6A0052E0F1 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39845AB2478AF6A0052E0F1 /* UIAlertController+Ext.swift */; };
@@ -121,6 +122,7 @@
 		E38384D92453BF270019263C /* EditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVC.swift; sourceTree = "<group>"; };
 		E38384DB245793DE0019263C /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		E38FF05824A190BA00203036 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		E38FF05A24A1B27500203036 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		E39845A72478A8C70052E0F1 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		E39845A92478AEC10052E0F1 /* UITextField+ Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+ Ext.swift"; sourceTree = "<group>"; };
 		E39845AB2478AF6A0052E0F1 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				E3648CA02431886B00D4A8E3 /* TaskListVC.swift */,
 				E3648CA82435705700D4A8E3 /* AddTaskVC.swift */,
 				E38384D92453BF270019263C /* EditTaskVC.swift */,
+				E38FF05A24A1B27500203036 /* SettingsVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				E39845A82478A8C70052E0F1 /* NotificationScheduler.swift in Sources */,
 				CC3356F6244B6C48009718B5 /* GTButton.swift in Sources */,
 				E32A324B24932EC70067F8C4 /* SectionHeaderReusableView.swift in Sources */,
+				E38FF05B24A1B27500203036 /* SettingsVC.swift in Sources */,
 				CC6C2FED242FC65E00401937 /* GTTabBarController.swift in Sources */,
 				E33F8DB22461150A0032C7B5 /* GridDisplay.swift in Sources */,
 				CC6C2FF0242FCB4C00401937 /* HomeVC.swift in Sources */,
