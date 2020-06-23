@@ -77,6 +77,7 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         configureHierarchy()
         configureDataSource()
         configureViewController()
+        setFont()
         
         do {
             try self.fetchedCategoryController.performFetch()
@@ -94,6 +95,12 @@ class HomeVC: UIViewController, UICollectionViewDelegate {
         super.viewDidAppear(animated)
         center.delegate = self
         center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in }
+    }
+    
+    // Custom Navigation Title
+    func setFont() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 5/255, green: 91/255, blue: 195/255, alpha: 1), NSAttributedString.Key.font: UIFont(name: "AvenirNext-Bold", size: 42) ?? UIFont.systemFont(ofSize: 42)]
     }
     
     func configureHierarchy() {
