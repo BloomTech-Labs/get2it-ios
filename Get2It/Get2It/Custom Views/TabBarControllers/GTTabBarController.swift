@@ -13,14 +13,14 @@ class GTTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UITabBar.appearance().tintColor = .systemBlue
-        viewControllers = [createHomeNC(), createTimerNC()]
+        UITabBar.appearance().tintColor = Theme.primaryBlue
+        viewControllers = [createHomeNC(), createTimerNC(), createSettingsNC()]
     }
     
     func createHomeNC() -> UINavigationController {
         let homeVC = HomeVC()
         homeVC.title = "Home"
-        homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
+        homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         
         return UINavigationController(rootViewController: homeVC)
     }
@@ -30,6 +30,13 @@ class GTTabBarController: UITabBarController {
         timerVC.tabBarItem = UITabBarItem(title: "Timer", image: UIImage(systemName: "timer"), tag: 1)
         
         return UINavigationController(rootViewController: timerVC)
+    }
+    
+    func createSettingsNC() -> UINavigationController {
+        let settingsVC = SettingsVC()
+        settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "ellipsis.circle"), tag: 2)
+
+        return UINavigationController(rootViewController: settingsVC)
     }
     
 }

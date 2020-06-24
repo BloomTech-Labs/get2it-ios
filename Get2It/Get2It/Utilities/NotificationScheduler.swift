@@ -17,6 +17,7 @@ extension NotificationScheduler {
     func scheduleNotification(identifier: String, trigger: UNNotificationTrigger, title: String, sound: Bool) {
         let content = UNMutableNotificationContent()
         content.title = title
+        content.body = "Starts in 10 minutes."
         if sound {
             content.sound = UNNotificationSound.default
         }

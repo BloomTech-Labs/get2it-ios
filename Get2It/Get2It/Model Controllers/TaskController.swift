@@ -49,7 +49,16 @@ class TaskController {
             }
             
             let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .formatted(.iso8601Full)
+            decoder.dateDecodingStrategy = .custom({ decoder -> Date in
+                let container = try decoder.singleValueContainer()
+                let dateStr = try container.decode(String.self)
+                let dayOnly = dateStr.prefix { $0 != "T" }
+                if let date = DateFormatter.dayOnly.date(from: String(dayOnly)) {
+                    return date
+                } else {
+                    return Date()
+                }
+            })
             do {
                 let taskRepresentations = try decoder.decode([TaskRepresentation].self, from: data)
                 self.updateTasksInCoreData(with: taskRepresentations)
@@ -269,7 +278,7 @@ extension TaskController: NotificationScheduler {}
 
 extension TaskController {
     static func clearData() {
-        let context = CoreDataStack.shared.container.newBackgroundContext()
+        let context = CoreDataStack.shared.mainContext
         context.perform {
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Task.fetchRequest()
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
