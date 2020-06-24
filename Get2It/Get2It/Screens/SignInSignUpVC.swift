@@ -9,6 +9,7 @@
 import UIKit
 
 class SignInSignUpVC: UIViewController {
+    let titlePage = UILabel()
     let emailTextField = GTTextField()
     let displayNameTextField = GTTextField()
     let passwordTextField = GTTextField()
@@ -25,9 +26,10 @@ class SignInSignUpVC: UIViewController {
 
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
-        view.addSubviews(emailTextField, displayNameTextField, passwordTextField, confirmPasswordTextField, callToActionButton, toggleStatusButton)
+        view.addSubviews(titlePage, emailTextField, displayNameTextField, passwordTextField, confirmPasswordTextField, callToActionButton, toggleStatusButton)
         
         createDismissKeyboardTapGesture()
+        configureTitlePage()
         configureTextFields()
         configureButtons()
     }
@@ -42,6 +44,18 @@ class SignInSignUpVC: UIViewController {
     func createDismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
+    }
+    
+    func configureTitlePage() {
+        titlePage.translatesAutoresizingMaskIntoConstraints = false
+        titlePage.text = "Let's get started!"
+        titlePage.font = Font.primaryHeaderText
+        titlePage.textColor = Theme.primaryBlue
+        
+        NSLayoutConstraint.activate([
+            titlePage.topAnchor.constraint(equalTo: view.topAnchor, constant: 80),
+            titlePage.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     func configureTextFields() {
@@ -216,11 +230,13 @@ class SignInSignUpVC: UIViewController {
         if toggleStatus {
             displayNameTextField.isHidden = true
             confirmPasswordTextField.isHidden = true
+            titlePage.text = "Welcome back!"
             toggleStatusButton.setTitle("No account? Sign Up", for: .normal)
             callToActionButton.setTitle("Sign In", for: .normal)
         } else {
             displayNameTextField.isHidden = false
             confirmPasswordTextField.isHidden = false
+            titlePage.text = "Let's get started!"
             toggleStatusButton.setTitle("Have an account? Sign In", for: .normal)
             callToActionButton.setTitle("Sign Up", for: .normal)
         }

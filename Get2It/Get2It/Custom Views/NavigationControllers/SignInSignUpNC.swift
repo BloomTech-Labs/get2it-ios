@@ -13,7 +13,6 @@ class SignInSignUpNC: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let signInSignUpVC = SignInSignUpVC()
-        signInSignUpVC.title = "Welcome!"
         viewControllers = [signInSignUpVC]
     }
 
