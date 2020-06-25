@@ -34,15 +34,15 @@ You can find the deployed project at [Get2It - Simple Task List](https://testfli
 
 In the workplace, time is money. At  home, time is a commodity too valuable to waste. Unfortunately, some people need help with their tasks, whether it's staying focused on an important work document or getting some cleaning done around the house. If only there was a tool a person could use to help keep them motivated and focused on the task at hand, and get the most out of their valuable time. Luckily, we've created an app to help you focus on what you’re doing and understand how much you get accomplished every day.
 
-![](header.png)
+
 
 ### Features
 
--    Feature 1
--    Feature 2
--    Feature 3
--    Feature 4
--    Feature 5
+-    Sign up / sign in for personal account
+-    Create categories and assign tasks to them
+-    Pomodoro style timer
+-    Notifications
+
 
 ### Authentication API here
 
